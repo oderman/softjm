@@ -1,0 +1,180 @@
+<?php
+include("conexion.php");
+$consulta = $conexion->query("SELECT * FROM configuracion WHERE conf_id=1");
+$configuracion = mysqli_fetch_array($consulta, MYSQLI_BOTH);
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>ORIÓN - <?= $configuracion['conf_empresa']; ?></title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="login2/vendors/iconfonts/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="login2/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="login2/vendors/css/vendor.bundle.addons.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="login2/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="login2/images/favicon.png" />
+
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+        <div class="row flex-grow">
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+          
+            <div class="auth-form-transparent text-left p-3">
+              <div class="brand-logo">
+                <img src="usuarios/files/<?= $configuracion['conf_logo']; ?>" alt="<?= $configuracion['conf_empresa']; ?>">
+              </div>
+
+              <?php 
+              if(isset($_GET['error'])){
+                switch ($_GET['error']) {
+                  case 1:
+                    $msjError = 'El usuario no existe.';
+                  break;
+
+                  case 2:
+                    $msjError = 'La clave no es correcta';
+                  break;
+                  
+                  case 3:
+                    $msjError = 'Los intentos fallidos de acceso superan el límite';
+                  break;
+
+                  case 4:
+                    $msjError = 'Su usuario se encuentra bloqueado';
+                  break;
+
+
+                  default:
+                    $msjError = 'No hay mensaje';
+                  break;
+                }
+              }
+
+              $idSeguimiento = '';
+              if(isset($_GET["idseg"]) and is_numeric($_GET["idseg"])){
+                  $idSeguimiento = $_GET["idseg"];
+              }
+
+              if(isset($_GET['error'])){?>
+                <p style="color:black; font-size: 16px; background-color: gold; padding: 5px;"><?php echo $msjError;?></p>
+              <?php }?>
+
+
+              <h4>Bienvenido a ORION</h4>
+              <h6 class="font-weight-light">Ingresa tu usuario y contraseña para empezar!</h6>
+              <form class="pt-3" action="autentico.php" method="post" id="demo-form">
+
+                <input type="hidden" name="idseg" value="<?= $idSeguimiento; ?>">
+                
+                <input type="hidden" name="bd" value="odermancom_jm_crm">
+
+                <div class="form-group">
+                  <label for="exampleInputEmail">Usuario</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="fa fa-user text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg border-left-0" placeholder="Usuario" name="Usuario">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword">Contraseña</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="fa fa-lock text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control form-control-lg border-left-0" placeholder="Contraseña" name="Clave">
+                  </div>
+                </div>
+
+                <?php
+                if (isset($_GET["error"]) and $_GET["error"] == 3) {
+                  $numA1 = rand(1, 10);
+                  $numA2 = rand(1, 10);
+                  $resultadoA = $numA1 + $numA2;
+                ?>
+                  <p style="color: tomato;"><b>Valida que no eres un Robot</b><br>
+                    Escribe el resultado de la siguiente operación.</p>
+                  <input type="hidden" name="sumaReal" value="<?= md5($resultadoA); ?>" />
+                  <input type="text" class="form-control form-control-lg border-left-0" name="suma" placeholder="Cuánto es <?= $numA1 . "+" . $numA2; ?>?" required autocomplete="off" style="font-weight: bold;" />
+                <?php } ?>
+
+                 
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                  
+                  <a href="#" class="auth-link text-black">Olvidaste tu clave?</a>
+                </div>
+				
+                <!--
+        <div class="g-recaptcha" data-sitekey="6LcAsMUZAAAAAPoMH8oNDtCdYkF35qG5PZu8Xy2T"></div>
+        <br>-->
+                <div class="my-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">ENTRAR</button>
+                  <!--<a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index-2.html">ENTRAR</a>-->
+                </div>
+
+                <!-- 
+                <div class="mb-2 d-flex">
+                  <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">
+                    <i class="fab fa-facebook-f mr-2"></i>Facebook
+                  </button>
+                  <button type="button" class="btn btn-google auth-form-btn flex-grow ml-1">
+                    <i class="fab fa-google mr-2"></i>Google
+                  </button>
+                </div>
+				  
+                <div class="text-center mt-4 font-weight-light">
+                  Don't have an account? <a href="register-2.html" class="text-primary">Create</a>
+                </div>
+				-->
+
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6 login-half-bg d-flex flex-row">
+            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2019 Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="login2/vendors/js/vendor.bundle.base.js"></script>
+  <script src="login2/vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="login2/js/off-canvas.js"></script>
+  <script src="login2/js/hoverable-collapse.js"></script>
+  <script src="login2/js/misc.js"></script>
+  <script src="login2/js/settings.js"></script>
+  <script src="login2/js/todolist.js"></script>
+  <!-- endinject -->
+</body>
+
+
+</html>

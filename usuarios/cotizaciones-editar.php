@@ -1,0 +1,1038 @@
+<?php include("sesion.php");?>
+<?php
+//$idPagina = 79;
+$tituloPagina = "COTIZACIÓN #".$_GET["id"];
+?>
+<?php include("verificar-paginas.php");?>
+<?php include("head.php");?>
+<?php
+mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('".$_SESSION["id"]."', '".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."', '".$idPagina."', now(),'".$_SERVER['HTTP_REFERER']."')",$conexion);
+if(mysql_errno()!=0){echo mysql_error(); exit();}
+?>
+
+<?php
+$resultadoD = mysql_fetch_array(mysql_query("SELECT * FROM cotizacion 
+INNER JOIN clientes ON cli_id=cotiz_cliente
+INNER JOIN contactos ON cont_id=cotiz_contacto
+WHERE cotiz_id='".$_GET["id"]."'",$conexion));
+?>
+
+<?php
+if(is_numeric($_GET["cte"])){
+	$cliente = $_GET["cte"]; 
+}else{
+	$cliente = $resultadoD['cotiz_cliente'];
+}
+?>
+
+
+<!-- styles -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+<![endif]-->
+<link href="css/chosen.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+<link href="css/theme-blue.css" rel="stylesheet">
+
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="css/ie/ie7.css" />
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="css/ie/ie8.css" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="css/ie/ie9.css" />
+<![endif]-->
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+<!--fav and touch icons -->
+<link rel="shortcut icon" href="ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+<!--============ javascript ===========-->
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui-1.10.1.custom.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap-fileupload.js"></script>
+<script src="js/accordion.nav.js"></script>
+<script src="js/jquery.tagsinput.js"></script>
+<script src="js/chosen.jquery.js"></script>
+<script src="js/bootstrap-colorpicker.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/date.js"></script>
+<script src="js/daterangepicker.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/respond.min.js"></script>
+<script src="js/ios-orientationchange-fix.js"></script>
+<script type="text/javascript">
+    /*====TAGS INPUT====*/
+    $(function () {
+        $('#tags_1').tagsInput({
+            width: 'auto'
+        });
+        $('#tags_2').tagsInput({
+            width: 'auto',
+            onChange: function (elem, elem_tags) {
+                var languages = ['php', 'ruby', 'javascript'];
+                $('.tag', elem_tags).each(function () {
+                    if ($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0) $(this).css('background-color', 'yellow');
+                });
+            }
+        });
+    });
+    /*====Select Box====*/
+    $(function () {
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+    });
+    /*====Color Picker====*/
+    $(function () {
+        $('.colorpicker').colorpicker({
+            format: 'hex'
+        });
+        $('.pick-color').colorpicker();
+    });
+    /*====DATE Time Picker====*/
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR'
+        });
+    });
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            pickDate: false
+        });
+    });
+    $(function () {
+        $('#datetimepicker4').datetimepicker({
+            pickTime: false
+        });
+    });
+    /*DATE RANGE PICKER*/
+    $(function () {
+        $('#reportrange').daterangepicker({
+            ranges: {
+                'Today': ['today', 'today'],
+                'Yesterday': ['yesterday', 'yesterday'],
+                'Last 7 Days': [Date.today().add({
+                    days: -6
+                }), 'today'],
+                'Last 30 Days': [Date.today().add({
+                    days: -29
+                }), 'today'],
+                'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+                'Last Month': [Date.today().moveToFirstDayOfMonth().add({
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
+            },
+            opens: 'left',
+            format: 'MM/dd/yyyy',
+            separator: ' to ',
+            startDate: Date.today().add({
+                days: -29
+            }),
+            endDate: Date.today(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2013',
+            locale: {
+                applyLabel: 'Submit',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            },
+            showWeekNumbers: true,
+            buttonClasses: ['btn-danger']
+        },
+        function (start, end) {
+            $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        });
+        //Set the initial state of the picker label
+        $('#reportrange span').html(Date.today().add({
+            days: -29
+        }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
+    });
+    $(function () {
+        $('#reservation').daterangepicker();
+    });
+</script>
+<?php include("texto-editor.php");?>
+
+
+<?php if($resultadoD['cotiz_vendida']!=1){?>
+
+	<script type="text/javascript">
+	  function productos(enviada){
+	  	
+	  	var tipoCliente = enviada.alt;
+
+		  var campo = enviada.title;
+		  var producto = enviada.name;
+		  var proceso = 2;
+		  var valor = enviada.value;
+		  
+		  $('#resp').empty().hide().html("Esperando...").show(1);
+			datos = "producto="+(producto)+"&proceso="+(proceso)+"&valor="+(valor)+"&campo="+(campo)+"&tipoCliente="+(tipoCliente);
+				   $.ajax({
+					   type: "POST",
+					   url: "ajax-productos.php",
+					   data: datos,
+					   success: function(data){
+					   $('#resp').empty().hide().html(data).show(1);
+					   }
+				   });
+	}
+
+
+	function combos(enviada){
+		  var campo = enviada.title;
+		  var producto = enviada.name;
+		  var proceso = 11;
+		  var valor = enviada.value;
+		  $('#resp').empty().hide().html("Esperando...").show(1);
+			datos = "producto="+(producto)+"&proceso="+(proceso)+"&valor="+(valor)+"&campo="+(campo);
+				   $.ajax({
+					   type: "POST",
+					   url: "ajax-productos.php",
+					   data: datos,
+					   success: function(data){
+					   $('#resp').empty().hide().html(data).show(1);
+					   }
+				   });
+	}	
+	</script>
+<?php }?>
+
+</head>
+<body>
+<div class="layout">
+	<?php include("encabezado.php");?>
+    
+    <?php include("barra-izq.php");?>
+    
+	<div class="main-wrapper">
+		<div class="container-fluid">
+			<div class="row-fluid ">
+				<div class="span12">
+					<div class="primary-head">
+						<h3 class="page-header"><?=$tituloPagina;?></h3>
+						
+                        <ul class="top-right-toolbar">
+							<li><a data-toggle="dropdown" class="dropdown-toggle blue-violate" href="#" title="Users"><i class="icon-user"></i></a>
+							</li>
+							<li><a href="#" class="green" title="Upload"><i class=" icon-upload-alt"></i></a></li>
+							<li><a href="#" class="bondi-blue" title="Settings"><i class="icon-cogs"></i></a></li>
+						</ul>
+                        
+					</div>
+					<ul class="breadcrumb">
+						<li><a href="index.php" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
+						<li><a href="cotizaciones.php">Cotizaciones</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+						<li class="active"><?=$tituloPagina;?></li>
+					</ul>
+				</div>
+			</div>
+            
+            <?php include("notificaciones.php");?>
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="content-widgets gray">
+						<div class="widget-head orange">
+							<h3> Enviar cotización por correo</h3>
+						</div>
+						<div class="widget-container">
+							<form class="form-horizontal" method="post" action="sql.php">
+                            <input type="hidden" name="idSql" value="58">
+                            <input type="hidden" name="id" value="<?=$_GET["id"];?>">
+								
+								<div class="control-group">
+									<label class="control-label">Asunto</label>
+									<div class="controls">
+										<input type="text" class="span8" name="asunto" required value="COTIZACIÓN #<?=$resultadoD['cotiz_id'];?>">
+									</div>
+								</div>	
+
+								<div class="control-group">
+									<label class="control-label">Mensaje</label>
+									<div class="controls">
+										<textarea rows="7" cols="80" style="width: 80%" class="tinymce-simple" name="mensaje"><?=strtoupper($resultadoD['cli_nombre']);?><br>
+											<?=strtoupper($resultadoD['cont_nombre']);?><br><br>
+											<br>
+											<?=$configu['conf_emsj_cotizacion'];?>
+										</textarea>
+									</div>
+								</div>	
+								
+                               <div class="form-actions">
+									<button type="submit" class="btn btn-info"><i class="icon-envelope"></i> Enviar cotización</button>
+								</div>
+							</form>	
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<p>
+				<a href="cotizaciones-agregar.php" class="btn btn-danger"><i class="icon-plus"></i> Agregar nuevo</a>
+				<a href="reportes/formato-cotizacion-1.php?id=<?=$_GET["id"];?>" class="btn btn-success" target="_blank"><i class="icon-print"></i> Imprimir</a>
+				
+				<?php
+				if($resultadoD['cotiz_vendida']!=1){
+				?>
+					<a href="sql.php?get=48&id=<?= $resultadoD['cotiz_id']; ?>" class="btn btn-info" onClick="if(!confirm('Desea generar pedido de esta cotización?')){return false;}"><i class="icon-money"></i> Generar pedido</a>
+				<?php
+				}
+				?>
+				
+				<!--
+				<a href="sql.php?get=44&id=<?=$_GET["id"];?>" class="btn btn-warning" onClick="if(!confirm('Desea Enviar este mensaje al correo del contacto?')){return false;}"><i class="icon-envelope"></i> Enviar por correo</a>
+				-->
+			</p>
+			
+			<?php
+			if($resultadoD['cotiz_vendida']==1){
+			?>
+				<p style="color: black; background-color: aquamarine; padding: 10px; font-weight: bold;">Esta cotización ya generó pedido en la siguiente fecha: <?=$resultadoD['cotiz_fecha_vendida'];?>.</p>
+				<p style="color: black; background-color: gold; padding: 10px; font-weight: bold;"> No es posible hacer más cambios en esta cotización.</p>
+			<?php
+			}
+			?>	
+								
+			
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="content-widgets gray">
+						<div class="widget-head bondi-blue">
+							<h3> <?=$tituloPagina;?></h3>
+						</div>
+						<div class="widget-container">
+							<form class="form-horizontal" method="post" action="bd_update/cotizaciones-actualizar.php">
+                            <input type="hidden" name="idSql" value="36">
+                            <input type="hidden" name="id" value="<?=$_GET["id"];?>">
+							<input type="hidden" name="monedaActual" value="<?=$resultadoD['cotiz_moneda'];?>">
+                            	   
+                               <script type="application/javascript">
+									function clientes(datos){
+										id = datos.value;
+										location.href = "cotizaciones-editar.php?id=<?=$_GET["id"];?>&cte="+id+"#productos";
+									}
+								</script>
+								
+								<div class="form-actions">
+                                	<a href="javascript:history.go(-1);" class="btn btn-primary"><i class="icon-arrow-left"></i> Regresar</a>
+									<?php
+									if($resultadoD['cotiz_vendida']!=1){
+									?>
+									<button type="submit" class="btn btn-info"><i class="icon-save"></i> Guardar cambios</button>
+									<?php }?>
+								</div>
+								
+
+								<?php if($configu['conf_proveedor_cotizacion'] == 1){?>
+								
+								<div class="control-group">
+									 <label class="control-label">Escoja un proveedor</label>
+									 <div class="controls">
+										 <select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="proveedor" onChange="provee(this)" required>
+											 <option value=""></option>
+											 <?php
+											 $conOp = mysql_query("SELECT prov_id, prov_nombre FROM proveedores",$conexion);
+											 while($resOp = mysql_fetch_array($conOp)){
+											 ?>
+												 <option value="<?=$resOp[0];?>" <?php if($resultadoD['cotiz_proveedor']==$resOp[0]) echo "selected";?>><?=$resOp['prov_nombre'];?></option>
+											 <?php
+											 }
+											 ?>
+										 </select>
+									 </div>
+									
+									
+											<a href="proveedores-editar.php?id=<?=$resultadoD['cotiz_proveedor'];?>" class="btn btn-info" target="_blank">Editar proveedor</a>
+									
+									
+								</div>
+ 
+								<?php }?>
+
+								
+							<fieldset class="default">
+								<legend>Datos del cliente</legend>	
+								
+                               <div class="control-group">
+									<label class="control-label">Cliente</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="cliente" required onChange="clientes(this)">
+											<option value=""></option>
+                                            <?php
+											$conOp = mysql_query("SELECT cli_id, cli_nombre, cli_categoria, 
+												CASE 
+													WHEN cli_categoria = 3 THEN '(DEALER)'
+													ELSE ''
+												END AS 'categoria'	
+												FROM clientes",$conexion);
+											while($resOp = mysql_fetch_array($conOp)){
+
+												$disabled = '';
+												
+												if($datosUsuarioActual['usr_tipo']!=1 and $resOp['cli_categoria']==3){
+													$disabled = 'disabled';
+												}	
+												
+
+											?>
+                                            	<option value="<?=$resOp['cli_id'];?>" <?php if($cliente==$resOp['cli_id']){echo "selected";}  echo $disabled; ?>><?=$resOp['cli_nombre']." ".$resOp['categoria'];?></option>
+                                            <?php
+											}
+											?>
+                                    	</select>
+                                    </div>
+								   <a href="clientes-editar.php?id=<?=$cliente;?>" class="btn btn-info" target="_blank">Editar cliente</a>
+                               </div>
+                               
+                               <div class="control-group">
+									<label class="control-label">Sucursal</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="sucursal" required>
+											<option value=""></option>
+                                            <?php
+											$conOp = mysql_query("SELECT sucu_id, sucu_nombre FROM sucursales 
+											WHERE sucu_cliente_principal='".$cliente."'",$conexion);
+											$numOp = mysql_num_rows($conOp);
+											if($numOp==0){
+												//Crear automáticamente la sucursal
+												mysql_query("INSERT INTO sucursales(sucu_cliente_principal, sucu_ciudad, sucu_direccion, sucu_telefono, sucu_celular, sucu_nombre)VALUES('".$cliente."', '".$clienteInfo['cli_ciudad']."', '".$clienteInfo['cli_direccion']."', '".$clienteInfo['cli_telefono']."', '".$clienteInfo['cli_celular']."','Sede principal (Automática)')",$conexion);
+												
+												echo '<script type="text/javascript">window.location.href="'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'";</script>';
+												exit();
+											}
+											while($resOp = mysql_fetch_array($conOp)){
+											?>
+                                            	<option value="<?=$resOp[0];?>" <?php if($resultadoD['cotiz_sucursal']==$resOp[0]){echo "selected";}?>><?=$resOp['sucu_nombre'];?></option>
+                                            <?php
+											}
+											?>
+                                    	</select>
+                                    </div>
+								   <a href="clientes-sucursales.php?cte=<?=$cliente;?>" class="btn btn-info" target="_blank">Ver sucursales</a>
+                               </div>
+								
+								<div class="control-group">
+									<label class="control-label">Contacto</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="contacto" required>
+											<option value=""></option>
+                                            <?php
+											$conOp = mysql_query("SELECT cont_id, cont_nombre, cont_email FROM contactos 
+											WHERE cont_cliente_principal='".$cliente."'",$conexion);
+											$numOp = mysql_num_rows($conOp);
+											if($numOp==0){
+												//Crear automáticamente el contacto
+												mysql_query("INSERT INTO contactos(cont_nombre, cont_cliente_principal)VALUES('Contacto principal (Automático)', '".$cliente."')",$conexion);
+												
+												echo '<script type="text/javascript">window.location.href="'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'";</script>';
+												exit();
+											}
+											while($resOp = mysql_fetch_array($conOp)){
+											?>
+                                            	<option value="<?=$resOp[0];?>" <?php if($resultadoD['cotiz_contacto']==$resOp[0]){echo "selected";}?>><?=strtoupper($resOp['cont_nombre'])." (".$resOp['cont_email'].")";?></option>
+                                            <?php
+											}
+											?>
+                                    	</select>
+                                    </div>
+									<a href="clientes-contactos.php?cte=<?=$cliente;?>" class="btn btn-info" target="_blank">Ver contactos</a>
+                               </div>	
+                               
+							</fieldset>
+								
+								<div class="control-group">
+									<label class="control-label">Usuario Influyente</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="influyente">
+											<option value=""></option>
+                                            <?php
+											$conOp = mysql_query("SELECT usr_id, usr_nombre, usr_email FROM usuarios WHERE usr_bloqueado!=1 ORDER BY usr_nombre",$conexion);
+											while($resOp = mysql_fetch_array($conOp)){
+											?>
+                                            	<option value="<?=$resOp['usr_id'];?>" <?php if($resultadoD['cotiz_vendedor']==$resOp['usr_id']){echo "selected";}?>><?=strtoupper($resOp['usr_nombre'])." (".$resOp['usr_email'].")";?></option>
+                                            <?php
+											}
+											?>
+                                    	</select>
+                                    </div>
+                               </div>
+                               
+                               <div class="control-group">
+									<label class="control-label">Fecha de la propuesta</label>
+									<div class="controls">
+										<input type="date" class="span4" name="fechaPropuesta" required value="<?=$resultadoD['cotiz_fecha_propuesta'];?>">
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label">Fecha de vencimiento</label>
+									<div class="controls">
+										<input type="date" class="span4" name="fechaVencimiento" required value="<?=$resultadoD['cotiz_fecha_vencimiento'];?>">
+									</div>
+								</div>
+								
+								<?php
+								if($clienteInfo['cli_credito']==1){
+									$msjCredito = "Este cliente tiene crédito con la compañía.";
+									$colorCredito = 'aquamarine';
+								}else{
+									$msjCredito = "Este cliente aún NO tiene crédito con la compañía.";
+									$colorCredito = 'gold';
+								}
+								?>	
+								<p style="color: black; background-color: <?=$colorCredito;?>; padding: 10px; font-weight: bold;"><?=$msjCredito;?></p>
+								
+								<div class="control-group">
+									<label class="control-label">Forma de pago</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="formaPago">
+											<option value=""></option>
+                                            <option value="1" <?php if($resultadoD['cotiz_forma_pago']==1)echo "selected";?>>Contado</option>
+                                            <option value="2" <?php if($resultadoD['cotiz_forma_pago']==2)echo "selected";?>>Crédito</option>
+                                    	</select>
+                                    </div>
+                               </div>
+
+                               <script type="text/javascript">
+                               	function getPay(pay){
+                               		let msg;
+                               		
+                               		if(pay.value == 1){
+                               			msg = 'La cotización cambiará a pesos colombianos. Es decir que se tomará el valor en dolares y se multiplicará por el TRM de venta actual.';
+                               		}else if(pay.value == 2){
+                               			msg = 'La cotización cambiará a dólares americanos. Es decir que se tomará el valor en pesos y se dividirá entre el TRM de compra actual.';
+                               		}
+
+                               		alert(msg);
+                               	}
+                               </script>
+								
+								<div class="control-group">
+									<label class="control-label">Moneda</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="moneda" onChange="getPay(this)">
+
+											<option value=""></option>
+                                            <option value="1" <?php if($resultadoD['cotiz_moneda']==1)echo "selected";?>>COP</option>
+                                            <option value="2" <?php if($resultadoD['cotiz_moneda']==2)echo "selected";?>>USD</option>
+                                    	</select>
+                                    </div>
+                               </div>	
+								
+								<div class="control-group">
+										<label class="control-label">Combos</label>
+										<div class="controls">
+											<select data-placeholder="Escoja una opción..." class="chzn-select span10" tabindex="2" name="combo[]" multiple>
+												<option value=""></option>
+												<?php
+												$conOp = mysql_query("SELECT combo_id, combo_nombre FROM combos 
+												ORDER BY combo_nombre",$conexion);
+												while($resOp = mysql_fetch_array($conOp)){
+
+													$productoN = mysql_num_rows(mysql_query("SELECT czpp_cotizacion, czpp_tipo, czpp_combo  FROM cotizacion_productos WHERE czpp_combo='".$resOp[0]."' AND czpp_cotizacion='".$resultadoD['cotiz_id']."' AND czpp_tipo=1",$conexion));
+												?>
+													<option <?php if($productoN>0){echo "selected";}?> value="<?=$resOp['combo_id'];?>"><?=$resOp['combo_nombre'];?></option>
+												<?php
+												}
+												?>
+											</select>
+										</div>
+								   </div>
+								
+								<div class="control-group">
+										<label class="control-label">Productos</label>
+										<div class="controls">
+											<select data-placeholder="Escoja una opción..." class="chzn-select span10" tabindex="2" name="producto[]" multiple>
+												<option value=""></option>
+												<?php
+												$filtroProd = '';
+												if(is_numeric($resultadoD['cotiz_proveedor']) and $resultadoD['cotiz_proveedor']!='0' and $resultadoD['cotiz_proveedor']!=''){ $filtroProd .=" AND prod_proveedor='".$resultadoD['cotiz_proveedor']."'";}
+
+												$conOp = mysql_query("SELECT prod_id, prod_referencia, prod_nombre, prod_existencias, prod_categoria FROM v_productos_categorias 
+												WHERE prod_id=prod_id $filtroProd
+												ORDER BY prod_nombre",$conexion);
+												while($resOp = mysql_fetch_array($conOp)){
+
+													if($resOp['prod_categoria'] == 28 and ($datosUsuarioActual[3]!=1 and $datosUsuarioActual[3]!=9) ){
+														continue;
+													}
+													
+													$productoN = mysql_num_rows(mysql_query("SELECT czpp_producto, czpp_cotizacion 
+														FROM cotizacion_productos 
+														WHERE czpp_producto='".$resOp[0]."' AND czpp_cotizacion='".$resultadoD['cotiz_id']."'",$conexion));
+
+												?>
+													<option <?php if($productoN>0){echo "selected";}?> value="<?=$resOp['prod_id'];?>"><?=$resOp['prod_id'].". ".$resOp['prod_referencia']." ".strtoupper($resOp['prod_nombre'])." - [HAY ".$resOp['prod_existencias']."]";?></option>
+												<?php
+												}
+												?>
+											</select>
+										</div>
+								   </div>
+								
+								
+									<div class="control-group">
+										<label class="control-label">Servicios</label>
+										<div class="controls">
+											<select data-placeholder="Escoja una opción..." class="chzn-select span10" tabindex="2" name="servicio[]" multiple>
+												<option value=""></option>
+												<?php
+												$conOp = mysql_query("SELECT serv_id, serv_nombre FROM servicios 
+												ORDER BY serv_nombre",$conexion);
+												while($resOp = mysql_fetch_array($conOp)){
+													
+													$productoN = mysql_num_rows(mysql_query("SELECT czpp_servicio, czpp_cotizacion FROM cotizacion_productos WHERE czpp_servicio='".$resOp[0]."' AND czpp_cotizacion='".$resultadoD['cotiz_id']."'",$conexion));
+												?>
+													<option <?php if($productoN>0){echo "selected";}?> value="<?=$resOp['serv_id'];?>"><?=$resOp['serv_id'].". ".$resOp['serv_nombre'];?></option>
+												<?php
+												}
+												?>
+											</select>
+										</div>
+								   </div>
+
+
+								   <div class="control-group">
+									<label class="control-label">Ocultar descuento de combos</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span2" tabindex="2" name="dctoCombos">
+											<option value=""></option>
+                                            <option value="1" <?php if($resultadoD['cotiz_ocultar_descuento_combo']==1)echo "selected";?>>SI</option>
+                                            <option value="0" <?php if($resultadoD['cotiz_ocultar_descuento_combo']=='0')echo "selected";?>>NO</option>
+                                    	</select>
+                                    </div>
+                               </div>
+
+
+                               <p style="color: black; background-color: mediumaquamarine; padding: 10px; font-weight: bold;">Escoja SÍ, si desea solicitar a la Administración, que a esta cotización se le hagan algunos descuentos especiales en los items cotizados.</p>
+
+                               <div class="control-group">
+									<label class="control-label">Requiere un descuento especial?</label>
+									<div class="controls">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span2" tabindex="2" name="dctoEspecial">
+											<option value=""></option>
+                                            <option value="1" <?php if($resultadoD['cotiz_descuentos_especiales']==1)echo "selected";?>>SI</option>
+                                            <option value="0" <?php if($resultadoD['cotiz_descuentos_especiales']=='0')echo "selected";?>>NO</option>
+                                    	</select>
+                                    </div>
+                               </div>
+								
+								
+								
+									<div class="control-group">
+										<label class="control-label">Observaciones</label>
+										<div class="controls">
+											<textarea rows="5" cols="80" style="width: 80%" class="tinymce-simple" name="notas"><?=$resultadoD['cotiz_observaciones'];?></textarea>
+										</div>
+									</div>
+								
+								<div class="control-group">
+									<label class="control-label">Costo Envío</label>
+									<div class="controls">
+										<input type="text" class="span4" name="envio" value="<?=$resultadoD['cotiz_envio'];?>">
+									</div>
+								</div>
+								
+                               <div class="form-actions">
+                                	<a href="javascript:history.go(-1);" class="btn btn-primary"><i class="icon-arrow-left"></i> Regresar</a>
+									<?php
+									if($resultadoD['cotiz_vendida']!=1){
+									?>
+									<button type="submit" class="btn btn-info"><i class="icon-save"></i> Guardar cambios</button>
+									<?php }?>
+								</div>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- LISTADO DE LO QUE SE ESTÁ COTIZANDO -->	
+			<div class="row-fluid">
+				<div class="span12">
+					
+					<span id="resp"></span>
+					
+					<div class="content-widgets light-gray" id="productos">
+						<div class="widget-head green">
+							<h3>PRODUCTOS</h3>
+						</div>
+						<div class="widget-container">
+							<p></p>
+							<table class="table table-striped table-bordered" id="data-table">
+							<thead>
+							<tr>
+								<th>No</th>
+								<th>Orden</th>
+                                <th>Producto/Servicio</th>
+                                <th>Cant.</th> 
+                                <th>Valor Base</th>
+                                <th>IVA</th>
+								<th>Dcto.</th>
+								<?php 
+								$colspan = 7;
+								if($resultadoD['cotiz_descuentos_especiales'] == 1){
+									$colspan = 8;
+								?>
+								<th>Dcto. Especial</th>
+								<?php }?>
+
+                                <th>SUBTOTAL</th>
+							</tr>
+							</thead>
+							<tbody>
+								
+							<!-- COMBOS -->
+							<?php
+							$productos = mysql_query("SELECT * FROM combos
+							INNER JOIN cotizacion_productos ON czpp_combo=combo_id AND czpp_cotizacion='".$_GET["id"]."'
+							ORDER BY czpp_orden",$conexion);
+							$sumaUtilidad = 0;
+							while($prod = mysql_fetch_array($productos)){
+								$dcto = 0;
+								$valorTotal = 0;
+
+								$valorTotal = ($prod['czpp_valor'] * $prod['czpp_cantidad']);
+
+								if($prod['czpp_cantidad']>0 and $prod['czpp_descuento']>0){
+									$dcto = ($valorTotal * ($prod['czpp_descuento']/100));
+									$totalDescuento += $dcto;	
+								}
+
+								$valorConDcto = $valorTotal - $dcto;
+
+								$totalIva += ($valorConDcto * ($prod['czpp_impuesto']/100));
+
+								$subtotal +=$valorTotal;
+								
+								
+								$totalCantidad += $prod['czpp_cantidad'];
+
+								$precioNormalCombo = mysql_fetch_array(mysql_query("SELECT SUM(copp_cantidad*prod_precio) FROM combos_productos
+								INNER JOIN productos ON prod_id=copp_producto
+								WHERE copp_combo='".$prod['combo_id']."'",$conexion));
+
+								$productosDelCombo = mysql_query("SELECT * FROM combos_productos
+								INNER JOIN productos ON prod_id=copp_producto
+								WHERE copp_combo='".$prod['combo_id']."'
+								",$conexion);
+
+								$sumaCostosProductosCombos = 0;
+								while($pdCombo = mysql_fetch_array($productosDelCombo)){
+
+									$sumaCostosProductosCombos += $pdCombo['prod_costo'];
+
+								}
+
+								$sumaUtilidad += ($prod['czpp_valor'] - $sumaCostosProductosCombos);
+
+								
+							?>
+							<tr>
+								<td><?=$no;?></td>
+								<td><input type="number" title="czpp_orden" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_orden'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td>
+									<a href="sql.php?get=43&idItem=<?=$prod['czpp_id'];?>" onClick="if(!confirm('Desea eliminar este registro?')){return false;}"><i class="icon-trash"></i></a>
+									<a href="combos-editar.php?id=<?=$prod['combo_id'];?>" target="_blank"><?=$prod['combo_nombre'];?></a><br>
+									<?php if($prod['combo_descuento']!="" and $resultadoD['cotiz_ocultar_descuento_combo']=='0'){?>
+										<span><b>Precio Normal:</b> $<?=number_format($precioNormalCombo[0],0,".",".");?></span><br>
+										<span><b>Descuento:</b> <?=$prod['combo_descuento'];?>%</span><br>
+									<?php }?>
+									<span style="font-size: 9px; color: darkblue;"><?=$prod['combo_descripcion'];?></span><br>
+									<span style="font-size: 9px; color: teal;">
+									<?php
+									$productosCombo = mysql_query("SELECT copp_id, copp_combo, copp_producto, copp_cantidad,
+										prod_id, prod_nombre
+									   FROM productos
+									INNER JOIN combos_productos ON copp_producto=prod_id AND copp_combo='".$prod['combo_id']."'
+									ORDER BY copp_id",$conexion);
+									while($prodCombo = mysql_fetch_array($productosCombo)){
+										echo $prodCombo['prod_nombre']." (".$prodCombo['copp_cantidad']." Unds.).<br>";
+									}
+									?>
+									</span>
+										
+									<p><textarea title="czpp_observacion" name="<?=$prod['czpp_id'];?>" onChange="productos(this)" style="width: 300px;" rows="4"><?=$prod['czpp_observacion'];?></textarea></p>
+								</td>
+                                <td><input type="number" title="czpp_cantidad" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_cantidad'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td>
+                                	<input type="text" title="czpp_valor" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_valor'];?>" onChange="productos(this)" style="width: 200px;"><br>
+                                	<?php
+									if($datosUsuarioActual['usr_tipo']==1){
+										echo "
+										<b>Costo: $".number_format($sumaCostosProductosCombos, 0, ",", ".")."</b><br>
+										<b>Valor Utilidad: $".number_format(($prod['czpp_valor'] - $sumaCostosProductosCombos), 0, ",", ".")."</b><br>
+										";
+									}
+									?>
+                                </td>
+                                <td><input type="text" title="czpp_impuesto" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_impuesto'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td><input type="text" title="czpp_descuento" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento'];?>" onChange="combos(this)" style="width: 50px; text-align: center;"></td>
+
+                                <?php if($resultadoD['cotiz_descuentos_especiales'] == 1){?>
+									<td>
+										<input type="text" title="czpp_descuento_especial" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento_especial'];?>" onChange="combos(this)" style="width: 50px; text-align: center;">
+
+										<?php
+									if($datosUsuarioActual['usr_tipo']==1 and $prod['czpp_aprobado_usuario']=="" and $prod['czpp_descuento_especial']>0){
+										
+										?>
+
+										<br><a href="sql.php?get=70&idItem=<?=$prod['czpp_id'];?>" class="btn btn-success"> <i class="icon-ok-sign"></i> </a>
+
+
+									<?php }
+									$usuarioDctoEspecialAprobar = mysql_fetch_array(mysql_query("SELECT usr_id, usr_nombre FROM usuarios WHERE usr_id='".$prod['czpp_aprobado_usuario']."'",$conexion));
+									?>
+
+									<br><span style="font-size:10px; color:gray;">
+
+										<?=$prod['czpp_aprobado_fecha'];?><br>
+										<?=$usuarioDctoEspecialAprobar['usr_nombre'];?>
+											
+										</span>
+										
+									</td>
+								<?php }?>
+
+                                <td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($valorTotal,0,",",".");?></td>
+							</tr>
+							<?php 
+								$no ++;
+							}
+							?>
+								
+							<!-- PRODUCTOS -->	
+                            <?php
+							$no = 1;
+							$productos = mysql_query("SELECT czpp_id, czpp_valor, czpp_cantidad, czpp_descuento, czpp_impuesto, czpp_orden, czpp_observacion, czpp_descuento_especial, czpp_aprobado_usuario, czpp_aprobado_fecha,
+								prod_descuento2, prod_costo, prod_id, prod_nombre, prod_descripcion_corta, prod_utilidad
+								FROM productos
+							INNER JOIN cotizacion_productos ON czpp_producto=prod_id AND czpp_cotizacion='".$_GET["id"]."'
+							ORDER BY czpp_orden",$conexion);
+
+							
+							while($prod = mysql_fetch_array($productos)){
+								$dcto = 0;
+								$valorTotal = 0;
+
+								$valorTotal = ($prod['czpp_valor'] * $prod['czpp_cantidad']);
+
+								if($prod['czpp_cantidad']>0 and $prod['czpp_descuento']>0){
+									$dcto = ($valorTotal * ($prod['czpp_descuento']/100));
+									$totalDescuento += $dcto;	
+								}
+
+								$valorConDcto = $valorTotal - $dcto;
+
+								$totalIva += ($valorConDcto * ($prod['czpp_impuesto']/100));
+
+								$subtotal +=$valorTotal;
+								
+								
+								$totalCantidad += $prod['czpp_cantidad'];
+
+
+
+								$utilidadDealer = $prod['prod_descuento2'] / 100;
+								$precioDealer = $prod['prod_costo'] + ($prod['prod_costo'] * $utilidadDealer);
+
+								$sumaUtilidad += ($prod['czpp_valor'] - $prod['prod_costo']);
+							?>
+							<tr>
+								<td><?=$no;?></td>
+								<td><input type="number" title="czpp_orden" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_orden'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td>
+									<a href="sql.php?get=43&idItem=<?=$prod['czpp_id'];?>" onClick="if(!confirm('Desea eliminar este registro?')){return false;}"><i class="icon-trash"></i></a>
+									<a href="productos-editar.php?id=<?=$prod['prod_id'];?>" target="_blank"><?=$prod['prod_nombre'];?></a><br>
+									
+									<span style="font-size: 9px; color: darkblue;"><?=$prod['prod_descripcion_corta'];?></span><br>
+										
+									<p><textarea title="czpp_observacion" name="<?=$prod['czpp_id'];?>" onChange="productos(this)" style="width: 300px;" rows="4"><?=$prod['czpp_observacion'];?></textarea></p>
+								</td>
+                                <td><input type="number" title="czpp_cantidad" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_cantidad'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td>
+									<?php
+									if($resultadoD['cli_categoria']==3 and $datosUsuarioActual['usr_tipo']==1){
+										echo "<b>Precio Dealer: $".number_format($precioDealer, 0, ",", ".")."</b><br>";
+									}
+									?>
+
+									<input type="text" alt="<?=$resultadoD['cli_categoria'];?>" title="czpp_valor" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_valor'];?>" onChange="productos(this)" style="width: 200px;"><br>
+									<?php
+									if($datosUsuarioActual['usr_tipo']==1){
+										echo "
+										<b>Costo: $".number_format($prod['prod_costo'], 0, ",", ".")."</b><br>
+										<b>Utilidad: ".$prod['prod_utilidad']."%</b><br>
+										<b>Valor Utilidad: $".number_format(($prod['czpp_valor'] - $prod['prod_costo']), 0, ",", ".")."</b><br>
+										";
+									}
+									?>
+								</td>
+                                <td><input type="text" title="czpp_impuesto" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_impuesto'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+								<td>
+									<input type="text" title="czpp_descuento" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"><br>
+										<?php 
+										if($dcto>0)
+											echo "$".number_format($dcto,0,".",".");
+										?>
+								</td>
+
+								<?php if($resultadoD['cotiz_descuentos_especiales'] == 1){?>
+									<td><input type="text" title="czpp_descuento_especial" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento_especial'];?>" onChange="combos(this)" style="width: 50px; text-align: center;">
+
+										<?php
+									if($datosUsuarioActual['usr_tipo']==1 and $prod['czpp_aprobado_usuario']=="" and $prod['czpp_descuento_especial']>0){
+										
+										?>
+
+										<br><a href="sql.php?get=70&idItem=<?=$prod['czpp_id'];?>" class="btn btn-success"> <i class="icon-ok-sign"></i> </a>
+
+
+									<?php }
+									$usuarioDctoEspecialAprobar = mysql_fetch_array(mysql_query("SELECT usr_id, usr_nombre FROM usuarios WHERE usr_id='".$prod['czpp_aprobado_usuario']."'",$conexion));
+									?>
+
+									<br><span style="font-size:10px; color:gray;">
+
+										<?=$prod['czpp_aprobado_fecha'];?><br>
+										<?=$usuarioDctoEspecialAprobar['usr_nombre'];?>
+											
+										</span>
+
+									</td>
+									
+
+								<?php }?>
+                                <td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($valorTotal,0,",",".");?></td>
+							</tr>
+							<?php 
+								$no ++;
+							}
+							?>	
+								
+								<!-- SERVICIOS -->
+							<?php
+							$productos = mysql_query("SELECT * FROM servicios
+							INNER JOIN cotizacion_productos ON czpp_servicio=serv_id AND czpp_cotizacion='".$_GET["id"]."'
+							ORDER BY czpp_orden",$conexion);
+							while($prod = mysql_fetch_array($productos)){
+								$dcto = 0;
+								$valorTotal = 0;
+
+								$valorTotal = ($prod['czpp_valor'] * $prod['czpp_cantidad']);
+
+								if($prod['czpp_cantidad']>0 and $prod['czpp_descuento']>0){
+									$dcto = ($valorTotal * ($prod['czpp_descuento']/100));
+									$totalDescuento += $dcto;	
+								}
+
+								$valorConDcto = $valorTotal - $dcto;
+
+								$totalIva += ($valorConDcto * ($prod['czpp_impuesto']/100));
+
+								$subtotal +=$valorTotal;	
+								
+								
+								$totalCantidad += $prod['czpp_cantidad'];
+							?>
+							<tr>
+								<td><?=$no;?></td>
+								<td><input type="number" title="czpp_orden" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_orden'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td>
+									<a href="sql.php?get=43&idItem=<?=$prod['czpp_id'];?>" onClick="if(!confirm('Desea eliminar este registro?')){return false;}"><i class="icon-trash"></i></a>
+									<a href="servicios-editar.php?id=<?=$prod['serv_id'];?>" target="_blank"><?=$prod['serv_nombre'];?></a>
+										
+									<p><textarea title="czpp_observacion" name="<?=$prod['czpp_id'];?>" onChange="productos(this)" style="width: 300px;" rows="4"><?=$prod['czpp_observacion'];?></textarea></p>
+								</td>
+                                <td><input type="number" title="czpp_cantidad" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_cantidad'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+                                <td><input type="text" title="czpp_valor" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_valor'];?>" onChange="productos(this)" style="width: 200px;"></td>
+                                <td><input type="text" title="czpp_impuesto" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_impuesto'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+								<td><input type="text" title="czpp_descuento" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento'];?>" onChange="productos(this)" style="width: 50px; text-align: center;"></td>
+								<?php if($resultadoD['cotiz_descuentos_especiales'] == 1){?>
+									<td><input type="text" title="czpp_descuento_especial" name="<?=$prod['czpp_id'];?>" value="<?=$prod['czpp_descuento_especial'];?>" onChange="combos(this)" style="width: 50px; text-align: center;"></td>
+								<?php }?>
+                                <td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($valorTotal,0,",",".");?></td>
+							</tr>
+							<?php 
+								$no ++;
+							}
+							?>
+							
+							<?php
+							$total = $subtotal - $totalDescuento;
+							$total +=$resultado['cotiz_envio'] + $totalIva;
+							?>	
+							</tbody>
+							<tfoot>
+								<tr style="font-weight: bold; font-size: 16px;">
+									<td style="text-align: right;" colspan="<?=$colspan;?>">SUBTOTAL</td>
+									<td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($subtotal,0,",",".");?></td>
+								</tr>
+								<tr style="font-weight: bold; font-size: 16px;">
+									<td style="text-align: right;" colspan="<?=$colspan;?>">DESCUENTO</td>
+									<td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($totalDescuento,0,",",".");?></td>
+								</tr>
+								<tr style="font-weight: bold; font-size: 16px;">
+									<td style="text-align: right;" colspan="<?=$colspan;?>">IVA</td>
+									<td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($totalIva,0,",",".");?></td>
+								</tr>
+								<tr style="font-weight: bold; font-size: 16px;">
+									<td style="text-align: right;" colspan="<?=$colspan;?>">ENVÍO</td>
+									<td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($resultadoD['cotiz_envio'],0,",",".");?></td>
+								</tr>
+								<tr style="font-weight: bold; font-size: 16px;">
+									<td style="text-align: right;" colspan="<?=$colspan;?>">TOTAL NETO</td>
+									<td><?=$simbolosMonedas[$resultadoD['cotiz_moneda']];?><?=number_format($total,0,",",".");?></td>
+								</tr>
+							</tfoot>	
+								
+							</table>
+
+							<?php
+							if($datosUsuarioActual['usr_tipo']==1){?>
+
+								<p style="color: black; background-color: <?=$colorCredito;?>; padding: 15px; font-weight: bold; font-size: 16px;">Esta cotización deja una utilidad aproximada de $<?=number_format( ($sumaUtilidad) ,0,",",".");?></p>
+							<?php }?>
+							
+							
+								<div class="form-actions">
+									
+                                	<a href="javascript:history.go(-1);" class="btn btn-primary"><i class="icon-arrow-left"></i> Regresar</a>
+									<?php
+									if($resultadoD['cotiz_vendida']!=1){
+									?>
+									<button type="submit" class="btn btn-info"><i class="icon-save"></i> Guardar cambios</button>
+									<?php }?>
+									
+										
+									<a href="reportes/formato-cotizacion-1.php?id=<?=$_GET["id"];?>" class="btn btn-success" target="_blank"><i class="icon-print"></i> Imprimir</a>
+								</div>
+							</form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<?php include("pie.php");?>
+</div>
+</body>
+</html>

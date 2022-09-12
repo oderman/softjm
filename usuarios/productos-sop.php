@@ -1,0 +1,300 @@
+<?php include("sesion.php");?>
+<?php
+$idPagina = 160;
+$tituloPagina = "Productos Soporte Op.";
+
+$tabla = 'productos_soptec';
+$pk = 'prod_id';
+?>
+
+<?php include("verificar-paginas.php");?>
+<?php include("head.php");?>
+<?php
+mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('".$_SESSION["id"]."', '".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."', '".$idPagina."', now(),'".$_SERVER['HTTP_REFERER']."')",$conexion);
+if(mysql_errno()!=0){echo mysql_error(); exit();}
+?>
+<!-- styles -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.css">
+<!--[if IE 7]>
+            <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+        <![endif]-->
+<link href="css/styles.css" rel="stylesheet">
+<link href="css/theme-blue.css" rel="stylesheet">
+
+<!--[if IE 7]>
+            <link rel="stylesheet" type="text/css" href="css/ie/ie7.css" />
+        <![endif]-->
+<!--[if IE 8]>
+            <link rel="stylesheet" type="text/css" href="css/ie/ie8.css" />
+        <![endif]-->
+<!--[if IE 9]>
+            <link rel="stylesheet" type="text/css" href="css/ie/ie9.css" />
+        <![endif]-->
+<link href="css/tablecloth.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+<!--fav and touch icons -->
+<link rel="shortcut icon" href="ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+<!--============j avascript===========-->
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui-1.10.1.custom.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/accordion.nav.js"></script>
+<script src="js/jquery.tablecloth.js"></script>
+<script src="js/jquery.dataTables.js"></script>
+<script src="js/ZeroClipboard.js"></script>
+<script src="js/dataTables.bootstrap.js"></script>
+<script src="js/TableTools.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/respond.min.js"></script>
+<script src="js/ios-orientationchange-fix.js"></script>
+<script type="text/javascript">
+            /*$( function () {
+		  // Set the classes that TableTools uses to something suitable for Bootstrap
+		  $.extend( true, $.fn.DataTable.TableTools.classes, {
+			  "container": "btn-group",
+			  "buttons": {
+				  "normal": "btn",
+				  "disabled": "btn disabled"
+			  },
+			  "collection": {
+				  "container": "DTTT_dropdown dropdown-menu",
+				  "buttons": {
+					  "normal": "",
+					  "disabled": "disabled"
+				  }
+			  }
+		  } );
+		  // Have the collection use a bootstrap compatible dropdown
+		  $.extend( true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
+			  "collection": {
+				  "container": "ul",
+				  "button": "li",
+				  "liner": "a"
+			  }
+		  } );
+		  });
+		  */
+            $(function () {
+                $('#data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>"
+                    /*"oTableTools": {
+			"aButtons": [
+				"copy",
+				"print",
+				{
+					"sExtends":    "collection",
+					"sButtonText": 'Save <span class="caret" />',
+					"aButtons":    [ "csv", "xls", "pdf" ]
+				}
+			]
+		}*/
+                });
+            });
+            $(function () {
+                $('.tbl-simple').dataTable({
+                    "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>"
+                });
+            });
+			
+			$(function () {
+			$(".tbl-paper-theme").tablecloth({
+          theme: "paper"
+		   });
+			});
+			
+		$(function () {
+			$(".tbl-dark-theme").tablecloth({
+          theme: "dark"
+		   });
+		});
+			$(function () {
+                $('.tbl-paper-theme,.tbl-dark-theme').dataTable({
+                    "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>"
+                });
+	
+
+            });
+        </script>
+
+<script type="text/javascript">
+  function productos(enviada){
+  	  var campo = enviada.title;
+	  var producto = enviada.name;
+	  var proceso = 1;
+	  var valor = enviada.value;
+	  
+	
+	  if(campo == 'prod_costo'){
+		  
+		 /* 
+		document.getElementById("costo"+producto).value=valor;
+		
+		var utilidad = (parseFloat(enviada.alt)/100);
+		var precioNuevo = (parseFloat(valor) + (parseFloat(valor)*parseFloat(utilidad)));
+		var precioNuevoIva = (parseFloat(precioNuevo) + (parseFloat(precioNuevo)*0.19));
+		  alert(utilidad);
+		  
+		document.getElementById("precioLista"+producto).innerHTML="$"+precioNuevo.toLocaleString();
+		document.getElementById("precioListaIva"+producto).innerHTML="$"+precioNuevoIva.toLocaleString();
+		*/
+	}
+	
+	 
+	if(campo == 'prod_utilidad'){	
+		document.getElementById("utilidad"+producto).value=valor;
+
+		var costo = enviada.alt;
+		var utilidad = (valor/100);
+		var precioNuevo = (parseFloat(costo) + (parseFloat(costo) * parseFloat(utilidad)));
+		var precioNuevoIva = (parseFloat(precioNuevo) + (parseFloat(precioNuevo)*0.19));
+
+		document.getElementById("precioLista"+producto).innerHTML="$"+precioNuevo.toLocaleString();
+		document.getElementById("precioListaIva"+producto).innerHTML="$"+precioNuevoIva.toLocaleString();
+	}
+	  
+	  $('#resp').empty().hide().html("Esperando...").show(1);
+		datos = "producto="+(producto)+"&proceso="+(proceso)+"&valor="+(valor)+"&campo="+(campo)+"&tabla="+$("#tabla").val()+"&pk="+$("#pk").val();
+			   $.ajax({
+				   type: "POST",
+				   url: "ajax-productos.php",
+				   data: datos,
+				   success: function(data){
+				   	$('#resp').empty().hide().html(data).show(1);
+				   }
+			   });
+	}
+	
+	function pred(enviada){
+  	  var valorActual = enviada.title;
+	  var producto = enviada.name;
+	  var proceso = 6;
+		
+		if(valorActual==0){
+		   	document.getElementById("p"+producto).innerHTML="SI";
+			document.getElementById("p"+producto).title=1;
+		}
+		
+		if(valorActual==1){
+		   	document.getElementById("p"+producto).innerHTML="NO";
+			document.getElementById("p"+producto).title=0;
+		 }
+		
+	  $('#resp').empty().hide().html("Esperando...").show(1);
+		datos = "producto="+(producto)+"&proceso="+(proceso)+"&valorActual="+(valorActual);
+			   $.ajax({
+				   type: "POST",
+				   url: "ajax-productos.php",
+				   data: datos,
+				   success: function(data){
+				   $('#resp').empty().hide().html(data).show(1);
+				   }
+			   });
+	}
+</script>
+
+<?php include("funciones-js.php");?>
+
+</head>
+<body>
+<input type="hidden" value="<?=$tabla;?>" name="tabla" id="tabla">
+<input type="hidden" value="<?=$pk;?>" name="pk" id="pk">
+	
+<div class="layout">
+	<?php include("encabezado.php");?>
+    
+    <?php include("barra-izq.php");?>
+	<div class="main-wrapper">
+		<div class="container-fluid">
+            <?php include("notificaciones.php");?>
+			
+			<span id="resp"></span>
+            <p>
+
+					<a href="#" class="btn btn-danger"><i class="icon-plus"></i> Agregar nuevo</a>
+
+            </p>
+			
+
+			
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="content-widgets light-gray">
+						<div class="widget-head green">
+							<h3><?=$tituloPagina;?></h3>
+						</div>
+						<div class="widget-container">
+							<p></p>
+							<table class="table table-striped table-bordered" id="data-table" style="font-size: 9px;">
+							<thead>
+							<tr>
+								<th>No</th>
+                                <th>Nombre</th>
+								<th>Grupo 2</th>
+								<th>Marca</th>
+
+							</tr>
+							</thead>
+							<tbody>
+                            <?php
+							$filtro ='';
+							if(is_numeric($_GET["grupo1"])){$filtro .=" AND prod_grupo1='".$_GET["grupo1"]."'";}
+							if(is_numeric($_GET["grupo2"])){$filtro .=" AND prod_categoria='".$_GET["grupo2"]."'";}
+							if(is_numeric($_GET["marca"])){$filtro .=" AND prod_marca='".$_GET["marca"]."'";}	
+								
+							$consulta = mysql_query("SELECT * FROM productos_soptec 
+							LEFT JOIN productos_categorias ON catp_id=prod_categoria
+							WHERE prod_id=prod_id $filtro
+							",$conexion);
+							$no = 1;
+							$visible = array("SI","SI","NO");
+							$estadoVisible = array(2,2,1);	
+							while($res = mysql_fetch_array($consulta)){
+								
+								$grupo1 = mysql_fetch_array(mysql_query("SELECT * FROM productos_categorias WHERE catp_id='".$res['prod_grupo1']."'
+								",$conexion));
+								
+								$marca = mysql_fetch_array(mysql_query("SELECT * FROM marcas WHERE mar_id='".$res['prod_marca']."'
+								",$conexion));
+
+							?>
+							<tr>
+								<td><?=$no;?></td>
+
+								
+                                <td>
+									<div>
+									<?=$res['prod_nombre'];?>
+									<h4>
+										<a href="#" data-toggle="tooltip" title="Editar"><i class="icon-edit"></i></a>
+										<a href="#" onClick="if(!confirm('Desea eliminar el registro?')){return false;}" data-toggle="tooltip" title="Eliminar"><i class="icon-remove-sign"></i></a>
+										<a href="productos-materiales.php?pdto=<?=$res[0];?>" data-toggle="tooltip" title="Materiales"><i class="icon-folder-open"></i></a>
+									</h4>
+									</div>	
+								</td>
+								
+                                <td><?=$res['catp_nombre'];?></td>
+								<td><?=$marca['mar_nombre'];?></td>
+								
+							</tr>
+                            <?php $no++;}?>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		
+			</div>
+		</div>
+	</div>
+	<?php include("pie.php");?>
+</div>
+</body>
+</html>
