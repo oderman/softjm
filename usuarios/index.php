@@ -6,10 +6,8 @@ $tituloPagina = "Inicio";
 <?php include("verificar-paginas.php"); ?>
 <?php include("head.php"); ?>
 <?php
-mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')", $conexion);
-if (mysql_errno() != 0) {
-	echo mysql_error();
-	exit();
+if(isset($_SERVER['HTTP_REFERER'])) {
+	$conexionBdPrincipal->query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')");
 }
 ?>
 <!-- styles -->
@@ -83,6 +81,7 @@ if (mysql_errno() != 0) {
 </style>
 
 <?php
+/*
 $clientes = mysql_query("SELECT fpp_producto, prod_nombre, COUNT(fpp_id) AS cant FROM facturacion_productos
 INNER JOIN productos ON prod_id=fpp_producto
 GROUP BY fpp_producto ORDER BY cant DESC LIMIT 0,10
@@ -91,6 +90,7 @@ while ($cte = mysql_fetch_array($clientes)) {
 	//if($cte[3]==0) continue;
 	$cotizacionesResultados .= "['#" . $cte[0] . " - " . $cte[1] . "', '" . $cte[2] . "'],";
 }
+*/
 ?>
 
 <script>

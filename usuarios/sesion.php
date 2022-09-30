@@ -15,9 +15,10 @@ else
 
 	
 	//USUARIO ACTUAL
-	$consultaUsuarioActual = mysql_query("SELECT * FROM usuarios WHERE usr_id='".$_SESSION["id"]."'",$conexion);
-	$numUsuarioActual = mysql_num_rows($consultaUsuarioActual);
-	$datosUsuarioActual = mysql_fetch_array($consultaUsuarioActual);
+
+	$consultaUsuarioActual = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_id='".$_SESSION["id"]."'");
+	$numUsuarioActual = $consultaUsuarioActual->num_rows;
+	$datosUsuarioActual = mysqli_fetch_array($consultaUsuarioActual, MYSQLI_BOTH);
 	//SABER SI ESTA BLOQUEADO
 	if($datosUsuarioActual['usr_bloqueado']==1)
 	{

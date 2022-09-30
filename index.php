@@ -1,7 +1,7 @@
 <?php
 include("conexion.php");
-$consulta = $conexion->query("SELECT * FROM configuracion WHERE conf_id=1");
-$configuracion = mysqli_fetch_array($consulta, MYSQLI_BOTH);
+$consultaConfiguracion = $conexionBdPrincipal->query("SELECT * FROM configuracion WHERE conf_id=1");
+$configuracion = mysqli_fetch_array($consultaConfiguracion, MYSQLI_BOTH);
 ?>
 <!DOCTYPE html>
 <html lang="en">

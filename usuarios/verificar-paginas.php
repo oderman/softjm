@@ -23,8 +23,8 @@ if($numPaginaUsuario>=1)
 
 
 //PAGINAS A LAS QUE TIENE PERMISO EL ROL DEL USUARIO
-$consultaPaginaUsuario = mysql_query("SELECT * FROM paginas_perfiles WHERE pper_tipo_usuario='".$datosUsuarioActual[3]."' AND pper_pagina='".$idPagina."'",$conexion);
-$numPaginaUsuario = mysql_num_rows($consultaPaginaUsuario);
+$consultaPaginaUsuario = $conexionBdPrincipal->query("SELECT * FROM paginas_perfiles WHERE pper_tipo_usuario='".$datosUsuarioActual[3]."' AND pper_pagina='".$idPagina."'");
+$numPaginaUsuario = $consultaPaginaUsuario->num_rows;
 if($numPaginaUsuario == 0 and $datosUsuarioActual[3]!=1)
 {
 ?>

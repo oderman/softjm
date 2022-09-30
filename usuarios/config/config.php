@@ -1,5 +1,6 @@
 <?php
-$configu = mysql_fetch_array(mysql_query("SELECT * FROM configuracion WHERE conf_id=1",$conexion));
+$consultaConfig = $conexionBdPrincipal->query("SELECT * FROM configuracion WHERE conf_id=1");
+$configu = mysqli_fetch_array($consultaConfig, MYSQLI_BOTH);
 
 //Estaba en la barra lateral
-$configuracion = mysql_fetch_array(mysql_query("SELECT * FROM configuracion WHERE conf_id=1",$conexion));
+$configuracion = mysqli_fetch_array($consultaConfig, MYSQLI_BOTH);
