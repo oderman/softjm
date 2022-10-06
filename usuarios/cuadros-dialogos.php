@@ -15,8 +15,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -117,8 +117,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -177,8 +177,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -239,8 +239,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -298,8 +298,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -356,8 +356,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -415,8 +415,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -473,10 +473,10 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="categoria">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM productos_categorias WHERE catp_grupo=2",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
-														<option value="<?=$resOp[0];?>"><?=$resOp['catp_nombre'];?></option>
+														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
 													}
 													?>
@@ -614,8 +614,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -678,8 +678,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -739,8 +739,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php
@@ -798,8 +798,8 @@
 												<select data-placeholder="Escoja una opción..." class="chzn-select span12" tabindex="2" name="usuario">
 													<option value="">Todos</option>
 													<?php
-													$conOp = mysql_query("SELECT * FROM usuarios",$conexion);
-													while($resOp = mysql_fetch_array($conOp)){
+													$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios");
+													while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 													?>
 														<option value="<?=$resOp[0];?>"><?=$resOp['usr_nombre'];?></option>
 													<?php

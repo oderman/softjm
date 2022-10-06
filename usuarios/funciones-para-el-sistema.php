@@ -1,6 +1,7 @@
 <?php
 function subirArchivosAlServidor($archivoCargado, $prefijo, $destino){
-	$extension = end(explode(".", $archivoCargado['name']));
+	$extensionParte1 = explode(".", $archivoCargado['name']);
+	$extension = end($extensionParte1);
 	$nombreArchivoFinal = uniqid($prefijo."_") . "." . $extension;
 	$rutaCompleta = $destino . "/" . $nombreArchivoFinal;
 	move_uploaded_file($archivoCargado['tmp_name'], $rutaCompleta);

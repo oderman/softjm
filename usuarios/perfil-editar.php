@@ -1,5 +1,6 @@
-<?php include("sesion.php"); ?>
 <?php
+include("sesion.php"); 
+
 $idPagina = 19;
 $tituloPagina = "Editar Perfil";
 ?>
@@ -7,15 +8,14 @@ $tituloPagina = "Editar Perfil";
 <?php include("head.php"); ?>
 <?php
 
-if(isset($_SERVER['HTTP_REFERER'])) {
-	$conexionBdPrincipal->query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')");
-}
+include("guardar-historial-acciones.php");
 
-?>
-<?php
-$resultadoD = mysql_fetch_array(mysql_query("SELECT * FROM usuarios 
+
+$consulta = $conexionBdPrincipal->query("SELECT * FROM usuarios 
 INNER JOIN usuarios_tipos ON utipo_id=usr_tipo
-WHERE usr_id='" . $_SESSION["id"] . "'", $conexion));
+WHERE usr_id='" . $_SESSION["id"] . "'");
+
+$resultadoD = mysqli_fetch_array($consulta, MYSQLI_BOTH);
 ?>
 <!-- styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -177,8 +177,7 @@ WHERE usr_id='" . $_SESSION["id"] . "'", $conexion));
                             <div class="widget-container">
                                 <img src="files/fotos/<?=$resultadoD['usr_foto'];?>" width="100">
                                 
-                                <form class="form-horizontal" method="post" action="sql.php" enctype="multipart/form-data">
-                                    <input type="hidden" name="idSql" value="67">
+                                <form class="form-horizontal" method="post" action="bd_update/actualizar-perfil.php" enctype="multipart/form-data">
 
                                     <div class="control-group">
                                         <label class="control-label">Usuario</label>
@@ -207,9 +206,10 @@ WHERE usr_id='" . $_SESSION["id"] . "'", $conexion));
                                             <select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="tipoU">
                                                 <option value=""></option>
                                                 <?php
-                                                $conOp = mysql_query("SELECT * FROM usuarios_tipos", $conexion);
-                                                while ($resOp = mysql_fetch_array($conOp)) {
-                                                ?>
+                                                $conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios_tipos");
+                                                
+                                                while ($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)) {
+                                                    ?>
                                                     <option value="<?= $resOp[0]; ?>" <?php if ($resultadoD['usr_tipo'] == $resOp[0]) echo "selected";
                                                                                     else echo "disabled"; ?>><?= $resOp[1]; ?></option>
                                                 <?php

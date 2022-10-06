@@ -1,19 +1,16 @@
-<?php include("sesion.php"); ?>
-<?php
+<?php 
+include("sesion.php");
+
 $idPagina = 159;
 $tituloPagina = "Estructura de Mensajes";
-?>
-<?php include("verificar-paginas.php"); ?>
-<?php include("head.php"); ?>
-<?php
-mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')", $conexion);
-if (mysql_errno() != 0) {
-    echo mysql_error();
-    exit();
-}
-?>
-<?php
-$resultadoD = mysql_fetch_array(mysql_query("SELECT * FROM configuracion WHERE conf_id=1", $conexion));
+
+include("verificar-paginas.php");
+include("head.php");
+  
+include("guardar-historial-acciones.php");
+
+$consulta = $conexionBdPrincipal->query("SELECT * FROM configuracion WHERE conf_id=1");
+$resultadoD = mysqli_fetch_array($consulta, MYSQLI_BOTH);
 ?>
 <!-- styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -175,8 +172,8 @@ $resultadoD = mysql_fetch_array(mysql_query("SELECT * FROM configuracion WHERE c
                                 <h3> <?= $tituloPagina; ?></h3>
                             </div>
                             <div class="widget-container">
-                                <form class="form-horizontal" method="post" action="sql.php" enctype="multipart/form-data">
-                                    <input type="hidden" name="idSql" value="74">
+                                <form class="form-horizontal" method="post" action="bd_update/estructura-mensajes-actualizar.php" enctype="multipart/form-data">
+                                    
 
 
                                     <div class="control-group">

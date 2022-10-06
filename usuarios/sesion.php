@@ -1,17 +1,16 @@
 <?php
 session_start();
+
+$RUTA_PROYECTO = "C:/xampp/htdocs/works-projects/softjm";
+
 if($_SESSION["id"]=="")
 	header("Location:../salir.php");
 else
 {
 	$tiempo_inicial = microtime(true);
-	/*if($_SERVER['HTTP_REFERER']==""){
-		echo "<span style='font-family:Arial; color:red;'>Usted no est&aacute; accediendo de manera correcta. Utilice las opciones del sistema.</samp>";
-		exit();	
-	}
-	*/
-	include("../conexion.php");
-	include("config/config.php");
+	
+	require_once($RUTA_PROYECTO."/conexion.php");
+	require_once($RUTA_PROYECTO."/usuarios/config/config.php");
 
 	
 	//USUARIO ACTUAL

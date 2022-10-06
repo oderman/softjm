@@ -1,16 +1,12 @@
-	<?php include("sesion.php"); ?>
-	<?php
+	<?php 
+	include("sesion.php");
+	
 	$idPagina = 158;
 	$tituloPagina = "Mis Ventas";
-	?>
-	<?php include("verificar-paginas.php"); ?>
-	<?php include("head.php"); ?>
-	<?php
-	mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')", $conexion);
-	if (mysql_errno() != 0) {
-		echo mysql_error();
-		exit();
-	}
+	
+	include("verificar-paginas.php");
+	include("head.php");
+	include("guardar-historial-acciones.php");
 	?>
 	<!-- styles -->
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -160,14 +156,14 @@
 					<div class="control-group">
 						<label class="control-label">Desde</label>
 						<div class="controls">
-							<input type="date" class="span12" name="desde" value="<?=$_GET['desde'];?>">
+							<input type="date" class="span12" name="desde" value="<?php if(isset($_GET['desde'])) echo $_GET['desde'];?>">
 						</div>
 					</div>
 
 					<div class="control-group">
 						<label class="control-label">Hasta</label>
 						<div class="controls">
-							<input type="date" class="span12" name="hasta" value="<?=$_GET['hasta'];?>">
+							<input type="date" class="span12" name="hasta" value="<?php if(isset($_GET['hasta'])) echo $_GET['hasta'];?>">
 						</div>
 					</div>
 
@@ -205,14 +201,14 @@
 												$no = 1;
 
 												$filtroFactura = '';
-												if($_GET["desde"]!="" or $_GET["hasta"]!=""){$filtroFactura .= " AND factura_fecha_propuesta BETWEEN '".$_GET["desde"]."' AND '".$_GET["hasta"]."'";}
+												if(isset($_GET["desde"]) and $_GET["desde"]!="" or isset($_GET["hasta"]) and  $_GET["hasta"]!=""){$filtroFactura .= " AND factura_fecha_propuesta BETWEEN '".$_GET["desde"]."' AND '".$_GET["hasta"]."'";}
 
 
-												$consultaTotal = mysql_query("SELECT * FROM cotizacion_productos
+												$consultaTotal = $conexionBdPrincipal->query("SELECT * FROM cotizacion_productos
 													INNER JOIN facturas ON factura_id=czpp_cotizacion AND factura_vendedor IS NOT NULL AND factura_vendedor='".$_SESSION['id']."' $filtroFactura
 													WHERE czpp_tipo IN(4) AND czpp_valor>0 AND czpp_cantidad>0
 													GROUP BY czpp_id
-													",$conexion);
+													");
 
 												$total = 0;
 												$sumaTotal = 0;
@@ -225,7 +221,7 @@
 												$totalFinal = 0;
 												$sumaTotalFinal = 0;
 
-												while($datos = mysql_fetch_array($consultaTotal)){
+												while($datos = mysqli_fetch_array($consultaTotal, MYSQLI_BOTH)){
 
 													$total = ($datos['czpp_valor'] * $datos['czpp_cantidad']);
 													$sumaTotal += $total;
@@ -315,7 +311,7 @@
 												<?php
 												$no = 1;
 
-												$consultaVendedores = mysql_query("SELECT factura_vendedor, UCASE(usr_nombre) AS vendedor, sum( (czpp_valor*czpp_cantidad) ) AS sumaTotal, AVG( (czpp_valor*czpp_cantidad) ) AS promVentas, SUM(czpp_descuento) AS Totaldctos, AVG(czpp_descuento) AS promDcto, COUNT(*) AS numVentas, sucp_nombre, usr_id, usr_meta_ventas
+												$consultaVendedores = $conexionBdPrincipal->query("SELECT factura_vendedor, UCASE(usr_nombre) AS vendedor, sum( (czpp_valor*czpp_cantidad) ) AS sumaTotal, AVG( (czpp_valor*czpp_cantidad) ) AS promVentas, SUM(czpp_descuento) AS Totaldctos, AVG(czpp_descuento) AS promDcto, COUNT(*) AS numVentas, sucp_nombre, usr_id, usr_meta_ventas
 													FROM cotizacion_productos
 													INNER JOIN facturas ON factura_id=czpp_cotizacion AND factura_vendedor IS NOT NULL AND factura_vendedor='".$_SESSION['id']."' $filtroFactura
 													INNER JOIN usuarios ON usr_id=factura_vendedor
@@ -323,9 +319,9 @@
 													WHERE czpp_tipo=4 AND czpp_cantidad>0
 													GROUP BY factura_vendedor
 													ORDER BY sumaTotal DESC
-													",$conexion);
+													");
 
-												while($datosVendedores = mysql_fetch_array($consultaVendedores)){
+												while($datosVendedores = mysqli_fetch_array($consultaVendedores, MYSQLI_BOTH)){
 
 													$porcentaje = ($datosVendedores['sumaTotal'] / $datosVendedores['usr_meta_ventas']) * 100;
 													
@@ -369,7 +365,8 @@
 				</div>
 
 				<?php
-				$mejorVendedor = mysql_fetch_array(mysql_query("SELECT * FROM usuarios WHERE usr_mejor_vendedor=1 LIMIT 0,1",$conexion));	
+				$consultaMejorVendedor = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_mejor_vendedor=1 LIMIT 0,1");
+				$mejorVendedor = mysqli_fetch_array($consultaMejorVendedor, MYSQLI_BOTH);	
 				?>
 
 <!-- Modal -->

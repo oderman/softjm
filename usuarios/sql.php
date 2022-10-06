@@ -1068,54 +1068,9 @@ if ($_POST["idSql"] == 22) {
 	echo '<script type="text/javascript">window.location.href="categoriasp-editar.php?id=' . $_POST["id"] . '&msg=2";</script>';
 	exit();
 }
-//EDITAR CONFIGURACIÓN
-if ($_POST["idSql"] == 23) {
-	if ($_FILES['logo']['name'] != "") {
-		$destino = "files";
-		$archivo = subirArchivosAlServidor($_FILES['logo'], 'logo', $destino);
 
-		mysql_query("UPDATE configuracion SET conf_logo='" . $archivo . "' WHERE conf_id=1", $conexion);
-	}
+//aqui estaba configuración
 
-	$destino = "images";
-	if ($_FILES['encabezadoCotizacion']['name'] != "") {
-		$archivo = subirArchivosAlServidor($_FILES['encabezadoCotizacion'], 'ec', $destino);
-
-		mysql_query("UPDATE configuracion SET conf_encabezado_cotizacion='" . $archivo . "' WHERE conf_id=1", $conexion);
-	}
-	if ($_FILES['pieCotizacion']['name'] != "") {
-		$archivo = subirArchivosAlServidor($_FILES['pieCotizacion'], 'pc', $destino);
-
-		mysql_query("UPDATE configuracion SET conf_pie_cotizacion='" . $archivo . "' WHERE conf_id=1", $conexion);
-	}
-	if ($_FILES['encabezadoCotizacion2']['name'] != "") {
-		$archivo2 = subirArchivosAlServidor($_FILES['encabezadoCotizacion2'], 'ec2', $destino);
-
-		mysql_query("UPDATE configuracion SET conf_encabezado2_cotizacion='" . $archivo2 . "' WHERE conf_id=1", $conexion);
-	}
-
-	$destino = "images";
-	if ($_FILES['encabezadoPedido']['name'] != "") {
-		$archivo = subirArchivosAlServidor($_FILES['encabezadoPedido'], 'ep', $destino);
-		mysql_query("UPDATE configuracion SET conf_encabezado_pedido='" . $archivo . "' WHERE conf_id=1", $conexion);
-	}
-	if ($_FILES['piePedido']['name'] != "") {
-		$archivo = subirArchivosAlServidor($_FILES['piePedido'], 'pp', $destino);
-		mysql_query("UPDATE configuracion SET conf_pie_pedido='" . $archivo . "' WHERE conf_id=1", $conexion);
-	}
-	if ($_FILES['encabezadoPedido2']['name'] != "") {
-		$archivo2 = subirArchivosAlServidor($_FILES['encabezadoPedido2'], 'ep2', $destino);
-		mysql_query("UPDATE configuracion SET conf_encabezado2_pedido='" . $archivo2 . "' WHERE conf_id=1", $conexion);
-	}
-
-	mysql_query("UPDATE configuracion SET conf_meta_venta='" . $_POST["metaVenta"] . "', conf_empresa='" . $_POST["nombre"] . "', conf_email='" . $_POST["email"] . "', conf_web='" . $_POST["web"] . "', conf_url_encuestas='" . $_POST["urlEncuestas"] . "', conf_nit='" . $_POST["nit"] . "', conf_telefono='" . $_POST["telefono"] . "', conf_fondo_boletin='" . $_POST["fondoBoletin"] . "', conf_fondo_mensaje='" . $_POST["fondoMensaje"] . "', conf_color_letra='" . $_POST["colorLetra"] . "', conf_color_link='" . $_POST["colorLink"] . "', conf_mensaje_pie='" . $_POST["mensajePie"] . "', conf_nombre_boton='" . $_POST["botonNombre"] . "', conf_url_boton='" . $_POST["botonUrl"] . "', conf_paginacion='" . $_POST["paginacion"] . "', conf_agno_inicio='" . $_POST["agnoInicio"] . "', conf_ancho_logo='" . $_POST["anchoLogo"] . "', conf_alto_logo='" . $_POST["altoLogo"] . "', conf_trm_compra='" . $_POST["dolarCompra"] . "', conf_trm_venta='" . $_POST["dolarVenta"] . "', conf_clave_correo='" . $_POST["claveEmail"] . "', conf_proveedor_cotizacion='" . $_POST["proveedorCotizacion"] . "', conf_porcentaje_clientes='" . $_POST["porcentajeClientes"] . "', conf_comision_vendedores='" . $_POST["comisionVendedores"] . "', conf_coreo_puntos='" . $_POST["correoPuntos"] . "', conf_vencimiento_puntos='" . $_POST["fechaVencimientoSaldo"] . "', conf_cliente_imprimir_certificado='" . $_POST["clientesImprimir"] . "' WHERE conf_id=1", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	echo '<script type="text/javascript">window.location.href="configuracion.php?msg=2";</script>';
-	exit();
-}
 //AGREGAR CONTACTOS
 if ($_POST["idSql"] == 24) {
 	mysql_query("INSERT INTO contactos(cont_nombre, cont_telefono, cont_email, cont_area, cont_cargo, cont_cliente_principal, cont_celular, cont_telefonos, cont_sucursal)VALUES('" . $_POST["nombre"] . "','" . $_POST["telefono"] . "','" . $_POST["email"] . "','" . $_POST["area"] . "','" . $_POST["cargo"] . "','" . $_POST["cliente"] . "','" . $_POST["celular"] . "','" . $_POST["telefonos"] . "','" . $_POST["sucursal"] . "')", $conexion);
@@ -1318,17 +1273,6 @@ if ($_POST["idSql"] == 32) {
 	$fin .= '';
 	$fin .=  '<html><body>';
 
-	/*
-	$sfrom=$configuracion["conf_email"]; //LA CUETA DEL QUE ENVIA EL MENSAJE			
-	$sdestinatario=$emails; //CUENTA DEL QUE RECIBE EL MENSAJE			
-	$ssubject=$_POST["asunto"]; //ASUNTO DEL MENSAJE 				
-	$shtml=$fin; //MENSAJE EN SI			
-	$sheader="From:".$sfrom."\nReply-To:".$sfrom."\n"; 			
-	$sheader=$sheader."X-Mailer:PHP/".phpversion()."\n"; 			
-	$sheader=$sheader."Mime-Version: 1.0\n"; 		
-	$sheader=$sheader."Content-Type: text/html; charset=UTF-8\r\n"; 			
-	@mail($sdestinatario,$ssubject,$shtml,$sheader);
-	*/
 
 	// Instantiation and passing `true` enables exceptions
 	$mail = new PHPMailer(true);
@@ -2302,31 +2246,10 @@ if ($_POST["idSql"] == 66) {
 	echo '<script type="text/javascript">window.location.href="areas-editar.php?id=' . $_POST["id"] . '";</script>';
 	exit();
 }
-//EDITAR PERFIL
-if ($_POST["idSql"] == 67) {
+//ESTABA AQUI EDITAR PERFIL
 
-	if ($_FILES['foto']['name'] != "") {
-		$extension = end(explode(".", $_FILES['foto']['name']));
-		$foto = uniqid('fp_') . "." . $extension;
-		$destino = "files/fotos";
-		move_uploaded_file($_FILES['foto']['tmp_name'], $destino . "/" . $foto);
 
-		mysql_query("UPDATE usuarios SET usr_foto='" . $foto . "' WHERE usr_id='" . $_SESSION["id"] . "'", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-	}
 
-	mysql_query("UPDATE usuarios SET usr_login='" . $_POST["usuario"] . "', usr_clave='" . $_POST["clave"] . "', usr_nombre='" . $_POST["nombre"] . "', usr_email='" . $_POST["email"] . "' WHERE usr_id='" . $_SESSION["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-
-	echo '<script type="text/javascript">window.location.href="perfil-editar.php?id=' . $_POST["id"] . '&msg=2";</script>';
-	exit();
-}
 //GESTIONAR PRODUCTOS CON PRECIO PREDETERMINADO
 if ($_POST["idSql"] == 68) {
 
@@ -2457,16 +2380,9 @@ if ($_POST["idSql"] == 73) {
 	echo '<script type="text/javascript">window.location.href="pedidos-timeline.php?id=' . $_POST["id"] . '&msg=2";</script>';
 	exit();
 }
-//EDITAR CONFIGURACIÓN - ESTRUCTURA DE MENSAJES
-if ($_POST["idSql"] == 74) {
-	mysql_query("UPDATE configuracion SET conf_emsj_cotizacion='" . $_POST["eCotizacion"] . "', conf_emsj_portafolios='" . $_POST["ePortafolio"] . "' WHERE conf_id=1", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	echo '<script type="text/javascript">window.location.href="estructura-mensajes.php?msg=2";</script>';
-	exit();
-}
+
+//aqui estaba la actualización de estructura de mensajes.
+
 //EDITAR CLAVE DE USUARIOS
 if ($_POST["idSql"] == 75) {
 	mysql_query("UPDATE usuarios SET  usr_clave=SHA1('" . $_POST["clave"] . "') WHERE usr_id='" . $_POST["id"] . "'", $conexion);
@@ -3171,18 +3087,7 @@ if ($_POST["idSql"] == 86) {
 	exit();
 }
 
-//EDITAR MÉTRICAS
-if ($_POST["idSql"] == 87) {
-
-	mysql_query("UPDATE metricas SET met_meta_venta_mes='" . $_POST["metames"] . "', met_dias_habiles='" . $_POST["dhabiles"] . "', met_bonificacion_mes='" . $_POST["bonificacion"] . "', met_punto_equilibrio='" . $_POST["pequilibrio"] . "', met_bono_meta='" . $_POST["bonoMeta"] . "'  
-	WHERE met_id='".$_POST['id']."'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	echo '<script type="text/javascript">window.location.href="metricas.php?msg=2&id='.$_POST['id'].'";</script>';
-	exit();
-}
+//aquí iba la parte de actualizar las métricas.
 
 //AGREGAR SUCURSALES
 if ($_POST["idSql"] == 88) {

@@ -1,16 +1,12 @@
 <?php
 require_once("../sesion.php");
-require_once("../../conexion.php");
 require("../funciones-para-el-sistema.php");
 
-$rst_usr = mysql_query("SELECT * FROM usuarios 
-    WHERE usr_id='" . $_SESSION["id"] . "' AND usr_clave=SHA1('" . $_POST["claveActual"] . "')", $conexion);
-if (mysql_errno() != 0) {
-    echo informarErrorAlUsuario(__LINE__, mysql_error());
-    exit();
-}
-$fila = mysql_fetch_array($rst_usr);
-$num = mysql_num_rows($rst_usr);
+$rst_usr = $conexionBdPrincipal->query("SELECT * FROM usuarios 
+    WHERE usr_id='" . $_SESSION["id"] . "' AND usr_clave=SHA1('" . $_POST["claveActual"] . "')");
+
+$fila = mysqli_fetch_array($rst_usr, MYSQLI_BOTH);
+$num = $rst_usr->num_rows;
 
 if ($num > 0) {
 
@@ -20,11 +16,7 @@ if ($num > 0) {
         exit();
     }
 
-    mysql_query("UPDATE usuarios SET  usr_clave=SHA1('" . $_POST["clave"] . "') WHERE usr_id='" . $_SESSION["id"] . "'", $conexion);
-    if (mysql_errno() != 0) {
-        echo informarErrorAlUsuario(__LINE__, mysql_error());
-        exit();
-    }
+    $conexionBdPrincipal->query("UPDATE usuarios SET  usr_clave=SHA1('" . $_POST["clave"] . "') WHERE usr_id='" . $_SESSION["id"] . "'");
 
     echo '<script type="text/javascript">window.location.href="../perfil-editar.php?msg=2";</script>';
     exit();

@@ -1,15 +1,14 @@
-<?php include("sesion.php"); ?>
 <?php
+include("sesion.php"); 
+
 $idPagina = 1;
 $tituloPagina = "Inicio";
+
+include("verificar-paginas.php");
+include("head.php");
+include("guardar-historial-acciones.php");
 ?>
-<?php include("verificar-paginas.php"); ?>
-<?php include("head.php"); ?>
-<?php
-if(isset($_SERVER['HTTP_REFERER'])) {
-	$conexionBdPrincipal->query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('" . $_SESSION["id"] . "', '" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "', '" . $idPagina . "', now(),'" . $_SERVER['HTTP_REFERER'] . "')");
-}
-?>
+
 <!-- styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/jquery.gritter.css" rel="stylesheet">
@@ -283,7 +282,7 @@ while ($cte = mysql_fetch_array($clientes)) {
 
 							<div class="content-widgets gray">
 								<div class="widget-head green">
-									<h3><i class="icon-download"></i> Exportar Excel</h3>
+									<h3><i class="icon-download"></i> Exportar Excell</h3>
 								</div>
 								<div class="widget-container">
 									<ul class="sample-noty">
