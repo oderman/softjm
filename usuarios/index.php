@@ -6,7 +6,6 @@ $tituloPagina = "Inicio";
 
 include("verificar-paginas.php");
 include("head.php");
-include("guardar-historial-acciones.php");
 ?>
 
 <!-- styles -->

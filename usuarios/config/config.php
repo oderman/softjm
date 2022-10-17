@@ -3,4 +3,5 @@ $consultaConfig = $conexionBdPrincipal->query("SELECT * FROM configuracion WHERE
 $configu = mysqli_fetch_array($consultaConfig, MYSQLI_BOTH);
 
 //Estaba en la barra lateral
-$configuracion = mysqli_fetch_array($consultaConfig, MYSQLI_BOTH);
+$consultaConfig2 = $conexionBdPrincipal->query("SELECT * FROM configuracion WHERE conf_id=1");
+$configuracion = mysqli_fetch_array($consultaConfig2, MYSQLI_BOTH);

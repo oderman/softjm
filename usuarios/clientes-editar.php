@@ -1,15 +1,15 @@
-<?php include("sesion.php");?>
-<?php
-$resultadoD = mysql_fetch_array(mysql_query("SELECT * FROM clientes WHERE cli_id='".$_GET["id"]."'",$conexion));
+<?php 
+include("sesion.php");
 
 $idPagina = 11;
+
+include("verificar-paginas.php");
+include("head.php");
+
+$consulta = $conexionBdPrincipal->query("SELECT * FROM clientes WHERE cli_id='".$_GET["id"]."'");
+$resultadoD = mysqli_fetch_array($consulta, MYSQLI_BOTH);
+
 $tituloPagina = strtoupper($resultadoD['cli_nombre']);
-?>
-<?php include("verificar-paginas.php");?>
-<?php include("head.php");?>
-<?php
-mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('".$_SESSION["id"]."', '".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."', '".$idPagina."', now(),'".$_SERVER['HTTP_REFERER']."')",$conexion);
-if(mysql_errno()!=0){echo mysql_error(); exit();}
 ?>
 
 <!-- styles -->
@@ -54,108 +54,16 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 <script src="js/custom.js"></script>
 <script src="js/respond.min.js"></script>
 <script src="js/ios-orientationchange-fix.js"></script>
-<script type="text/javascript">
-    /*====TAGS INPUT====*/
-    $(function () {
-        $('#tags_1').tagsInput({
-            width: 'auto'
-        });
-        $('#tags_2').tagsInput({
-            width: 'auto',
-            onChange: function (elem, elem_tags) {
-                var languages = ['php', 'ruby', 'javascript'];
-                $('.tag', elem_tags).each(function () {
-                    if ($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0) $(this).css('background-color', 'yellow');
-                });
-            }
-        });
-    });
-    /*====Select Box====*/
-    $(function () {
-        $(".chzn-select").chosen();
-        $(".chzn-select-deselect").chosen({
-            allow_single_deselect: true
-        });
-    });
-    /*====Color Picker====*/
-    $(function () {
-        $('.colorpicker').colorpicker({
-            format: 'hex'
-        });
-        $('.pick-color').colorpicker();
-    });
-    /*====DATE Time Picker====*/
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            language: 'pt-BR'
-        });
-    });
-    $(function () {
-        $('#datetimepicker3').datetimepicker({
-            pickDate: false
-        });
-    });
-    $(function () {
-        $('#datetimepicker4').datetimepicker({
-            pickTime: false
-        });
-    });
-    /*DATE RANGE PICKER*/
-    $(function () {
-        $('#reportrange').daterangepicker({
-            ranges: {
-                'Today': ['today', 'today'],
-                'Yesterday': ['yesterday', 'yesterday'],
-                'Last 7 Days': [Date.today().add({
-                    days: -6
-                }), 'today'],
-                'Last 30 Days': [Date.today().add({
-                    days: -29
-                }), 'today'],
-                'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-                'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                    months: -1
-                }), Date.today().moveToFirstDayOfMonth().add({
-                    days: -1
-                })]
-            },
-            opens: 'left',
-            format: 'MM/dd/yyyy',
-            separator: ' to ',
-            startDate: Date.today().add({
-                days: -29
-            }),
-            endDate: Date.today(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2013',
-            locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom Range',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            },
-            showWeekNumbers: true,
-            buttonClasses: ['btn-danger']
-        },
-        function (start, end) {
-            $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-        });
-        //Set the initial state of the picker label
-        $('#reportrange span').html(Date.today().add({
-            days: -29
-        }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
-    });
-    $(function () {
-        $('#reservation').daterangepicker();
-    });
-	
-</script>
+
+<?php 
+//Son todas las funciones javascript para que los campos del formulario funcionen bien.
+include("js-formularios.php");
+?>
+
 <?php include("funciones-js.php");?>
 
 <?php include("texto-editor.php");?>
+
 </head>
 <body>
 <div class="layout">
@@ -168,15 +76,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 			<div class="row-fluid ">
 				<div class="span12">
 					<div class="primary-head">
-						<h3 class="page-header"><?=$tituloPagina;?></h3>
-						
-                        <ul class="top-right-toolbar">
-							<li><a data-toggle="dropdown" class="dropdown-toggle blue-violate" href="#" title="Users"><i class="icon-user"></i></a>
-							</li>
-							<li><a href="#" class="green" title="Upload"><i class=" icon-upload-alt"></i></a></li>
-							<li><a href="#" class="bondi-blue" title="Settings"><i class="icon-cogs"></i></a></li>
-						</ul>
-                        
+						<h3 class="page-header"><?=$tituloPagina;?></h3>  
 					</div>
 					<ul class="breadcrumb">
 						<li><a href="index.php" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
@@ -187,16 +87,12 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 			</div>
             <p>
 				<a href="clientes-agregar.php" class="btn btn-danger"><i class="icon-plus"></i> Agregar nuevo</a>
-				<a href="sql.php?get=45&id=<?=$_GET["id"];?>" class="btn btn-info"><i class="icon-envelope"></i> Enviar credenciales</a>
-			</p>
-            <!--
-			<p>
 
-                <a href="clientes-tikets.php?cte=<?=$_GET["id"];?>&emg=1" class="btn btn-info"><i class="icon-list"></i> Ver Tikets</a>
-                <a href="clientes-seguimiento.php?cte=<?=$_GET["id"];?>&emg=1" class="btn btn-success"><i class="icon-list-alt"></i> Ver Seguimiento</a>
-            </p>
--->
+				<a href="enviar_correos/clientes-enviar-credenciales.php?id=<?=$_GET["id"];?>" class="btn btn-info" onClick="if(!confirm('Desea ejecutar esta accion?')){return false;}"><i class="icon-envelope"></i> Enviar credenciales</a>
+			</p>
+
             <?php include("notificaciones.php");?>
+			
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="content-widgets gray">
@@ -218,8 +114,8 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 									<div class="tab-content">
 										<div class="tab-pane active" id="user">
 											
-											<form class="form-horizontal" method="post" action="sql.php">
-												<input type="hidden" name="idSql" value="6">
+											<form class="form-horizontal" method="post" action="bd_update/clientes-actualizar.php">
+
 												<input type="hidden" name="id" value="<?=$_GET["id"];?>">
 													<?php
 													if($datosUsuarioActual['usr_tipo']==1){$campoC = "text";} else{$campoC = "password";}
@@ -263,14 +159,6 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<input type="text" class="span4" name="sigla" style="text-transform:uppercase;" value="<?=$resultadoD['cli_sigla'];?>">
 														</div>
 													</div>
-														<!--
-													<div class="control-group">
-														<label class="control-label">SIGLA  (Nombre corto)</label>
-														<div class="controls">
-															<input type="text" class="span4" name="sigla" style="text-transform:uppercase;" value="<?=$resultadoD['cli_sigla'];?>">
-														</div>
-													</div>
--->
 
 													<div class="control-group">
 														<label class="control-label">Email</label>
@@ -314,8 +202,10 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="ciudad">
 																<option value=""></option>
 																<?php
-																$conOp = mysql_query("SELECT * FROM localidad_ciudades INNER JOIN localidad_departamentos ON dep_id=ciu_departamento ORDER BY ciu_nombre",$conexion);
-																while($resOp = mysql_fetch_array($conOp)){
+																$conOp = $conexionBdAdmin->query("SELECT * FROM localidad_ciudades 
+																INNER JOIN localidad_departamentos ON dep_id=ciu_departamento 
+																ORDER BY ciu_nombre");
+																while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 																?>
 																	<option value="<?=$resOp['ciu_id'];?>" <?php if($resultadoD['cli_ciudad']==$resOp['ciu_id']){echo "selected";}?>><?=$resOp['ciu_nombre'].", ".$resOp['dep_nombre'];?></option>
 																<?php
@@ -331,8 +221,8 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="zona" disabled>
 																<option value=""></option>
 																<?php
-																$conOp = mysql_query("SELECT * FROM zonas",$conexion);
-																while($resOp = mysql_fetch_array($conOp)){
+																$conOp = $conexionBdPrincipal->query("SELECT * FROM zonas");
+																while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
 																?>
 																	<option value="<?=$resOp['zon_id'];?>" <?php if($resultadoD['cli_zona']==$resOp['zon_id']){echo "selected";}?>><?=$resOp['zon_nombre'];?></option>
 																<?php
@@ -416,15 +306,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<input type="date" class="span4" name="fechaInicioUso" value="<?=$resultadoD['cli_inicio_uso'];?>" readonly>
 														</div>
 														 <span style="color: navy;">A partirde esta fecha tiene un año de acceso al CRM.</span>
-													</div>  
-													<!--
-													<div class="control-group">
-														<label class="control-label">Referencia de llegada</label>
-														<div class="controls">
-															<input type="text" class="span4" name="referencia" value="<?=$resultadoD['cli_referencia'];?>">
-														</div>
-													</div>
-													-->
+													</div> 
 													   
 													<div class="control-group">
 														<label class="control-label">Referencia de llegada</label>
@@ -447,9 +329,10 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<select data-placeholder="Escoja una opción..." class="chzn-select span8" multiple tabindex="2" name="grupos[]">
 																<option value=""></option>
 																<?php
-																$conOp = mysql_query("SELECT * FROM dealer",$conexion);
-																while($resOp = mysql_fetch_array($conOp)){
-																	$numD = mysql_num_rows(mysql_query("SELECT * FROM clientes_categorias WHERE cpcat_cliente='".$resultadoD['cli_id']."' AND cpcat_categoria='".$resOp[0]."'",$conexion));
+																$conOp = $conexionBdPrincipal->query("SELECT * FROM dealer");
+																while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
+																	$consulta = $conexionBdPrincipal->query("SELECT * FROM clientes_categorias WHERE cpcat_cliente='".$resultadoD['cli_id']."' AND cpcat_categoria='".$resOp[0]."'");
+																	$numD = $consulta->num_rows;
 																?>
 																	<option value="<?=$resOp[0];?>" <?php if($numD>0){echo "selected";}?>><?=$resOp[1];?></option>
 																<?php
@@ -477,9 +360,10 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="asesor">
 																<option value=""></option>
 																<?php
-																$conOp = mysql_query("SELECT * FROM usuarios WHERE usr_bloqueado!=1 ORDER BY usr_nombre",$conexion);
-																while($resOp = mysql_fetch_array($conOp)){
-																	$asociacion = mysql_num_rows(mysql_query("SELECT * FROM clientes_usuarios WHERE cliu_usuario='".$resOp[0]."' AND cliu_cliente='".$_GET["id"]."'",$conexion));
+																$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_bloqueado!=1 ORDER BY usr_nombre");
+																while($resOp = mysqli_fetch_array($conOp, MYSQLI_BOTH)){
+																	$conultaAsociacion = $conexionBdPrincipal->query("SELECT * FROM clientes_usuarios WHERE cliu_usuario='".$resOp[0]."' AND cliu_cliente='".$_GET["id"]."'");
+																	$asociacion = $conultaAsociacion->num_rows;
 																?>
 																	<option value="<?=$resOp[0];?>" <?php if($asociacion>0){echo "selected";}?>><?=strtoupper($resOp[4]);?></option>
 																<?php
@@ -556,13 +440,13 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 							</thead>
 							<tbody>
                             <?php
-							$consulta = mysql_query("SELECT * FROM sucursales
+							$consulta = $conexionBdPrincipal->query("SELECT * FROM sucursales
 							INNER JOIN clientes ON cli_id=sucu_cliente_principal 
 							INNER JOIN localidad_ciudades ON ciu_id=sucu_ciudad 
 							INNER JOIN localidad_departamentos ON dep_id=ciu_departamento
-							WHERE sucu_cliente_principal='".$_GET["id"]."'",$conexion);
+							WHERE sucu_cliente_principal='".$_GET["id"]."'");
 							$no = 1;
-							while($res = mysql_fetch_array($consulta)){
+							while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
 							?>
 							<tr>
 								<td><?=$no;?></td>
@@ -605,10 +489,17 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															</thead>
 															<tbody>
 															<?php
-															$consulta = mysql_query("SELECT * FROM contactos INNER JOIN clientes ON cli_id=cont_cliente_principal WHERE cont_cliente_principal='".$_GET["id"]."'",$conexion);
+															$consulta = $conexionBdPrincipal->query("SELECT * FROM contactos 
+															INNER JOIN clientes ON cli_id=cont_cliente_principal 
+															WHERE cont_cliente_principal='".$_GET["id"]."'");
 															$no = 1;
-															while($res = mysql_fetch_array($consulta)){
-																$sucursal = mysql_fetch_array(mysql_query("SELECT * FROM sucursales WHERE sucu_id='".$res['cont_sucursal']."'",$conexion));
+															while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
+
+																$consultaSucursal = $conexionBdPrincipal->query("SELECT * FROM sucursales 
+																WHERE sucu_id='".$res['cont_sucursal']."'");
+																$sucursal = mysqli_fetch_array($consultaSucursal, MYSQLI_BOTH);
+
+																$sucursalNombre = isset($sucursal['sucu_nombre']) ? $sucursal['sucu_nombre'] : '[Sin sucursal]';
 															?>
 															<tr>
 																<td><?=$no;?></td>
@@ -616,7 +507,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 																<td><?=$res['cont_telefono'];?></td>
 																<td><?=$res['cont_celular'];?></td>
 																<td><?=$res['cont_email'];?></td>
-																<td><?=$sucursal['sucu_nombre'];?></td>
+																<td><?=$sucursalNombre;?></td>
 																<td><h4>
 																	<a href="clientes-contactos-editar.php?id=<?=$res[0];?>&cte=<?=$_GET["id"];?>" data-toggle="tooltip" title="Editar" target="_blank"><i class="icon-edit"></i></a>
 																</h4></td>
@@ -658,13 +549,17 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															</thead>
 															<tbody>
 															<?php
-															$consulta = mysql_query("SELECT * FROM clientes_tikets
+															$consulta = $conexionBdPrincipal->query("SELECT * FROM clientes_tikets
 															INNER JOIN clientes ON cli_id=tik_cliente
 															INNER JOIN usuarios ON usr_id=tik_usuario_responsable
-															WHERE tik_cliente='".$_GET["id"]."'",$conexion);
+															WHERE tik_cliente='".$_GET["id"]."'");
 															$no = 1;
-															while($res = mysql_fetch_array($consulta)){
-																$numSeg = mysql_num_rows(mysql_query("SELECT * FROM cliente_seguimiento WHERE cseg_tiket='".$res['tik_id']."'",$conexion));
+															while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
+																$consultaNumSeg = $conexionBdPrincipal->query("SELECT * FROM cliente_seguimiento WHERE cseg_tiket='".$res['tik_id']."'");
+																$numSeg = $consultaNumSeg->num_rows;
+																
+																
+
 																switch($res['tik_tipo_tiket']){
 																	case 1: $tipoS = 'Comercial'; $etiquetaT='success'; break;
 																	case 2: $tipoS = 'Servicio técnico'; $etiquetaT='info'; break;
@@ -729,19 +624,30 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															</thead>
 															<tbody>
 															<?php
-															$consulta = mysql_query("SELECT * FROM cliente_seguimiento
+															$consulta = $conexionBdPrincipal->query("SELECT * FROM cliente_seguimiento
 															INNER JOIN clientes ON cli_id=cseg_cliente
 															INNER JOIN usuarios ON usr_id=cseg_usuario_responsable
-															WHERE cseg_cliente='".$_GET["id"]."'",$conexion);
+															WHERE cseg_cliente='".$_GET["id"]."'");
 															$no = 1;
-															while($res = mysql_fetch_array($consulta)){
-																$encargado = mysql_fetch_array(mysql_query("SELECT * FROM usuarios WHERE usr_id='".$res['cseg_usuario_encargado']."'",$conexion));
-																$contacto = mysql_fetch_array(mysql_query("SELECT * FROM contactos WHERE cont_id='".$res['cseg_contacto']."'",$conexion));
+															while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
+																$consultaEncargado = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_id='".$res['cseg_usuario_encargado']."'");
+																$encargado = mysqli_fetch_array($consultaEncargado, MYSQLI_BOTH);
+
+																$consultaContacto = $conexionBdPrincipal->query("SELECT * FROM contactos WHERE cont_id='".$res['cseg_contacto']."'");
+																$contacto = mysqli_fetch_array($consultaContacto, MYSQLI_BOTH);
 																if($datosUsuarioActual[3]!=1){
-																	$numZ = mysql_num_rows(mysql_query("SELECT * FROM zonas_usuarios WHERE zpu_usuario='".$_SESSION["id"]."' AND zpu_zona='".$res['cli_zona']."'",$conexion));
-																	if($numZ==0) continue;
+																	$consultaNumZ = $conexionBdPrincipal->query("SELECT * FROM zonas_usuarios WHERE zpu_usuario='".$_SESSION["id"]."' AND zpu_zona='".$res['cli_zona']."'");
+																	$numZ = $consultaNumZ->num_rows;
+																	if($numZ ==0 ) continue;
 																}
-																if($res['cseg_id']==$_GET['seg']){$fondoColor = 'style="background:#99DFC6; font-weight:bold;"'; } else {$fondoColor = '';}
+
+																$fondoColor = '';
+																if(isset($_GET['seg'])){ 
+																	if($res['cseg_id']==$_GET['seg']){$fondoColor = 'style="background:#99DFC6; font-weight:bold;"'; }
+																}
+																
+																
+
 																switch($res['cseg_realizado']){
 																	case 1: $html = '<span class="label label-success">Completado</span>'; break;
 																	default: $html = '<a href="sql.php?id='.$res['cseg_id'].'&get=28" class="label label-important">Pendiente</a>'; break;
@@ -750,9 +656,16 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															<tr>
 																<td <?=$fondoColor;?>><?=$no;?></td>
 																<td <?=$fondoColor;?>>
-																	<?php echo "<b>Nombre</b>:". $contacto['cont_nombre'];?>
-																	<?php if($contacto['cont_telefono']!="") echo "<br><b>Tel:</b> ". $res['cont_telefono'];?>
-																	<?php if($contacto['cont_email']!="") echo "<br><b>Email:</b> ". $res['cont_email'];?>
+																	<?php
+																	if(isset($contacto['cont_nombre'])){
+																		echo "<b>Nombre</b>:". $contacto['cont_nombre'];
+																	}
+																		
+																	?>
+																	<?php 
+																	if(isset($res['cont_telefono'])) echo "<br><b>Tel:</b> ". $res['cont_telefono'];
+																	?>
+																	<?php if(isset($res['cont_email'])) echo "<br><b>Email:</b> ". $res['cont_email'];?>
 																	
 																	<h4 style="margin-top:10px;">
 																			<a href="clientes-seguimiento-editar.php?id=<?=$res[0];?>&cte=<?=$_GET["id"];?>" data-toggle="tooltip" title="Editar" target="_blank"><i class="icon-edit"></i></a>&nbsp;
@@ -806,13 +719,14 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															</thead>
 															<tbody>
 															<?php
-															$consulta = mysql_query("SELECT * FROM cotizacion
+															$consulta = $conexionBdPrincipal->query("SELECT * FROM cotizacion
 															INNER JOIN clientes ON cli_id=cotiz_cliente AND cli_id='".$_GET["id"]."'
 															INNER JOIN usuarios ON usr_id=cotiz_creador
-															",$conexion);
+															");
 															$no = 1;
-															while($res = mysql_fetch_array($consulta)){
-																$vendedor = mysql_fetch_array(mysql_query("SELECT * FROM usuarios WHERE usr_id='".$res['cotiz_vendedor']."'",$conexion));
+															while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
+																$consultaVendedor = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_id='".$res['cotiz_vendedor']."'");
+																$vendedor = mysqli_fetch_array($consultaVendedor, MYSQLI_BOTH);
 																
 																$fondoCotiz = '';
 																if($res['cotiz_vendida']==1){
@@ -824,19 +738,20 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 																<td><?=$res['cotiz_fecha_propuesta'];?></td>
 																<td>
 																	<?php
-																		$productos = mysql_query("SELECT * FROM cotizacion_productos
+																		$productos = $conexionBdPrincipal->query("SELECT * FROM cotizacion_productos
 																		INNER JOIN productos ON prod_id=czpp_producto
 																		WHERE czpp_cotizacion='".$res['cotiz_id']."'
-																		",$conexion);
+																		");
 																		$i = 1;
-																		while($prod = mysql_fetch_array($productos)){
+																		while($prod = mysqli_fetch_array($productos, MYSQLI_BOTH)){
 																			echo "<b>".$i.".</b> ".$prod['prod_nombre'].", ";
 																			$i++;
 																		}
 																	?>
+
 																</td>
-																<td><?=strtoupper($res['usr_nombre']);?></td>
-																<td><?=strtoupper($vendedor['usr_nombre']);?></td>
+																<td><?php if(isset($res['usr_nombre'])) echo strtoupper($res['usr_nombre']);?></td>
+																<td><?php if(isset($vendedor['usr_nombre'])) echo strtoupper($vendedor['usr_nombre']);?></td>
 																<td>
 																	<div class="btn-group">
 																		<button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Acciones <span class="caret"></span>
@@ -892,14 +807,15 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 															</thead>
 															<tbody>
 															<?php
-															$consulta = mysql_query("SELECT * FROM facturacion
+															$consulta = $conexionBdPrincipal->query("SELECT * FROM facturacion
 															INNER JOIN clientes ON cli_id=fact_cliente
 															INNER JOIN localidad_ciudades ON ciu_id=cli_ciudad
 															INNER JOIN localidad_departamentos ON dep_id=ciu_departamento
-															WHERE fact_cliente='".$_GET["id"]."'",$conexion);
+															WHERE fact_cliente='".$_GET["id"]."'");
 															$no = 1;
-															while($res = mysql_fetch_array($consulta)){
-																$abonos = mysql_fetch_array(mysql_query("SELECT sum(fpab_valor) FROM facturacion_abonos WHERE fpab_factura='".$res['fact_id']."'",$conexion));
+															while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
+																$consultaAbonos = $conexionBdPrincipal->query("SELECT sum(fpab_valor) FROM facturacion_abonos WHERE fpab_factura='".$res['fact_id']."'");
+																$abonos = mysqli_fetch_array($consultaAbonos, MYSQLI_BOTH);
 								
 								
 																$impuestos = $res['fact_valor'] * $res['fact_impuestos']/100;
@@ -968,55 +884,6 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 
 			</div>
             
-            <!--
-             <div class="row-fluid">
-				<div class="span12">
-					<div class="content-widgets gray">
-						<div class="widget-head bondi-blue">
-							<h3> <?=$tituloPagina;?></h3>
-						</div>
-						<div class="widget-container">
-                                
-                                <div class="control-group">
-									<label class="control-label">Alcance</label>
-									<div class="controls">
-										<textarea rows="5" cols="80" style="width: 100%" class="tinymce-simple" name="alcance"><?=$resultadoD['cli_pa_alcance'];?></textarea>
-									</div>
-								</div>
-                                
-                                <div class="control-group">
-									<label class="control-label">Primera auditoría</label>
-									<div class="controls">
-										<textarea rows="5" cols="80" style="width: 100%" class="tinymce-simple" name="pa"><?=$resultadoD['cli_pa_primera_auditoria'];?></textarea>
-									</div>
-								</div>
-                                
-                                <div class="control-group">
-									<label class="control-label">Segunda auditoría</label>
-									<div class="controls">
-										<textarea rows="5" cols="80" style="width: 100%" class="tinymce-simple" name="sa"><?=$resultadoD['cli_pa_segunda_auditoria'];?></textarea>
-									</div>
-								</div>
-                                
-                                <div class="control-group">
-									<label class="control-label">Renovación</label>
-									<div class="controls">
-										<textarea rows="5" cols="80" style="width: 100%" class="tinymce-simple" name="renovacion"><?=$resultadoD['cli_pa_renovacion'];?></textarea>
-									</div>
-								</div>
-
-								<div class="form-actions">
-									<a href="clientes.php" class="btn btn-primary"><i class="icon-arrow-left"></i> Regresar</a>
-                                    <button type="submit" class="btn btn-info"><i class="icon-save"></i> Guardar cambios</button>
-								</div>
-                              
-                              
-
-						</div>
-					</div>
-				</div>
-			</div>
-            -->
 
 		</div>
 	</div>

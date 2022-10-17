@@ -48,9 +48,9 @@ function axiosAjax(datos){
 </script>
 
 <?php
-$tiempo_final = microtime(true);
-  $tiempo = $tiempo_final - $tiempo_inicial;
-  echo "se cargo el sitio web en ".round($tiempo,3);
+include("guardar-historial-acciones.php");
+
+echo "se cargo el sitio web en ".$tiempoMostrar;
 ?>
 
 <div style="height: 100px;"></div>

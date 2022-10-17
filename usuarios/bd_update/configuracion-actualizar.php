@@ -4,13 +4,13 @@ require("../funciones-para-el-sistema.php");
 
 
 	if ($_FILES['logo']['name'] != "") {
-		$destino = $RUTA_PROYECTO."/usuarios/files";
+		$destino = RUTA_PROYECTO."/usuarios/files";
 		$archivo = subirArchivosAlServidor($_FILES['logo'], 'logo', $destino);
 
 		$conexionBdPrincipal->query("UPDATE configuracion SET conf_logo='" . $archivo . "' WHERE conf_id=1");
 	}
 
-	$destino = $RUTA_PROYECTO."/usuarios/images";
+	$destino = RUTA_PROYECTO."/usuarios/images";
 	if ($_FILES['encabezadoCotizacion']['name'] != "") {
 		$archivo = subirArchivosAlServidor($_FILES['encabezadoCotizacion'], 'ec', $destino);
 
@@ -29,7 +29,7 @@ require("../funciones-para-el-sistema.php");
 		$conexionBdPrincipal->query("UPDATE configuracion SET conf_encabezado2_cotizacion='" . $archivo2 . "' WHERE conf_id=1");
 	}
 
-	$destino = $RUTA_PROYECTO."/usuarios/images";
+	$destino = RUTA_PROYECTO."/usuarios/images";
 	if ($_FILES['encabezadoPedido']['name'] != "") {
 		$archivo = subirArchivosAlServidor($_FILES['encabezadoPedido'], 'ep', $destino);
 		$conexionBdPrincipal->query("UPDATE configuracion SET conf_encabezado_pedido='" . $archivo . "' WHERE conf_id=1");

@@ -1,6 +1,9 @@
 <?php
 require_once("../sesion.php");
-require("../funciones-para-el-sistema.php");
+require(RUTA_PROYECTO."/usuarios/funciones-para-el-sistema.php");
+
+$idPagina = 178;
+include(RUTA_PROYECTO."/usuarios/verificar-paginas.php");
 
 $rst_usr = $conexionBdPrincipal->query("SELECT * FROM usuarios 
     WHERE usr_id='" . $_SESSION["id"] . "' AND usr_clave=SHA1('" . $_POST["claveActual"] . "')");

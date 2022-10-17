@@ -67,56 +67,7 @@ if ($_POST["idSql"] == 2) {
 		exit();
 	}
 
-	/*
-	$numero = (count($_POST["zona"]));
-	$contador = 0;
-	mysql_query("DELETE FROM zonas_usuarios WHERE zpu_usuario='" . $_POST["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	while ($contador < $numero) {
-		mysql_query("INSERT INTO zonas_usuarios(zpu_usuario, zpu_zona)VALUES('" . $_POST["id"] . "'," . $_POST["zona"][$contador] . ")", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-		$contador++;
-	}
-
-	$numero = (count($_POST["cliente"]));
-	$contador = 0;
-	mysql_query("DELETE FROM clientes_usuarios WHERE cliu_usuario='" . $_POST["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	while ($contador < $numero) {
-		mysql_query("INSERT INTO clientes_usuarios(cliu_usuario, cliu_cliente, cliu_fecha)VALUES('" . $_POST["id"] . "'," . $_POST["cliente"][$contador] . ", now())", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-		$contador++;
-	}
-
-
-	$numero = (count($_POST["paginas"]));
-		$contador = 0;
-		mysql_query("DELETE FROM paginas_usuarios WHERE pusr_usuario='" . $_POST["id"] . "'", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-		while ($contador < $numero) {
-			mysql_query("INSERT INTO paginas_usuarios(pusr_pagina, pusr_usuario)VALUES(" . $_POST["paginas"][$contador] . ",'" . $_POST["id"] . "')", $conexion);
-			if (mysql_errno() != 0) {
-				echo informarErrorAlUsuario(__LINE__, mysql_error());
-				exit();
-			}
-			$contador++;
-		}
-		*/
+	
 
 	echo '<script type="text/javascript">window.location.href="usuarios-editar.php?id=' . $_POST["id"] . '&msg=2";</script>';
 	exit();
@@ -266,61 +217,8 @@ if ($_POST["idSql"] == 5) {
 	echo '<script type="text/javascript">window.location.href="clientes-editar.php?id=' . $idInsertU . '&msg=1";</script>';
 	exit();
 }
-//EDITAR CLIENTES
-if ($_POST["idSql"] == 6) {
-	if ($_POST["fechaIngreso"] == "") $_POST["fechaIngreso"] = '0000-00-00';
-	if ($_POST["retiroFecha"] == "") $_POST["retiroFecha"] = '0000-00-00';
-	$zona = mysql_fetch_array(mysql_query("SELECT * FROM localidad_ciudades WHERE ciu_id='" . $_POST["ciudad"] . "'", $conexion));
-
-	if (trim($_POST["usuario"]) != "") {
-		$clienteV = mysql_num_rows(mysql_query("SELECT * FROM clientes WHERE cli_usuario='" . trim($_POST["usuario"]) . "' AND cli_id!='" . $_POST["id"] . "'", $conexion));
-		if ($clienteV > 0) {
-			echo "<div style='font-family:arial; text-align:center'>Ya existe un cliente con este n&uacute;mero de NIT. Verifique para que no lo registre nuevamente.<br><br>
-			<a href='javascript:history.go(-1);'>[P&aacute;gina anterior]</a></span> | <a href='clientes.php'>[Ir a clientes]</a></div>";
-			exit();
-		}
-	}
-
-	mysql_query("UPDATE clientes SET cli_nombre='" . $_POST["nombre"] . "', cli_referencia='" . $_POST["referencia"] . "', cli_categoria='" . $_POST["categoria"] . "', cli_email='" . $_POST["email"] . "', cli_telefono='" . $_POST["telefono"] . "', cli_ciudad='" . $_POST["ciudad"] . "', cli_usuario='" . trim($_POST["usuarioCliente"]) . "', cli_clave='" . $_POST["claveCliente"] . "', cli_direccion='" . $_POST["direccion"] . "', cli_zona='" . $zona[2] . "', cli_fecha_ingreso='" . $_POST["fechaIngreso"] . "', cli_nivel='" . $_POST["nivel"] . "', cli_celular='" . $_POST["celular"] . "', cli_telefonos='" . $_POST["telefonos"] . "', cli_sigla='" . $_POST["sigla"] . "', cli_causa_retiro='" . $_POST["retiroCausa"] . "', cli_responsable_retiro='" . $_POST["retiroResponsable"] . "', cli_fecha_retiro='" . $_POST["retiroFecha"] . "', cli_retirado='" . $_POST["retirado"] . "', cli_ultima_modificacion=now(), cli_usuario_modificacion='" . $_SESSION["id"] . "', cli_servicios='" . $_POST["servicios"] . "', cli_saldo='" . $_POST["saldo"] . "', cli_clave_documentos='" . $_POST["claveDocumentos"] . "', cli_credito='" . $_POST["credito"] . "', cli_tipo_documento='" . $_POST["tipoDocumento"] . "' WHERE cli_id='" . $_POST["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	$numero = (count($_POST["grupos"]));
-	$contador = 0;
-	mysql_query("DELETE FROM clientes_categorias WHERE cpcat_cliente='" . $_POST["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	while ($contador < $numero) {
-		mysql_query("INSERT INTO clientes_categorias(cpcat_cliente, cpcat_categoria)VALUES('" . $_POST["id"] . "'," . $_POST["grupos"][$contador] . ")", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-		$contador++;
-	}
 
 
-	if ($_POST["asesor"] != "") {
-		mysql_query("DELETE FROM clientes_usuarios WHERE cliu_cliente='" . $_POST["id"] . "'", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-
-		mysql_query("INSERT INTO clientes_usuarios(cliu_usuario, cliu_cliente, cliu_fecha)VALUES('" . $_POST["asesor"] . "'," . $_POST["id"] . ", now())", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-	}
-
-
-	echo '<script type="text/javascript">window.location.href="clientes-editar.php?id=' . $_POST["id"] . '&msg=2";</script>';
-	exit();
-}
 //AGREGAR SEGUIMIENTO CLIENTES
 if ($_POST["idSql"] == 7) {
 	/*if($_POST["idTK"]==""){
@@ -3257,25 +3155,7 @@ if ($_GET["get"] == 2) {
 	echo '<script type="text/javascript">window.location.href="roles.php?msg=3";</script>';
 	exit();
 }
-//ELIMINAR CLIENTES
-if ($_GET["get"] == 3) {
-	$idPagina = 55;
-	include("verificar-paginas.php");
-	mysql_query("DELETE FROM facturacion WHERE fact_cliente='" . $_GET["id"] . "'", $conexion);
-	mysql_query("DELETE FROM cliente_seguimiento WHERE cseg_cliente='" . $_GET["id"] . "'", $conexion);
-	mysql_query("DELETE FROM clientes_categorias WHERE cpcat_cliente='" . $_GET["id"] . "'", $conexion);
-	mysql_query("DELETE FROM clientes_tikets WHERE tik_cliente='" . $_GET["id"] . "'", $conexion);
-	mysql_query("DELETE FROM contactos WHERE cont_cliente_principal='" . $_GET["id"] . "'", $conexion);
-	mysql_query("DELETE FROM cotizacion WHERE cotiz_cliente='" . $_GET["id"] . "'", $conexion);
 
-	mysql_query("DELETE FROM clientes WHERE cli_id='" . $_GET["id"] . "'", $conexion);
-	if (mysql_errno() != 0) {
-		echo informarErrorAlUsuario(__LINE__, mysql_error());
-		exit();
-	}
-	echo '<script type="text/javascript">window.location.href="clientes.php?msg=3";</script>';
-	exit();
-}
 //ELIMINAR SEGUIMIENTO CLIENTES
 if ($_GET["get"] == 4) {
 	$idPagina = 56;
@@ -3894,75 +3774,7 @@ if ($_GET["get"] == 44) {
 	echo '<script type="text/javascript">window.location.href="cotizaciones.php?msg=6";</script>';
 	exit();
 }
-//ENVIAR CREDENCIALES AL CORREO
-if ($_GET["get"] == 45) {
 
-	$resultado = mysql_fetch_array(mysql_query("SELECT * FROM clientes
-	WHERE cli_id='" . $_GET["id"] . "'", $conexion));
-
-	$fin =  '<html><body style="background-color:' . $configuracion["conf_fondo_boletin"] . ';">';
-	$fin .= '
-				<center>
-					<p align="center"><img src="' . $configuracion["conf_url_encuestas"] . '/usuarios/files/' . $configuracion["conf_logo"] . '" width="350"></p>
-					<div style="font-family:arial; background:' . $configuracion["conf_fondo_mensaje"] . '; width:800px; color:#000; text-align:justify; padding:15px; border-radius:5px;">
-						
-						<p style="color:' . $configuracion["conf_color_letra"] . ';">' . strtoupper($resultado['cli_nombre']) . ',<br>
-						Estamos enviando sus credenciales de acceso al sistema de clientes de JMEQUIPOS. Sus credenciales son:<br>
-						<b>URL de acceso:</b> https://jmequipos.com/clientes.php<br>
-						<b>Usuario:</b> ' . $resultado['cli_usuario'] . '<br>
-						<b>Contraseña:</b> ' . $resultado['cli_clave'] . '
-						</p>
-						
-						<p align="center" style="color:' . $configuracion["conf_color_letra"] . ';">
-							<img src="' . $configuracion["conf_url_encuestas"] . '/usuarios/files/' . $configuracion["conf_logo"] . '" width="80"><br>
-							' . $configuracion["conf_mensaje_pie"] . '<br>
-							<a href="' . $configuracion["conf_web"] . '" style="color:' . $configuracion["conf_color_link"] . ';">' . $configuracion["conf_web"] . '</a>
-						</p>
-						
-					</div>
-				</center>
-				<p>&nbsp;</p>
-			';
-	$fin .= '';
-	$fin .=  '<html><body>';
-
-
-	// Instantiation and passing `true` enables exceptions
-	$mail = new PHPMailer(true);
-
-	try {
-		//Server settings
-		$mail->SMTPDebug = 2;                                       // Enable verbose debug output
-		$mail->isSMTP();                                            // Set mailer to use SMTP
-		$mail->Host       = 'mail.orioncrm.com.co';  // Specify main and backup SMTP servers
-		$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-		$mail->Username   = $configuracion['conf_email'];                     // SMTP username
-		$mail->Password   = $configuracion['conf_clave_correo'];                               // SMTP password
-		$mail->SMTPSecure = 'ssl';                                  // Enable TLS encryption, `ssl` also accepted
-		$mail->Port       = 465;                                    // TCP port to connect to
-
-		//Recipients
-		$mail->setFrom($configuracion['conf_email'], 'INFORMACIÓN JMEQUIPOS');
-
-		$mail->addAddress($resultado['cli_email'], $resultado['cli_nombre']);     // Add a recipient
-
-
-		// Content
-		$mail->isHTML(true);                                  // Set email format to HTML
-		$mail->Subject = 'Credenciales de acceso';
-		$mail->Body = $fin;
-		$mail->CharSet = 'UTF-8';
-
-		$mail->send();
-		echo 'Enviada credenciales al cliente.';
-	} catch (Exception $e) {
-		echo "Error: {$mail->ErrorInfo}";
-	}
-
-
-	echo '<script type="text/javascript">window.location.href="clientes-editar.php?id=' . $_GET["id"] . '&msg=6";</script>';
-	exit();
-}
 //REPLICAR COTIZACIÓN
 if ($_GET["get"] == 46) {
 	//$idPagina = 72; include("verificar-paginas.php");
@@ -4168,20 +3980,7 @@ if ($_GET["get"] == 53) {
 	echo '<script type="text/javascript">window.location.href="' . $_SERVER['HTTP_REFERER'] . '";</script>';
 	exit();
 }
-//CAMBIAR TODAS LAS CLAVES DE CLIENTES
-if ($_GET["get"] == 54) {
-	$consulta = mysql_query("SELECT * FROM clientes", $conexion);
-	while ($datos = mysql_fetch_array($consulta)) {
-		$clave1 = generarClaves();
-		mysql_query("UPDATE clientes SET cli_clave='" . $clave1 . "' WHERE cli_id='" . $datos['cli_id'] . "'", $conexion);
-		if (mysql_errno() != 0) {
-			echo informarErrorAlUsuario(__LINE__, mysql_error());
-			exit();
-		}
-	}
-	echo '<script type="text/javascript">window.location.href="clientes.php?msg=passOk";</script>';
-	exit();
-}
+
 if ($_GET["get"] == 55) {
 	//$idPagina = 118; include("verificar-paginas.php");
 	mysql_query("DELETE FROM combos_productos WHERE copp_id='" . $_GET["idItem"] . "'", $conexion);

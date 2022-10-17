@@ -36,6 +36,19 @@ switch($_SESSION["bd"]){
 ?>
 <div class="loader"></div>
 
+<?php if($datosUsuarioActual['usr_tipo']==1){?>
+
+	<div style="height:50px; width:100%; background-color:black; padding:2px; color:#42FF00; display:flex; justify-content: center; align-items: center;">
+		<b>Sesion DB:&nbsp;</b> <?=$_SESSION["bd"]; ?>&nbsp;|&nbsp;
+		<b>ID Company:&nbsp;</b> <?=$configu['conf_id_empresa']; ?>&nbsp;|&nbsp;
+		<b>Current User ID:&nbsp;</b> <?=$_SESSION["id"]; ?>&nbsp;|&nbsp;
+		<b>ID Page:&nbsp;</b> <?=$idPagina; ?>&nbsp;|&nbsp; 
+	</div>
+
+<?php }?>
+
+	
+
 <div class="navbar navbar-inverse top-nav">
 		<div class="navbar-inner">
 			<div class="container">

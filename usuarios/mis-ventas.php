@@ -1,13 +1,12 @@
-	<?php 
-	include("sesion.php");
+<?php 
+include("sesion.php");
 	
-	$idPagina = 158;
-	$tituloPagina = "Mis Ventas";
+$idPagina = 158;
+$tituloPagina = "Mis Ventas";
 	
-	include("verificar-paginas.php");
-	include("head.php");
-	include("guardar-historial-acciones.php");
-	?>
+include("verificar-paginas.php");
+include("head.php");
+?>
 	<!-- styles -->
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">

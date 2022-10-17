@@ -86,6 +86,13 @@ if(isset($_GET["msg"])){
 		</div>
 	<?php }?>
 
+	<?php if($_GET["msg"]==13){?>
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<i class="icon-exclamation-sign"></i><strong>Exito!</strong> Las credenciales fueron enviadas correctamente.
+		</div>
+	<?php }?>
+
 
 <?php }?>
 

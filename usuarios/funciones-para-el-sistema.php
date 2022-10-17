@@ -48,3 +48,26 @@ function productosPrecioListaUSD($porcentajeUtilidad, $costoEnDolares){
 
 	return $precioListaUSD;
 }
+
+function contarClientesPorDepto($depto){
+	
+	require(RUTA_PROYECTO."/conexion.php");
+
+	$consultaDeptos = $conexionBdAdmin->query("SELECT ciu_id FROM localidad_ciudades
+	WHERE ciu_departamento='".$depto."'");
+	
+	$totalClientes = 0;
+	while($deptos = mysqli_fetch_array($consultaDeptos, MYSQLI_BOTH)){
+		$clientesParaContar = $conexionBdPrincipal->query("SELECT count(*) FROM clientes 
+		WHERE (cli_papelera IS NULL OR cli_papelera=0) AND cli_ciudad='".$deptos['ciu_id']."'");
+		$cantidad = mysqli_fetch_array($clientesParaContar, MYSQLI_BOTH);
+		
+		$totalClientes += $cantidad[0];
+		//$totalClientes += $clientesParaContar->num_rows;
+	}
+
+	
+	
+	return $totalClientes;
+}
+

@@ -1,13 +1,12 @@
-<?php include("sesion.php");?>
-<?php
+<?php 
+include("sesion.php");
+require("funciones-para-el-sistema.php");
+
 $idPagina = 9;
 $tituloPagina = "Clientes";
-?>
-<?php include("verificar-paginas.php");?>
-<?php include("head.php");?>
-<?php
-mysql_query("INSERT INTO historial_acciones(hil_usuario, hil_url, hil_titulo, hil_fecha, hil_pagina_anterior)VALUES('".$_SESSION["id"]."', '".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."', '".$idPagina."', now(),'".$_SERVER['HTTP_REFERER']."')",$conexion);
-if(mysql_errno()!=0){echo mysql_error(); exit();}
+
+include("verificar-paginas.php");
+include("head.php");
 ?>
 <!-- styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -152,6 +151,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 	<?php include("encabezado.php");?>
     
     <?php include("barra-izq.php");?>
+
 	<div class="main-wrapper">
 		<div class="container-fluid">
             <?php include("notificaciones.php");?>
@@ -159,9 +159,6 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
                 <a href="javascript:history.go(-1);" class="btn btn-primary"><i class="icon-arrow-left"></i> Regresar</a>
                 <a href="clientes-agregar.php" class="btn btn-danger"><i class="icon-plus"></i> Agregar nuevo</a>
 				<a href="clientes-importar.php" class="btn btn-success"><i class="icon-upload"></i> Cargar masivamente</a>
-				<!--
-				<a href="reportes/usuarios-gestion.php" class="btn btn-warning" target="_blank"><i class="icon-group"></i> Gestión de usuarios</a>
-				-->
                 	
 				<div class="btn-group">
 							<button class="btn btn-primary">Acciones</button>
@@ -171,10 +168,9 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 								<li><a href="clientes-filtro.php">Imprimir informe</a></li>
 								
 								<?php if($_SESSION["id"]==7 or $_SESSION["id"]==15 or $_SESSION["id"]==17){?>
-								<li><a href="excel-exportar.php?exp=1&dpto=<?=$_GET["dpto"];?>" target="_blank">Exportar a Excel</a></li>
-								<li><a href="sql.php?get=54">Cambiar todas las claves</a></li>
+								<li><a href="excel-exportar/clientes-exportar.php?dpto=<?php if(isset($_GET["dpto"])) echo $_GET["dpto"];?>" target="_blank">Exportar a Excel</a></li>
+								<li><a href="bd_update/clientes-actualizar-claves.php" onClick="if(!confirm('Desea ejecutar esta accion?')){return false;}">Cambiar todas las claves</a></li>
 								<li><a href="clientes.php?pap=1">Ver clientes en papelera</a></li>
-								<li><a href="clientes-siigo.php">Importar desde SIIGO</a></li>
 								<?php }?>
 								
 							</ul>
@@ -185,14 +181,14 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
                 <a href="clientes.php" style="margin-bottom:10px;">TODOS</a>
                 <?php
                 if($datosUsuarioActual[3]==1){
-					$departamentos = mysql_query("SELECT * FROM localidad_departamentos ORDER BY dep_nombre",$conexion);
+					$departamentos = $conexionBdPrincipal->query("SELECT * FROM localidad_departamentos ORDER BY dep_nombre");
 				}else{
-					$departamentos = mysql_query("SELECT * FROM localidad_departamentos
+					$departamentos = $conexionBdPrincipal->query("SELECT * FROM localidad_departamentos
 					INNER JOIN zonas_usuarios ON zpu_usuario='".$_SESSION["id"]."' AND zpu_zona=dep_id
 					ORDER BY dep_nombre
-					",$conexion);
+					");
 				}
-                while($deptos = mysql_fetch_array($departamentos)){
+                while($deptos = mysqli_fetch_array($departamentos, MYSQLI_BOTH)){
                     if($deptos[0]==$_GET["dpto"]) $color = 'green'; else $color = 'blue';
                 ?>
                     <a href="clientes.php?dpto=<?=$deptos[0];?>" style="margin-bottom:10px; color:<?=$color;?>"><?=$deptos[1];?></a>&nbsp;&nbsp;
@@ -212,23 +208,28 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
                 <a href="clientes.php" style="margin-bottom:10px;">TODOS</a><br>
                 <?php
                 if($datosUsuarioActual[3]==1){
-					$departamentos = mysql_query("SELECT * FROM localidad_departamentos ORDER BY dep_nombre",$conexion);
+					$departamentos = $conexionBdPrincipal->query("SELECT * FROM localidad_departamentos ORDER BY dep_nombre");
 				}else{
-					$departamentos = mysql_query("SELECT * FROM localidad_departamentos
+					$departamentos = $conexionBdPrincipal->query("SELECT * FROM localidad_departamentos
 					INNER JOIN zonas_usuarios ON zpu_usuario='".$_SESSION["id"]."' AND zpu_zona=dep_id
-					ORDER BY dep_nombre
-					",$conexion);
+					ORDER BY dep_nombre");
 				}
-                while($deptos = mysql_fetch_array($departamentos)){
-                    if($deptos[0]==$_GET["dpto"]) $color = 'green'; else $color = 'blue';
-					
-					$contarClientes = mysql_num_rows(mysql_query("SELECT * FROM clientes 
-					INNER JOIN localidad_ciudades ON ciu_id=cli_ciudad
-					INNER JOIN localidad_departamentos ON dep_id=ciu_departamento AND dep_id='".$deptos[0]."'
-					WHERE (cli_papelera IS NULL OR cli_papelera=0)
-					",$conexion));
+                while($deptos = mysqli_fetch_array($departamentos, MYSQLI_BOTH)){
+                    
+					$color = 'blue';
+					if(isset($_GET["dpto"])){
+						if($deptos[0]==$_GET["dpto"]) $color = 'green' ;
+					}
+
+					//$contarClientes = contarClientesPorDepto($deptos[0]);
                 ?>
-                    <a href="clientes.php?dpto=<?=$deptos[0];?>" style="margin-bottom:10px; color:<?=$color;?>"><?=$deptos[1]." (".$contarClientes.")";?></a><br>
+                    <a href="clientes.php?dpto=<?=$deptos[0];?>" style="margin-bottom:10px; color:<?=$color;?>"><?=$deptos[1];?></a><br>
+
+					<!--
+					Esta linea se comenta mientras se aprueba la propuesta de contar clientes	
+					<a href="clientes.php?dpto=<?=$deptos[0];?>" style="margin-bottom:10px; color:<?=$color;?>"><?=$deptos[1]." (".$contarClientes.")";?></a><br>
+					-->
+
                 <?php }?>
 					</div>
 					</div>
@@ -247,14 +248,19 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 							<ul class="dropdown-menu">
 								<li><a href="clientes.php">Todos</a></li>
 								<?php
-								$grupos = mysql_query("SELECT * FROM dealer",$conexion);
-								while($grupo = mysql_fetch_array($grupos)){
-									if($grupo[0]==$_GET["grupo"]) $color = 'black'; else $color = 'white';
+								$grupos = $conexionBdPrincipal->query("SELECT * FROM dealer");
+								while($grupo = mysqli_fetch_array($grupos, MYSQLI_BOTH)){
+									
+									$color = 'white';
+									if(isset($_GET["grupo"])){
+										if($grupo[0]==$_GET["grupo"]) $color = 'black' ;
+									}
 					
-									$contarClientes = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM clientes_categorias
+									$consultaContarClientes = $conexionBdPrincipal->query("SELECT COUNT(*) FROM clientes_categorias
 									INNER JOIN clientes ON cli_id=cpcat_cliente AND (cli_papelera=0 OR  cli_papelera IS NULL)
 									WHERE cpcat_categoria='".$grupo[0]."'
-									",$conexion));
+									");
+									$contarClientes = mysqli_fetch_array($consultaContarClientes, MYSQLI_BOTH);
 								?>
 								<li><a href="clientes.php?grupo=<?=$grupo[0];?>" style="color:<?=$color;?>"><?=$grupo['deal_nombre']." (".$contarClientes[0].")";?></a></li>
 								<?php }?>
@@ -267,8 +273,8 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 							</button>
 							<ul class="dropdown-menu">
 								<li><a href="clientes.php">Todos</a></li>
-								<li><a href="clientes.php?tipoDoc=2&grupo=<?=$_GET["grupo"];?>">NIT</a></li>
-								<li><a href="clientes.php?tipoDoc=3&grupo=<?=$_GET["grupo"];?>">Cédula</a></li>
+								<li><a href="clientes.php?tipoDoc=2&grupo=<?php if(isset($_GET["grupo"])) echo $_GET["grupo"];?>">NIT</a></li>
+								<li><a href="clientes.php?tipoDoc=3&grupo=<?php if(isset($_GET["grupo"])) echo $_GET["grupo"];?>">Cédula</a></li>
 							</ul>
 						</div>
 					</p>
@@ -282,8 +288,8 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 						if(isset($_GET["busqueda"]) and $_GET["busqueda"]!=""){
 							$filtro .= " AND (cli_usuario LIKE '%".$_GET["busqueda"]."%' OR cli_nombre LIKE '%".$_GET["busqueda"]."%')";
 						}
-						if($_GET["pap"]==1){ $filtro .= " AND cli_papelera=1";}
-						if(is_numeric($_GET["tipoDoc"])){ $filtro .= " AND cli_tipo_documento='".$_GET["tipoDoc"]."'";}
+						if(isset($_GET["pap"]) and $_GET["pap"]==1){ $filtro .= " AND cli_papelera=1";}
+						if(isset($_GET["tipoDoc"]) and is_numeric($_GET["tipoDoc"])){ $filtro .= " AND cli_tipo_documento='".$_GET["tipoDoc"]."'";}
 						?>
                         
 						<?php
@@ -309,7 +315,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
                                     <form class="form-horizontal" style="text-align: right;" action="<?=$_SERVER['PHP_SELF'];?>" method="get">
                                         <div class="search-box">
                                             <div class="input-append input-icon">
-                                                <input placeholder="Buscar..." type="text" name="busqueda" value="<?=$_GET["busqueda"];?>">
+                                                <input placeholder="Buscar..." type="text" name="busqueda" value="<?php if(isset($_GET["busqueda"])) echo $_GET["busqueda"]; ?>">
                                                 <i class=" icon-search"></i>
                                                 <input class="btn" type="submit" name="buscar" value="Buscar">
                                             </div>
@@ -337,31 +343,31 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 							<tbody>
                             <?php
 							$filtroGrupos = '';
-							if(is_numeric($_GET["grupo"])){ $filtroGrupos .="LEFT JOIN clientes_categorias ON cpcat_cliente=cli_id AND cpcat_categoria='".$_GET["grupo"]."'";}
+							if(isset($_GET["grupo"]) and is_numeric($_GET["grupo"])){ $filtroGrupos .="LEFT JOIN clientes_categorias ON cpcat_cliente=cli_id AND cpcat_categoria='".$_GET["grupo"]."'";}
 								
 							if(isset($_GET["dpto"]) and $_GET["dpto"]!=""){
-								$consulta = mysql_query("SELECT * FROM clientes
+								$consulta = $conexionBdPrincipal->query("SELECT * FROM clientes
 								INNER JOIN localidad_ciudades ON ciu_id=cli_ciudad
 								INNER JOIN localidad_departamentos ON dep_id=ciu_departamento AND dep_id='".$_GET["dpto"]."'
 								WHERE cli_id=cli_id ".$filtro."
 								LIMIT $inicio, $limite
-								",$conexion);
+								");
 							}else{
-								$consulta = mysql_query("SELECT * FROM clientes
+								$consulta = $conexionBdPrincipal->query("SELECT * FROM clientes
 								INNER JOIN localidad_ciudades ON ciu_id=cli_ciudad
 								INNER JOIN localidad_departamentos ON dep_id=ciu_departamento
 								$filtroGrupos
 								WHERE cli_id=cli_id ".$filtro."
 								LIMIT $inicio, $limite
-								",$conexion);
+								");
 							}
 							$no = 1;
-							while($res = mysql_fetch_array($consulta)){
+							while($res = mysqli_fetch_array($consulta, MYSQLI_BOTH)){
 								
 								$estadoSesion = 'gris.jpg';
 								if($res['cli_sesion']==1){$estadoSesion = 'verde.jpg';}
 								
-								if($res['cli_papelera']==1 and $_GET["pap"]!=1){continue;}
+								if(isset($_GET["pap"]) and $res['cli_papelera']==1 and $_GET["pap"]!=1){continue;}
 
 								$fondoPapelera = 'none';
 								$titleEstado = '';
@@ -394,7 +400,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 									case 3: $categ = 'Dealer'; $etiquetaC='info'; $fondoColorCat='aquamarine'; break;
 								}
 								
-								$numeros = mysql_fetch_array(mysql_query("
+								$consultaNumeros = $conexionBdPrincipal->query("
 								SELECT
 								(SELECT count(tik_id) FROM clientes_tikets WHERE tik_cliente='".$res['cli_id']."'),
 								(SELECT count(cseg_id) FROM cliente_seguimiento 
@@ -404,7 +410,9 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 								(SELECT count(cont_id) FROM contactos WHERE cont_cliente_principal='".$res['cli_id']."'),
 								(SELECT count(fact_id) FROM facturacion WHERE fact_cliente='".$res['cli_id']."'),
 								(SELECT count(rem_id) FROM remisiones WHERE rem_cliente='".$res['cli_id']."')
-								",$conexion));
+								");
+
+								$numeros = mysqli_fetch_array($consultaNumeros, MYSQLI_BOTH);
 								
 								$color1='#FFF';	$color2='#FFF';	$color3='#FFF';	$color4='#FFF';	$color5='#FFF';	$color6='#FFF';
 								if($numeros[0]==0){$color1='#FFF090';}
@@ -431,7 +439,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 									
                                     <h4 style="margin-top:5px;">
                                         <a href="clientes-editar.php?id=<?=$res[0];?>" data-toggle="tooltip" title="Editar" target="_blank"><i class="icon-edit"></i></a>&nbsp;
-                                        <a href="sql.php?id=<?=$res[0];?>&get=3" onClick="if(!confirm('Desea eliminar el registro?')){return false;}" data-toggle="tooltip" title="Eliminar"><i class="icon-remove-sign"></i></a>&nbsp;
+                                        <a href="bd_delete/clientes-eliminar.php?id=<?=$res[0];?>" onClick="if(!confirm('Desea eliminar el registro?')){return false;}" data-toggle="tooltip" title="Eliminar"><i class="icon-remove-sign"></i></a>&nbsp;
                                         <a href="clientes-sucursales.php?cte=<?=$res[0];?>&emg=1" data-toggle="tooltip" title="Sucursales" target="new"><i class="icon-home"></i></a>&nbsp;
                                         <a href="clientes-contactos.php?cte=<?=$res[0];?>&emg=1" data-toggle="tooltip" title="Contactos" target="new"><i class="icon-group"></i></a>&nbsp;
                                         <a href="clientes-tikets.php?cte=<?=$res[0];?>&emg=1" data-toggle="tooltip" title="Tikets de seguimiento" target="new"><i class="icon-list-ol"></i></a>&nbsp;
@@ -478,5 +486,6 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 	</div>
 	<?php include("pie.php");?>
 </div>
+
 </body>
 </html>
