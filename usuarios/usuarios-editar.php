@@ -85,12 +85,18 @@ include("includes/js-formularios.php");
                                         </div>
                                     </div>
                             	
-                                <div class="control-group">
-									<label class="control-label">Usuario</label>
-									<div class="controls">
-										<input type="text" class="span4" name="usuario" value="<?=$resultadoD['usr_login'];?>" required>
-									</div>
-								</div>
+																		<div class="control-group">
+                    <label class="control-label">Usuario</label>
+                    <div class="controls">
+                      <?php
+        $usuarioCompleto = $resultadoD['usr_login'];
+        list($nombreUsuario, $dominioOrganizacion) = explode('@', $usuarioCompleto, 2);
+        ?>
+                      <input type="text" class="span4" name="usuario" value="<?= $nombreUsuario; ?>" required>
+                      <input type="text" class="span3" value="<?=  '@' . $dominioOrganizacion; ?>" readonly
+                        name="dominio">
+                    </div>
+                  </div>
                                 
                                 <div class="control-group">
 									<label class="control-label">Nombre</label>
