@@ -1,6 +1,6 @@
 <?php include("sesion.php");?>
 <?php
-$idPagina = 101;
+$idPagina = 268;
 $paginaActual['pag_nombre'] = "Filtro de certificados";
 ?>
 <?php include("includes/verificar-paginas.php");?>
@@ -86,7 +86,7 @@ include("includes/js-formularios.php");
                                 <input type="hidden" name="exp" value="5">
 
                                 <div class="control-group">
-                                    <label class="control-label">AÃ±o(AAAA)</label>
+                                    <label class="control-label">Año(AAAA)</label>
                                     <div class="controls">
                                         <input type="text" class="span3" name="agno" value="<?=date("Y");?>">
                                     </div>

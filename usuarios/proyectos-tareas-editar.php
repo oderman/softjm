@@ -1,6 +1,6 @@
 <?php 
 include("sesion.php");
-$idPagina = 112;
+$idPagina = 113;
 
 include("includes/verificar-paginas.php");
 include("includes/head.php");
@@ -96,7 +96,7 @@ include("includes/js-formularios.php");
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label">DescripciÃ³n</label>
+									<label class="control-label">Descripción</label>
 									<div class="controls">
 										<textarea rows="8" cols="80" style="width: 80%" class="tinymce-simple" name="ptar_descripcion"><?=$resultadoD["ptar_descripcion"];?></textarea>
 									</div>
@@ -105,7 +105,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Responsable principal</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opciÃ³n..." class="chzn-select span4" tabindex="2" name="ptar_responsable">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="ptar_responsable">
 											<option value=""></option>
                                             <?php
 											$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios WHERE usr_bloqueado=0");

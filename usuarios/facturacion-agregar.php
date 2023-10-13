@@ -1,7 +1,7 @@
 <?php 
 include("sesion.php");
 
-$idPagina = 21;
+$idPagina = 260;
 $paginaActual['pag_nombre'] = "Agregar producto al cliente";
 
 include("includes/verificar-paginas.php");
@@ -78,7 +78,7 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Cliente</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opciÃ³n..." class="chzn-select span8" tabindex="2" name="cliente">
+										<select data-placeholder="Escoja una opción..." class="chzn-select span8" tabindex="2" name="cliente">
 											<option value=""></option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM clientes");
@@ -101,7 +101,7 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Productos</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opciÃ³n..." class="chzn-select span10" tabindex="2" name="producto[]" multiple>
+										<select data-placeholder="Escoja una opción..." class="chzn-select span10" tabindex="2" name="producto[]" multiple>
 											<option value=""></option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM productos_soptec 

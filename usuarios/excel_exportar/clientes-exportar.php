@@ -6,7 +6,7 @@ header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("content-disposition: attachment;filename=clientes_" . date("d/m/Y") . ".xls");
 
-$idPagina = 30;
+$idPagina = 264;
 include(RUTA_PROYECTO."/usuarios/includes/verificar-paginas.php");
 ?>
 <!DOCTYPE html>
@@ -40,10 +40,10 @@ include(RUTA_PROYECTO."/usuarios/head.php");
 						<th>No</th>
 						<th>Nombre</th>
 						<th>Email</th>
-						<th>TelÃ©fono</th>
+						<th>Teléfono</th>
 						<th>Ciudad</th>
 						<th>Departamento</th>
-						<th>CategorÃ­a</th>
+						<th>Categoría</th>
 						<th>Referencia</th>
 					</tr>
 				</thead>

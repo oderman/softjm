@@ -1,8 +1,8 @@
 <?php
 include("sesion.php"); //exit();
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "CotizaciÃ³n";
+$idPagina = 244;
+$tituloPagina = "Cotización";
 include("verificar-paginas.php");
 ?>
     <!-- This page plugin CSS -->
@@ -73,7 +73,7 @@ include("verificar-paginas.php");
                         <div class="card">
                             <div class="card-body">
                                 
-								<p><a href="lab-remisiones-cotizacion-generar.php?id=<?=$_GET["id"];?>" class="btn btn-danger"><i class="fa fa-plus-square"></i> Generar cotizaciÃ³n</a></p>
+								<p><a href="lab-remisiones-cotizacion-generar.php?id=<?=$_GET["id"];?>" class="btn btn-danger"><i class="fa fa-plus-square"></i> Generar cotización</a></p>
 								
                                 <div class="table-responsive">
                                     <table id="zero_config" class="table table-striped table-bordered display" style="width:100%">
@@ -81,7 +81,7 @@ include("verificar-paginas.php");
                                             <tr>
                                                 <th>#</th>
 												<th></th>
-                                                <th>DescripciÃ³n</th>
+                                                <th>Descripción</th>
                                                 <th>Cant.</th>
 												<th>Valor</th>
 												<th>IVA</th>

@@ -1,6 +1,6 @@
 <?php 
 include("sesion.php");
-$idPagina = 108;
+$idPagina = 273;
 
 include("includes/verificar-paginas.php");
 include("includes/head.php");
@@ -173,7 +173,7 @@ $proyecto = mysqli_fetch_array($consulta, MYSQLI_BOTH);
 						
 						<div class="widget-container">
 							<div style="border:thin; border-style:solid; height:150px; margin:10px;">
-                            	<h4 align="center">-Busqueda general y paginaciÃ³n-</h4>
+                            	<h4 align="center">-Busqueda general y paginación-</h4>
                                 <p> 
                                     <form class="form-horizontal" action="<?=$_SERVER['PHP_SELF'];?>" method="get">
 										<input type="hidden" name="proy" value="<?=$_GET["proy"];?>">

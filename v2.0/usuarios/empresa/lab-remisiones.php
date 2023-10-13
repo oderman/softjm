@@ -1,7 +1,7 @@
 <?php
 include("sesion.php"); //exit();
 include("../compartido/head.php");
-$idPagina = 1;
+$idPagina = 250;
 $tituloPagina = "Remisiones";
 include("verificar-paginas.php");
 
@@ -139,7 +139,7 @@ if(is_numeric($_GET["idRem"])){
 								<?php
 								if($_GET["msg"]==1){
 								?>
-									<p style="color: darkblue; font-size: 20px;">La remisi贸n actual ha sido enviada al cliente y al contacto por email.</p>
+									<p style="color: darkblue; font-size: 20px;">La remisi髇 actual ha sido enviada al cliente y al contacto por email.</p>
 								<?php
 								}
 								?>
@@ -273,7 +273,7 @@ if(is_numeric($_GET["idRem"])){
 															<a class="dropdown-item" href="#" onClick="if(!confirm('Desea eliminar este registro?')){return false;}">Eliminar</a>
 															
 															<div class="dropdown-divider"></div>
-															<a class="dropdown-item" href="sql.php?get=32&id=<?=$resultado['rem_id'];?>&cte=<?=$resultado['rem_cliente'];?>&contacto=<?=$resultado['rem_contacto'];?>">Enviar remisi贸n actual</a>
+															<a class="dropdown-item" href="sql.php?get=32&id=<?=$resultado['rem_id'];?>&cte=<?=$resultado['rem_cliente'];?>&contacto=<?=$resultado['rem_contacto'];?>">Enviar remisi髇 actual</a>
 															
 															<div class="dropdown-divider"></div>
 															<?php if($resultado['rem_generar_certificado']==1 and $resultado['rem_estado']==1){?>
@@ -283,10 +283,10 @@ if(is_numeric($_GET["idRem"])){
 															<?php }?>
 															
 															<div class="dropdown-divider"></div>
-															<a class="dropdown-item" href="lab-remisiones-imprimir.php?id=<?=$resultado['rem_id'];?>&estado=1" target="_blank">Remisi贸n Entrada</a>
+															<a class="dropdown-item" href="lab-remisiones-imprimir.php?id=<?=$resultado['rem_id'];?>&estado=1" target="_blank">Remisi髇 Entrada</a>
 															
 															<?php if($resultado['rem_estado']==2){?>
-															<a class="dropdown-item" href="lab-remisiones-imprimir.php?id=<?=$resultado['rem_id'];?>&estado=2" target="_blank">Remisi贸n Salida</a>
+															<a class="dropdown-item" href="lab-remisiones-imprimir.php?id=<?=$resultado['rem_id'];?>&estado=2" target="_blank">Remisi髇 Salida</a>
 															<?php }?>
 															
 															<?php if($resultado['rem_generar_certificado']==1){?>

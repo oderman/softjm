@@ -1,8 +1,8 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "Cotizaci√≥n";
+$idPagina = 240;
+$tituloPagina = "CotizaciÛn";
 //include("verificar-paginas.php");
 
 $consultaRemision=mysqli_query($conexionBdPrincipal,"SELECT * FROM remisiones 
@@ -81,9 +81,9 @@ switch ($remision['rem_tipo_equipo']) {
 			<td width="30%"><img src="logonuevo.png" width="250"></td>
 			<td width="50%" style="font-size: 20px; font-weight: bold;" align="center">F- CERTIFICADO DE AJUSTE</td>
 			<td width="20%">
-				C√≥digo: O-F-04<br>
-				Versi√≥n: 04<br>
-				Edici√≥n: 12/02/2018<br>
+				CÛdigo: O-F-04<br>
+				VersiÛn: 04<br>
+				EdiciÛn: 12/02/2018<br>
 				Copia controlada<br>
 				<?= $hojas1; ?>
 			</td>
@@ -94,7 +94,7 @@ switch ($remision['rem_tipo_equipo']) {
 	<table style="width:100%; height: 120px;" border="0">
 		<tr>
 			<td style="width: 70%;" align="left" ;>
-				<h2 style="color: darkblue;">SERVICIO DE LABORATORIO<br>OPTICOMEC√ÅNICO Y ELECTR√ìNICO</h2>
+				<h2 style="color: darkblue;">SERVICIO DE LABORATORIO<br>OPTICOMEC¡NICO Y ELECTR”NICO</h2>
 			</td>
 
 			<td style="width: 30%; border-radius: 10px; background-color: lightgray;" align="center" ;>
@@ -124,14 +124,14 @@ switch ($remision['rem_tipo_equipo']) {
 					</tr>
 
 					<?php
-					//PARA ESTACI√ìN
+					//PARA ESTACI”N
 					if ($remision['rem_tipo_equipo'] == 1) { ?>
 						<tr>
-							<td><strong>PRECISI√ìN ANGULAR R</strong>:</td>
+							<td><strong>PRECISI”N ANGULAR R</strong>:</td>
 							<td><?= $remision['rem_precision_angular']; ?>"</td>
 						</tr>
 						<tr>
-							<td><strong>PRECISI√ìN A DISTANCIA</strong>:</td>
+							<td><strong>PRECISI”N A DISTANCIA</strong>:</td>
 							<td><?= $remision['rem_precision_distancia']; ?></td>
 						</tr>
 					<?php } ?>
@@ -140,7 +140,7 @@ switch ($remision['rem_tipo_equipo']) {
 					//PARA TEODOLITO
 					if ($remision['rem_tipo_equipo'] == 2) { ?>
 						<tr>
-							<td><strong>PRECISI√ìN ANGULAR</strong>:</td>
+							<td><strong>PRECISI”N ANGULAR</strong>:</td>
 							<td><?= $remision['rem_precision_angular']; ?>"</td>
 						</tr>
 					<?php } ?>
@@ -156,11 +156,11 @@ switch ($remision['rem_tipo_equipo']) {
 			<td align="center" width="50%">
 				<table style="width:100%; height: 300px;" border="0" align="center">
 					<tr>
-						<td><strong>FECHA DE REVISI√ìN</strong>:</td>
+						<td><strong>FECHA DE REVISI”N</strong>:</td>
 						<td><?= $camposRemision[0] . " DE " . $meses[$camposRemision[1]] . " DE " . $camposRemision[2]; ?></td>
 					</tr>
 					<tr>
-						<td><strong>SUGERIMOS NUEVA REVISI√ìN</strong>:</td>
+						<td><strong>SUGERIMOS NUEVA REVISI”N</strong>:</td>
 						<td><?= $camposRemision[3] . " DE " . $meses[$camposRemision[4]] . " DE " . $camposRemision[5]; ?></td>
 					</tr>
 					<tr>
@@ -190,7 +190,7 @@ switch ($remision['rem_tipo_equipo']) {
 		<table style="width:100%; padding: 10px; font-size: 18px; height: 200px;" border="1" rules="groups" align="center">
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">INSPECCI√ìN OPTICOMEC√ÅNICA</h4>
+					<h4 style="color: midnightblue;" align="center">INSPECCI”N OPTICOMEC¡NICA</h4>
 				</td>
 			</tr>
 			<tr>
@@ -204,7 +204,7 @@ switch ($remision['rem_tipo_equipo']) {
 				</td>
 
 				<td align="center">
-					AJUSTE Y VERIFICACI√ìN<br>
+					AJUSTE Y VERIFICACI”N<br>
 					GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -215,18 +215,18 @@ switch ($remision['rem_tipo_equipo']) {
 		<table style="width:100%; padding: 10px; font-size: 18px; height: 180px;" border="1" rules="groups" align="center">
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">INSPECCI√ìN DE CONTROL DE COLIMADOR DE<br>CUATRO TUBOS MODELO F420-4TA</h4>
+					<h4 style="color: midnightblue;" align="center">INSPECCI”N DE CONTROL DE COLIMADOR DE<br>CUATRO TUBOS MODELO F420-4TA</h4>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					COMPENSADOR OPTICOMEC√ÅNICO<br>
-					COMPENSADOR ELECTR√ìNICO<br>
+					COMPENSADOR OPTICOMEC¡NICO<br>
+					COMPENSADOR ELECTR”NICO<br>
 					HORIZONTALIDAD DE RETICULA
 				</td>
 
 				<td align="center">
-					AJUSTE Y VERIFICACI√ìN<br>
+					AJUSTE Y VERIFICACI”N<br>
 					GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -236,12 +236,12 @@ switch ($remision['rem_tipo_equipo']) {
 	<?php } ?>
 
 	<?php
-	//PARA ESTACI√ìN Y TEODOLITO
+	//PARA ESTACI”N Y TEODOLITO
 	if ($remision['rem_tipo_equipo'] == 1 or $remision['rem_tipo_equipo'] == 2) { ?>
 		<table style="width:100%; padding: 10px; height: 250px; font-size: 18px;" border="1" rules="groups" align="center">
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">INSPECCI√ìN OPTICOMEC√ÅNICA</h4>
+					<h4 style="color: midnightblue;" align="center">INSPECCI”N OPTICOMEC¡NICA</h4>
 				</td>
 			</tr>
 			<tr>
@@ -256,7 +256,7 @@ switch ($remision['rem_tipo_equipo']) {
 				</td>
 
 				<td align="center">
-					AJUSTE Y VERIFICACI√ìN<br>
+					AJUSTE Y VERIFICACI”N<br>
 					GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -265,14 +265,14 @@ switch ($remision['rem_tipo_equipo']) {
 		</table>
 
 		<p>&nbsp;</p>
-		<h3 style="color: darkblue;">INSPECCI√ìN Y AJUSTE SISTEMA ANGULAR</h3>
+		<h3 style="color: darkblue;">INSPECCI”N Y AJUSTE SISTEMA ANGULAR</h3>
 		<table align="center" style="width:90%; padding: 10px; margin-top: 30px; height: 225px; font-size: 20px;" border="0">
 			<tr>
 				<td align="center" width="30%">
 
 					<table style="width:100%; padding: 20px;" border="0">
 						<tr align="center">
-							<td rowspan="6" style="color: midnightblue;">INSPECCI√ìN<br>DE<br>ENTRADA</td>
+							<td rowspan="6" style="color: midnightblue;">INSPECCI”N<br>DE<br>ENTRADA</td>
 						</tr>
 					</table>
 				</td>
@@ -280,16 +280,16 @@ switch ($remision['rem_tipo_equipo']) {
 				<td width="30%">
 					<table style="width:100%; padding: 10px;" border="0">
 						<tr>
-							<td>POSICI√ìN 1 (VERTICAL D)</td>
+							<td>POSICI”N 1 (VERTICAL D)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (HORIZONTAL D)</td>
+							<td>POSICI”N 1 (HORIZONTAL D)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (VERTICAL I)</td>
+							<td>POSICI”N 1 (VERTICAL I)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (HORIZONTAL I)</td>
+							<td>POSICI”N 1 (HORIZONTAL I)</td>
 						</tr>
 						<tr>
 							<td>ERROR OBSERVADO V</td>
@@ -303,22 +303,22 @@ switch ($remision['rem_tipo_equipo']) {
 				<td width="40%">
 					<table style="width:100%; padding: 10px;" border="1" rules="all">
 						<tr align="center">
-							<td><?= $remision['rem_p1vd_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p1vd_grados']; ?>∞</td>
 							<td><?= $remision['rem_p1vd_minutos']; ?>'</td>
 							<td><?= $remision['rem_p1vd_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p1hd_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p1hd_grados']; ?>∞</td>
 							<td><?= $remision['rem_p1hd_minutos']; ?>'</td>
 							<td><?= $remision['rem_p1hd_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p1vi_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p1vi_grados']; ?>∞</td>
 							<td><?= $remision['rem_p1vi_minutos']; ?>'</td>
 							<td><?= $remision['rem_p1vi_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p1hi_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p1hi_grados']; ?>∞</td>
 							<td><?= $remision['rem_p1hi_minutos']; ?>'</td>
 							<td><?= $remision['rem_p1hi_segundos']; ?>"</td>
 						</tr>
@@ -343,14 +343,14 @@ switch ($remision['rem_tipo_equipo']) {
 
 						<tr align="center">
 							<td><?php if ($gradosV1 > 0 and $gradosV1 != 360) echo $gradosV1;
-								else echo "00"; ?>¬∞</td>
+								else echo "00"; ?>∞</td>
 							<td><?php if ($minutosV1 > 0 and $minutosV1 != 59) echo $minutosV1;
 								else echo "00"; ?>'</td>
 							<td><?= $segundosV1; ?>"</td>
 						</tr>
 						<tr align="center">
 							<td><?php if ($gradosH1 > 0 and $gradosH1 != 180) echo $gradosH1;
-								else echo "00"; ?>¬∞</td>
+								else echo "00"; ?>∞</td>
 							<td><?php if ($minutosH1 > 0 and $minutosH1 != 59) echo $minutosH1;
 								else echo "00"; ?>'</td>
 							<td><?= $sumaSegundosH1; ?>"</td>
@@ -376,16 +376,16 @@ switch ($remision['rem_tipo_equipo']) {
 				<td width="30%">
 					<table style="width:100%; padding: 10px;" border="0">
 						<tr>
-							<td>POSICI√ìN 1 (VERTICAL D)</td>
+							<td>POSICI”N 1 (VERTICAL D)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (HORIZONTAL D)</td>
+							<td>POSICI”N 1 (HORIZONTAL D)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (VERTICAL I)</td>
+							<td>POSICI”N 1 (VERTICAL I)</td>
 						</tr>
 						<tr>
-							<td>POSICI√ìN 1 (HORIZONTAL I)</td>
+							<td>POSICI”N 1 (HORIZONTAL I)</td>
 						</tr>
 						<tr>
 							<td>ERROR OBSERVADO V</td>
@@ -399,22 +399,22 @@ switch ($remision['rem_tipo_equipo']) {
 				<td width="40%">
 					<table style="width:100%; padding: 10px;" border="1" rules="all">
 						<tr align="center">
-							<td><?= $remision['rem_p2vd_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p2vd_grados']; ?>∞</td>
 							<td><?= $remision['rem_p2vd_minutos']; ?>'</td>
 							<td><?= $remision['rem_p2vd_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p2hd_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p2hd_grados']; ?>∞</td>
 							<td><?= $remision['rem_p2hd_minutos']; ?>'</td>
 							<td><?= $remision['rem_p2hd_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p2vi_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p2vi_grados']; ?>∞</td>
 							<td><?= $remision['rem_p2vi_minutos']; ?>'</td>
 							<td><?= $remision['rem_p2vi_segundos']; ?>"</td>
 						</tr>
 						<tr align="center">
-							<td><?= $remision['rem_p2hi_grados']; ?>¬∞</td>
+							<td><?= $remision['rem_p2hi_grados']; ?>∞</td>
 							<td><?= $remision['rem_p2hi_minutos']; ?>'</td>
 							<td><?= $remision['rem_p2hi_segundos']; ?>"</td>
 						</tr>
@@ -438,14 +438,14 @@ switch ($remision['rem_tipo_equipo']) {
 
 						<tr align="center">
 							<td><?php if ($gradosV2 > 0 and $gradosV2 != 360) echo $gradosV2;
-								else echo "00"; ?>¬∞</td>
+								else echo "00"; ?>∞</td>
 							<td><?php if ($minutosV2 > 0 and $minutosV2 != 59) echo $minutosV2;
 								else echo "00"; ?>'</td>
 							<td><?= $segundosV2; ?>"</td>
 						</tr>
 						<tr align="center">
 							<td><?php if ($gradosH2 > 0 and $gradosH2 != 180) echo $gradosH2;
-								else echo "00"; ?>¬∞</td>
+								else echo "00"; ?>∞</td>
 							<td><?php if ($minutosH2 > 0 and $minutosH2 != 59) echo $minutosH2;
 								else echo "00"; ?>'</td>
 							<td><?= $sumaSegundosH2; ?>"</td>
@@ -524,23 +524,23 @@ switch ($remision['rem_tipo_equipo']) {
 		<tbody>
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">COMPROBACI√ìN DE POSICIONAMIENTO HORIZONTAL Y VERTICAL<br>
-						PATR√ìN DE REFERENCIA PUNTO GEOD√âSICO BSIB CON DATOS 4,6624449¬∞N -74,094298¬∞W ALTURA ELIPSOIDAL 2573,717008</h4>
+					<h4 style="color: midnightblue;" align="center">COMPROBACI”N DE POSICIONAMIENTO HORIZONTAL Y VERTICAL<br>
+						PATR”N DE REFERENCIA PUNTO GEOD…SICO BSIB CON DATOS 4,6624449∞N -74,094298∞W ALTURA ELIPSOIDAL 2573,717008</h4>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					ERROR RMS<br>
-					ALT√çMETRO<br>
-					PROYECCI√ìN<br>
-					RELOJ DE PRECISI√ìN<br>
-					TIEMPO DE RECEPCI√ìN<br>
-					RECEPCI√ìN DE SAT√âLITES<br>
+					ALTÕMETRO<br>
+					PROYECCI”N<br>
+					RELOJ DE PRECISI”N<br>
+					TIEMPO DE RECEPCI”N<br>
+					RECEPCI”N DE SAT…LITES<br>
 
 				</td>
 
 				<td align="center">
-					VERIFICACI√ìN GENERAL DE FUNCIONES
+					VERIFICACI”N GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;">ACEPTABLE</h3>
 
 				</td>
@@ -552,7 +552,7 @@ switch ($remision['rem_tipo_equipo']) {
 
 
 	<?php
-	//PARA ESTACI√ìN Y TEODOLITO
+	//PARA ESTACI”N Y TEODOLITO
 	if ($remision['rem_tipo_equipo'] == 1 or $remision['rem_tipo_equipo'] == 2) { ?>
 
 
@@ -574,9 +574,9 @@ switch ($remision['rem_tipo_equipo']) {
 				<td width="30%"><img src="logonuevo.png" width="250"></td>
 				<td width="50%" style="font-size: 20px; font-weight: bold;" align="center">F- CERTIFICADO DE AJUSTE</td>
 				<td width="20%">
-					C√≥digo: O-F-04<br>
-					Versi√≥n: 04<br>
-					Edici√≥n: 12/02/2018<br>
+					CÛdigo: O-F-04<br>
+					VersiÛn: 04<br>
+					EdiciÛn: 12/02/2018<br>
 					Copia controlada<br>
 					Hoja 2 de 2
 				</td>
@@ -587,7 +587,7 @@ switch ($remision['rem_tipo_equipo']) {
 		<table style="width:100%; height: 120px;" border="0">
 			<tr>
 				<td style="width: 70%;" align="left" ;>
-					<h2 style="color: darkblue;">SERVICIO DE LABORATORIO<br>OPTICOMEC√ÅNICO Y ELECTR√ìNICO</h2>
+					<h2 style="color: darkblue;">SERVICIO DE LABORATORIO<br>OPTICOMEC¡NICO Y ELECTR”NICO</h2>
 				</td>
 
 				<td style="width: 30%; border-radius: 10px; background-color: lightgray;" align="center" ;>
@@ -626,11 +626,11 @@ switch ($remision['rem_tipo_equipo']) {
 				<td align="center" width="50%">
 					<table style="width:100%; height: 60px;" border="0" align="center">
 						<tr>
-							<td><strong>FECHA DE REVISI√ìN</strong>:</td>
+							<td><strong>FECHA DE REVISI”N</strong>:</td>
 							<td><?= $camposRemision[0] . " DE " . $meses[$camposRemision[1]] . " DE " . $camposRemision[2]; ?></td>
 						</tr>
 						<tr>
-							<td><strong>SUGERIMOS NUEVA REVISI√ìN</strong>:</td>
+							<td><strong>SUGERIMOS NUEVA REVISI”N</strong>:</td>
 							<td><?= $camposRemision[3] . " DE " . $meses[$camposRemision[4]] . " DE " . $camposRemision[5]; ?></td>
 						</tr>
 						<tr>
@@ -649,19 +649,19 @@ switch ($remision['rem_tipo_equipo']) {
 		<table style="width:100%; height:250px; font-size: 18px;" border="1" rules="groups" align="center">
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">INSPECCI√ìN DEL SISTEMA DE MEDIDA ANGULAR, COLIMADOR DE CUATRO TUBOS<br>
+					<h4 style="color: midnightblue;" align="center">INSPECCI”N DEL SISTEMA DE MEDIDA ANGULAR, COLIMADOR DE CUATRO TUBOS<br>
 						MODELO F420-4TA</h4>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					COMPENSADOR OPTICOMEC√ÅNICO<br>
-					COMPENSADOR ELECTR√ìNICO<br>
-					<strong>AJUSTE Y VERIFICACI√ìN</strong>
+					COMPENSADOR OPTICOMEC¡NICO<br>
+					COMPENSADOR ELECTR”NICO<br>
+					<strong>AJUSTE Y VERIFICACI”N</strong>
 				</td>
 
 				<td align="center">
-					AJUSTE Y VERIFICACI√ìN<br>
+					AJUSTE Y VERIFICACI”N<br>
 					GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -670,13 +670,13 @@ switch ($remision['rem_tipo_equipo']) {
 		</table>
 
 		<?php
-		//s√≥lo para estaci√≥n total
+		//sÛlo para estaciÛn total
 		if ($remision['rem_tipo_equipo'] == 1) { ?>
 			<table style="width:100%; height:250px; font-size: 18px;" border="1" rules="groups" align="center">
 				<tr align="center">
 					<td align="center" colspan="2">
-						<h4 style="color: midnightblue;" align="center">INSPECCI√ìN EDM SOBRE L√çNEA BASE 320.162 m<br>
-							(DISTANCIOMETRO) CONDICIONES: TEMPERATURA 25¬∞C, PRESI√ìN ATMOSFERICA 640mmhg,<br>
+						<h4 style="color: midnightblue;" align="center">INSPECCI”N EDM SOBRE LÕNEA BASE 320.162 m<br>
+							(DISTANCIOMETRO) CONDICIONES: TEMPERATURA 25∞C, PRESI”N ATMOSFERICA 640mmhg,<br>
 							CONSTANTE DEL PRISMA -30</h4>
 					</td>
 				</tr>
@@ -690,7 +690,7 @@ switch ($remision['rem_tipo_equipo']) {
 					</td>
 
 					<td align="center">
-						AJUSTE Y VERIFICACI√ìN<br>
+						AJUSTE Y VERIFICACI”N<br>
 						GENERAL DE FUNCIONES
 						<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -702,7 +702,7 @@ switch ($remision['rem_tipo_equipo']) {
 		<table style="width:100%; height:250px; font-size: 18px;" border="1" rules="groups" align="center">
 			<tr align="center">
 				<td align="center" colspan="2">
-					<h4 style="color: midnightblue;" align="center">CONTROLES Y VISUALIZACI√ìN ELECTR√ìNICA</h4>
+					<h4 style="color: midnightblue;" align="center">CONTROLES Y VISUALIZACI”N ELECTR”NICA</h4>
 				</td>
 			</tr>
 
@@ -711,12 +711,12 @@ switch ($remision['rem_tipo_equipo']) {
 					TECLADO<br>
 					DISPLAY<br>
 					ACCESO MEMORIA<br>
-					BATER√çA<br>
-					COMUNICACI√ìN DISPOSITIVO EXTERNO
+					BATERÕA<br>
+					COMUNICACI”N DISPOSITIVO EXTERNO
 				</td>
 
 				<td align="center">
-					AJUSTE Y VERIFICACI√ìN<br>
+					AJUSTE Y VERIFICACI”N<br>
 					GENERAL DE FUNCIONES
 					<h3 style="color: midnightblue;"><?= $estadosCertificados[$remision['rem_estado_certificado']]; ?></h3>
 
@@ -729,7 +729,7 @@ switch ($remision['rem_tipo_equipo']) {
 	<p>&nbsp;</p>
 
 	<?php
-	//s√≥lo para teodolito. Unos espacios m√°s.
+	//sÛlo para teodolito. Unos espacios m·s.
 	if ($remision['rem_tipo_equipo'] == 2) { ?>
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
@@ -752,8 +752,8 @@ switch ($remision['rem_tipo_equipo']) {
 				<img src="ok.png" width="100"><br>
 				<!--<p>&nbsp;</p><br><br>
 				GEINER CUERVO MENDOZA<br>-->
-				T√âCNICO JMEQUIPOS SAS
-				<br><span style="color: red;">Este certificado no es v√°lido sin el simbolo de aceptaci√≥n.</span>
+				T…CNICO JMEQUIPOS SAS
+				<br><span style="color: red;">Este certificado no es v·lido sin el simbolo de aceptaciÛn.</span>
 				<br><br><span style="color: darkblue;">Verifique la validez de este certificado en<br>
 					<a href="https://jmequipos.com/consultar-certificados.php" target="_blank">www.jmequipos.com/consultar-certificados.php</a></span>
 			</td>

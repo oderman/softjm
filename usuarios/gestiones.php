@@ -1,6 +1,6 @@
 <?php include("sesion.php");?>
 <?php
-$idPagina = 108;
+$idPagina = 272;
 $paginaActual['pag_nombre'] = "Gestiones";
 ?>
 <?php include("includes/verificar-paginas.php");?>
@@ -180,7 +180,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
 						
 						<div class="widget-container">
 							<div style="border:thin; border-style:solid; height:150px; margin:10px;">
-                            	<h4 align="center">-Busqueda general y paginaciÃ³n-</h4>
+                            	<h4 align="center">-Busqueda general y paginación-</h4>
                                 <p> 
                                     <form class="form-horizontal" action="<?=$_SERVER['PHP_SELF'];?>" method="get">
                                         <div class="search-box">
@@ -246,7 +246,7 @@ if(mysql_errno()!=0){echo mysql_error(); exit();}
                                 	</h4>
                                 </td>
 								
-								<td><?=$res['gest_fecha_creaciÃ³n'];?></td>
+								<td><?=$res['gest_fecha_creación'];?></td>
 								
 								<td><?=$res['gest_estado'];?></td>
 								

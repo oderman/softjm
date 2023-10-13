@@ -1,8 +1,8 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "Agregar remisiÃ³n";
+$idPagina = 242;
+$tituloPagina = "Agregar remisión";
 include("verificar-paginas.php");
 ?>
     <!-- Custom CSS -->
@@ -86,7 +86,7 @@ include("verificar-paginas.php");
                                 <div class="card-body">
 									
 									
-										<h3>ESCOJA UN CLIENTE EXISTENTE  Ã“</h3>
+										<h3>ESCOJA UN CLIENTE EXISTENTE  Ó</h3>
 										<script type="application/javascript">
 											function clientes(dato){
 												var id = dato.value;
@@ -252,7 +252,7 @@ include("verificar-paginas.php");
 										</div>
 										
 									<hr>
-										<h4 class="card-title">Datos bÃ¡sicos</h4>
+										<h4 class="card-title">Datos básicos</h4>
 										<div class="row">
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
@@ -260,21 +260,21 @@ include("verificar-paginas.php");
 													<div class="col-sm-9">
 														<select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="tipoEquipo">
 															<option value="">--</option>
-															<option value="1">EstaciÃ³n total</option>
+															<option value="1">Estación total</option>
 															<option value="2">Teodolito</option>
 															<option value="3">Nivel</option>
 															
 															<option value="4">GPS</option>
 															<option value="5">Nivel digital</option>
-															<option value="6">DistanciÃ³metro</option>
+															<option value="6">Distanciómetro</option>
 															<option value="7">Nivel laser</option>
-															<option value="8">Semi-estaciÃ³n</option>
+															<option value="8">Semi-estación</option>
 															<option value="9">Colector</option>
-															<option value="10">BrÃºjula</option>
-															<option value="11">BastÃ³n</option>
-															<option value="12">TrÃ­pode</option>
+															<option value="10">Brújula</option>
+															<option value="11">Bastón</option>
+															<option value="12">Trípode</option>
 															<option value="13">Prisma</option>
-															<option value="14">BaterÃ­a</option>
+															<option value="14">Batería</option>
 															<option value="15">Radio</option>
 															<option value="16">Estuche</option>
 															<option value="17">Drone</option>
@@ -333,7 +333,7 @@ include("verificar-paginas.php");
 										<div class="row">
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">PrecisiÃ³n angular "</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Precisión angular "</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="fname" name="pAngular" maxlength="1">
 													</div>
@@ -342,7 +342,7 @@ include("verificar-paginas.php");
 											
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">PrecisiÃ³n a distancia</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Precisión a distancia</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="fname" name="pDistancia" value="2mm + 2ppm">
 													</div>
@@ -355,14 +355,14 @@ include("verificar-paginas.php");
 												<div class="form-group row">
 													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Tiempo de entrega</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" id="fname" name="tiempoEntrega" value="DE 1 A 3 DÃAS">
+														<input type="text" class="form-control" id="fname" name="tiempoEntrega" value="DE 1 A 3 DÍAS">
 													</div>
 												</div>
 											</div>	
 											
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">DÃ­as para reclamar el equipo</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Días para reclamar el equipo</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" name="tiempoReclamar" value="20">
 													</div>

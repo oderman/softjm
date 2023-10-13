@@ -1,6 +1,6 @@
 <?php include("sesion.php");?>
 <?php
-$idPagina = 21;
+$idPagina = 262;
 $paginaActual['pag_nombre'] = "Imprimir remisiones";
 ?>
 <?php include("includes/verificar-paginas.php");?>
@@ -92,7 +92,7 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Remisiones</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opciÃ³n..." class="chzn-select span10" tabindex="2" name="remisiones[]" multiple>
+										<select data-placeholder="Escoja una opción..." class="chzn-select span10" tabindex="2" name="remisiones[]" multiple>
 											<option value=""></option>
                                             <?php
                                                                     $consultaSelect = mysql_query("SELECT * FROM remisiones
@@ -109,7 +109,7 @@ include("includes/js-formularios.php");
                                    <div class="control-group">
                                     <label class="control-label">Estado</label>
                                     <div class="controls">
-                                        <select data-placeholder="Escoja una opciÃ³n..." class="chzn-select span4" tabindex="2" name="estado">
+                                        <select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="estado">
                                             <option value="1">Entrada</option>
                                             <option value="2">Salida</option>
                                         </select>

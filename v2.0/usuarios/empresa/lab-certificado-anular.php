@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
+$idPagina = 239;
 $tituloPagina = "Anular Certificado";
 include("verificar-paginas.php");
 
@@ -81,7 +81,7 @@ WHERE rem_id='".$_GET["id"]."'"));
 								<input type="hidden" name="id" value="<?=$_GET["id"];?>">
 
                                 <div class="card-body">
-                                    <h4 class="card-title">Datos b谩sicos</h4>
+                                    <h4 class="card-title">Datos b醩icos</h4>
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-6">
                                             <div class="form-group row">
@@ -161,20 +161,20 @@ WHERE rem_id='".$_GET["id"]."'"));
                                                 <div class="col-sm-9">
                                                     <select class="select2 form-control custom-select" style="width: 100%; height:36px;" disabled>
                                                         <option value="">--</option>
-                                                        <option value="1" <?php if($resultadoD['rem_tipo_equipo']==1){echo "selected";} ?> >Estaci贸n total</option>
+                                                        <option value="1" <?php if($resultadoD['rem_tipo_equipo']==1){echo "selected";} ?> >Estaci髇 total</option>
                                                         <option value="2" <?php if($resultadoD['rem_tipo_equipo']==2){echo "selected";} ?>>Teodolito</option>
                                                         <option value="3" <?php if($resultadoD['rem_tipo_equipo']==3){echo "selected";} ?>>Nivel</option>
                                                         <option value="4" <?php if($resultadoD['rem_tipo_equipo']==4){echo "selected";} ?>>GPS</option>
                                                         <option value="5" <?php if($resultadoD['rem_tipo_equipo']==5){echo "selected";} ?>>Nivel digital</option>
-                                                        <option value="6" <?php if($resultadoD['rem_tipo_equipo']==6){echo "selected";} ?>>Distanci贸metro</option>
+                                                        <option value="6" <?php if($resultadoD['rem_tipo_equipo']==6){echo "selected";} ?>>Distanci髆etro</option>
                                                         <option value="7" <?php if($resultadoD['rem_tipo_equipo']==7){echo "selected";} ?>>Nivel laser</option>
-                                                        <option value="8" <?php if($resultadoD['rem_tipo_equipo']==8){echo "selected";} ?>>Semi-estaci贸n</option>
+                                                        <option value="8" <?php if($resultadoD['rem_tipo_equipo']==8){echo "selected";} ?>>Semi-estaci髇</option>
                                                         <option value="9" <?php if($resultadoD['rem_tipo_equipo']==9){echo "selected";} ?>>Colector</option>
-                                                        <option value="10" <?php if($resultadoD['rem_tipo_equipo']==10){echo "selected";} ?>>Br煤jula</option>
-                                                        <option value="11" <?php if($resultadoD['rem_tipo_equipo']==11){echo "selected";} ?>>Bast贸n</option>
-                                                        <option value="12" <?php if($resultadoD['rem_tipo_equipo']==12){echo "selected";} ?>>Tr铆pode</option>
+                                                        <option value="10" <?php if($resultadoD['rem_tipo_equipo']==10){echo "selected";} ?>>Br鷍ula</option>
+                                                        <option value="11" <?php if($resultadoD['rem_tipo_equipo']==11){echo "selected";} ?>>Bast髇</option>
+                                                        <option value="12" <?php if($resultadoD['rem_tipo_equipo']==12){echo "selected";} ?>>Tr韕ode</option>
                                                         <option value="13" <?php if($resultadoD['rem_tipo_equipo']==13){echo "selected";} ?>>Prisma</option>
-                                                        <option value="14" <?php if($resultadoD['rem_tipo_equipo']==14){echo "selected";} ?>>Bater铆a</option>
+                                                        <option value="14" <?php if($resultadoD['rem_tipo_equipo']==14){echo "selected";} ?>>Bater韆</option>
                                                         <option value="15" <?php if($resultadoD['rem_tipo_equipo']==15){echo "selected";} ?>>Radio</option>
                                                         <option value="16" <?php if($resultadoD['rem_tipo_equipo']==16){echo "selected";} ?>>Estuche</option>
                                                         <option value="17" <?php if($resultadoD['rem_tipo_equipo']==17){echo "selected";} ?>>Drone</option>
@@ -209,12 +209,12 @@ WHERE rem_id='".$_GET["id"]."'"));
                                         </div>
                                     </div>
 
-                                    <h6>Motivo de anulaci贸n</h6>
+                                    <h6>Motivo de anulaci髇</h6>
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">	
-                                                    <textarea rows="5" style="width: 100%;" name="motivo" placeholder="Escriba el motivo de anulaci贸n..."></textarea>
+                                                    <textarea rows="5" style="width: 100%;" name="motivo" placeholder="Escriba el motivo de anulaci髇..."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@ WHERE rem_id='".$_GET["id"]."'"));
 
 								<div class="card-body">
                                     <div class="form-group m-b-0 text-right">
-                                        <button type="submit" class="btn btn-info waves-effect waves-light">Generar Anulaci贸n</button>
+                                        <button type="submit" class="btn btn-info waves-effect waves-light">Generar Anulaci髇</button>
                                     </div>
                                 </div>
                             </form>

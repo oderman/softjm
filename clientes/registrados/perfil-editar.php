@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 
-$idPagina = 19;
+$idPagina = 257;
 $tituloPagina = "Editar Perfil";
 
 include("verificar-paginas.php");
@@ -174,7 +174,7 @@ WHERE cli_id='".$_SESSION["id"]."'"), MYSQLI_BOTH);
 								</div>
                                 
                                 <div class="control-group">
-									<label class="control-label">ContraseÃ±a</label>
+									<label class="control-label">Contraseña</label>
 									<div class="controls">
 										<input type="password" class="span4" name="clave" value="<?=$resultadoD['cli_clave'];?>" required>
 									</div>

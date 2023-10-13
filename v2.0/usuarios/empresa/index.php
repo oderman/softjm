@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
+$idPagina = 238;
 $tituloPagina = "Escritorio";
 include("verificar-paginas.php");
 ?>
@@ -254,7 +254,7 @@ include("verificar-paginas.php");
                             <div class="card-body m-b-0">
                                 <h4 class="card-title">Thursday <span class="font-14 font-normal text-muted">12th April, 2018</span></h4>
                                     <div class="d-flex align-items-center flex-row m-t-30">
-                                    <h1 class="font-light"><i class="wi wi-day-sleet"></i> <span>35<sup>Â°</sup></span></h1>
+                                    <h1 class="font-light"><i class="wi wi-day-sleet"></i> <span>35<sup>°</sup></span></h1>
                                 </div>
                             </div>
                             <div class="weather-report" style="height:120px; width:100%;"></div>

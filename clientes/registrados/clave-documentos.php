@@ -1,7 +1,7 @@
 <?php 
 include("sesion.php");
 
-$idPagina = 19;
+$idPagina = 256;
 $tituloPagina = "Acceso a documentos";
 
 include("verificar-paginas.php");
@@ -190,7 +190,7 @@ WHERE cli_id='".$_SESSION["id"]."'"), MYSQLI_BOTH);
 						
 						<div class="widget-container">
 							
-							<p style="color: red;">La clave ser√° enviada al correo administrativo.</p>
+							<p style="color: red;">La clave ser· enviada al correo administrativo.</p>
 							
 							<form class="form-horizontal" method="post" action="sql.php">
                             	<input type="hidden" name="idSql" value="2">

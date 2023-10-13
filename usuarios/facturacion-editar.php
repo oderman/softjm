@@ -1,7 +1,7 @@
 <?php 
 include("sesion.php");
 
-$idPagina = 22;
+$idPagina = 261;
 $paginaActual['pag_nombre'] = "Editar productos asignados";
 
 include("includes/verificar-paginas.php");
@@ -57,7 +57,7 @@ include("includes/js-formularios.php");
 					</div>
 					<ul class="breadcrumb">
 						<li><a href="index.php" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-						<li><a href="facturacion.php">Facturaci贸n</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+						<li><a href="facturacion.php">Facturaci髇</a><span class="divider"><i class="icon-angle-right"></i></span></li>
 						<li class="active"><?=$paginaActual['pag_nombre'];?></li>
 					</ul>
 				</div>
@@ -90,7 +90,7 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Cliente</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span8" tabindex="2" name="cliente">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span8" tabindex="2" name="cliente">
 											<option value=""></option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM clientes");
@@ -113,7 +113,7 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Productos</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span8" tabindex="2" name="producto[]" multiple>
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span8" tabindex="2" name="producto[]" multiple>
 											<option value=""></option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM productos_soptec INNER JOIN productos_categorias ON catp_id=prod_categoria ORDER BY prod_nombre");
@@ -146,14 +146,14 @@ include("includes/js-formularios.php");
 								</div>
                                 
                                 <div class="control-group">
-									<label class="control-label">Fecha 煤ltima modificaci贸n</label>
+									<label class="control-label">Fecha 鷏tima modificaci髇</label>
 									<div class="controls">
 										<input type="text" class="span3" name="fechaUltima" value="<?=$resultadoD['fact_ultima_modificacion'];?>" readonly>
 									</div>
 								</div>
                                 
                                 <div class="control-group">
-									<label class="control-label">Responsable de la modificaci贸n</label>
+									<label class="control-label">Responsable de la modificaci髇</label>
 									<div class="controls">
 										<input type="text" class="span3" name="responsableMod" value="<?=$usuarioMod['usr_nombre'];?>" readonly>
 									</div>

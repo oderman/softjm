@@ -1,8 +1,8 @@
 <?php
 include("sesion.php"); //exit();
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "Cotizaci√≥n";
+$idPagina = 247;
+$tituloPagina = "CotizaciÛn";
 //include("verificar-paginas.php");
 
 $consultaRemision=mysqli_query($conexionBdPrincipal,"SELECT * FROM remisiones 
@@ -22,13 +22,13 @@ switch($_POST['estado']){
 		
 		$letra = "E";
 		
-		$descripcion = "ENTRADA AL DEPARTAMENTO T√âCNICO";
+		$descripcion = "ENTRADA AL DEPARTAMENTO T…CNICO";
 		
-		$estado = "RECEPCI√ìN";
+		$estado = "RECEPCI”N";
 		
 		$mensaje1 = "TIEMPO DE ENTREGA: <strong>".$remision['rem_dias_entrega']."</strong>";
 		
-		$mensaje2 = "El cliente tendr√° <strong>".$remision['rem_dias_reclamar']." d√≠as calendario</strong>  para reclamar su equipo, despu√©s de que el t√©cnico le informe que el equipo est√° listo, pasado este tiempo <strong>JMENDOZA EQUIPOS</strong> no se har√° responsable por da√±o o p√©rdida del instrumento. A dem√°s de cobrar un bodegaje de 5.000 pesos semanales por estaci√≥n o 3.000 pesos por teodolito y nivel.";
+		$mensaje2 = "El cliente tendr· <strong>".$remision['rem_dias_reclamar']." dÌas calendario</strong>  para reclamar su equipo, despuÈs de que el tÈcnico le informe que el equipo est· listo, pasado este tiempo <strong>JMENDOZA EQUIPOS</strong> no se har· responsable por daÒo o pÈrdida del instrumento. A dem·s de cobrar un bodegaje de 5.000 pesos semanales por estaciÛn o 3.000 pesos por teodolito y nivel.";
 		
 		$fecha = $remision['rem_fecha_registro'];
 	break;
@@ -38,13 +38,13 @@ switch($_POST['estado']){
 		
 		$letra = "S";
 		
-		$descripcion = "SALIDA DEL DEPARTAMENTO T√âCNICO";
+		$descripcion = "SALIDA DEL DEPARTAMENTO T…CNICO";
 		
 		$estado = "ENTREGA";
 		
-		$mensaje1 = "A partir de la fecha el cliente cuenta con un plazo de <strong>".$remision['rem_dias_reclamar']." d√≠as</strong> para presentar cualquier inconformidad con respecto al ajuste del equipo, si pasado este tiempo no se recibe ning√∫n reporte se asumir√° que trabaja en √≥ptimas condiciones.";
+		$mensaje1 = "A partir de la fecha el cliente cuenta con un plazo de <strong>".$remision['rem_dias_reclamar']." dÌas</strong> para presentar cualquier inconformidad con respecto al ajuste del equipo, si pasado este tiempo no se recibe ning˙n reporte se asumir· que trabaja en Ûptimas condiciones.";
 		
-		$mensaje2 = "El ciente tendr√° <strong>".$remision['rem_dias_reclamar']." d√≠as calendario</strong>  para reclamar su equipo, despu√©s de que el t√©cnico le informe que el equipo est√° listo, pasado este tiempo <strong>JMENDOZA EQUIPOS</strong> no se har√° responsable por da√±o o p√©rdida del instrumento. A dem√°s de cobrar un bodegaje de 5.000 pesos semanales por estaci√≥n o 3.000 pesos por teodolito y nivel.";
+		$mensaje2 = "El ciente tendr· <strong>".$remision['rem_dias_reclamar']." dÌas calendario</strong>  para reclamar su equipo, despuÈs de que el tÈcnico le informe que el equipo est· listo, pasado este tiempo <strong>JMENDOZA EQUIPOS</strong> no se har· responsable por daÒo o pÈrdida del instrumento. A dem·s de cobrar un bodegaje de 5.000 pesos semanales por estaciÛn o 3.000 pesos por teodolito y nivel.";
 		
 		$fecha = $remision['rem_fecha_salida'];
 	break;	
@@ -71,9 +71,9 @@ switch($_POST['estado']){
 			<td>
 				<table style="width:100%" border="1" rules="all">
 					<tr align="center" style="font-weight: bold;">
-						<td colspan="2">Edici√≥n</td>
-						<td>Versi√≥n</td>
-						<td>C√≥digo</td>
+						<td colspan="2">EdiciÛn</td>
+						<td>VersiÛn</td>
+						<td>CÛdigo</td>
 					</tr>
 					<tr align="center">
 						<td colspan="2">15-Sep-2018</td>
@@ -81,11 +81,11 @@ switch($_POST['estado']){
 						<td>O-F-10</td>
 					</tr>
 					<tr align="center">
-						<td colspan="4"><strong>F-REMISI√ìN</strong></td>
+						<td colspan="4"><strong>F-REMISI”N</strong></td>
 					</tr>
 					<tr>
-						<td colspan="2"><strong>Revis√≥:</strong> Alejandra Correal</td>
-						<td colspan="2"><strong>Aprob√≥:</strong> Alejandra Correal</td>
+						<td colspan="2"><strong>RevisÛ:</strong> Alejandra Correal</td>
+						<td colspan="2"><strong>AprobÛ:</strong> Alejandra Correal</td>
 					</tr>
 				</table>
 			</td>
@@ -113,7 +113,7 @@ switch($_POST['estado']){
 					</tr>
 					
 					<tr>
-						<td><strong>DESCRIPCI√ìN:</strong></td>
+						<td><strong>DESCRIPCI”N:</strong></td>
 						<td><?=$descripcion;?></td>
 					</tr>
 
@@ -121,7 +121,7 @@ switch($_POST['estado']){
 			</td>
 			
 			<td style="width: 30%; border-radius: 10px; background-color: lightgray;" align="center">
-				<h3>REMISI√ìN DE <?=$tipo;?><br>
+				<h3>REMISI”N DE <?=$tipo;?><br>
 				<?php
 				$numero =(count($_POST["remisiones"]));
 				$contador=0;
@@ -284,10 +284,10 @@ switch($_POST['estado']){
 	</div>	
 	
 	<div align="center" style="border:thin; border-top-style: double; margin-top: 60px; font-size: 18px; padding: 5px;">
-	CALLE 30B NO. 71 - 42 Tel√©fonos: (574) 3220619 EXT. 102 Celular y Whatsapp: 3107983526<br>
+	CALLE 30B NO. 71 - 42 TelÈfonos: (574) 3220619 EXT. 102 Celular y Whatsapp: 3107983526<br>
 	www.jmequipos.com<br>
 	laboratorio@jmequipos.com - auxlaboratorio@jmequipos.com<br>
-	Medell√≠n - Colombia	
+	MedellÌn - Colombia	
 	</div>
 	
 

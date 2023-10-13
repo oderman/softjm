@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
+$idPagina = 246;
 $tituloPagina = "Imprimir remisiones";
 include("verificar-paginas.php");
 ?>
@@ -83,7 +83,7 @@ include("verificar-paginas.php");
 								<input type="hidden" name="idSql" value="47">
 								
                                 <div class="card-body">
-										<h4 class="card-title">Datos b√°sicos</h4>										
+										<h4 class="card-title">Datos b·sicos</h4>										
 										
 								
 									

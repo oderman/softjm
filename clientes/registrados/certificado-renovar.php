@@ -1,7 +1,7 @@
 <?php 
 include("sesion.php");
 
-$idPagina = 19;
+$idPagina = 254;
 $tituloPagina = "Renovar certificado";
 
 include("verificar-paginas.php");
@@ -189,12 +189,12 @@ $equipo = mysqli_fetch_array(mysqli_query($conexionBdPrincipal,"SELECT * FROM re
 									</div>
 								</div>
                                 
-								<span style="color: blue;">Los precios mostrados a continuaci√≥n no tienen IVA.</span>
+								<span style="color: blue;">Los precios mostrados a continuaciÛn no tienen IVA.</span>
 								
                                 <div class="control-group">
 									<label class="control-label">Servicio</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci√≥n..." class="chzn-select span6" tabindex="2" name="servicio" required>
+										<select data-placeholder="Escoja una opciÛn..." class="chzn-select span6" tabindex="2" name="servicio" required>
 											<option value=""></option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM servicios");
@@ -213,22 +213,22 @@ $equipo = mysqli_fetch_array(mysqli_query($conexionBdPrincipal,"SELECT * FROM re
 									<label class="control-label">&nbsp;</label>
 									<div class="controls">
 									<div style="width: 600px; height: 150px; overflow-y: scroll; background-color: white;">
-									<strong>T√©rminos y condiciones para actualizaci√≥n de certificado</strong><br><br>
--          El cliente deber√° presentar un informe con firma del top√≥grafo y n√∫mero de tarjeta profesional donde indica que el equipo fue inspeccionado en cierres angulares y de distancias y que los errores percibidos son acordes a la precisi√≥n del instrumento.<br>
+									<strong>TÈrminos y condiciones para actualizaciÛn de certificado</strong><br><br>
+-          El cliente deber· presentar un informe con firma del topÛgrafo y n˙mero de tarjeta profesional donde indica que el equipo fue inspeccionado en cierres angulares y de distancias y que los errores percibidos son acordes a la precisiÛn del instrumento.<br>
 
--          JMendoza equipos ni el jefe del departamento t√©cnico se har√°n responsables del error en campo ni de trabajos realizados con el instrumento, teniendo en cuenta que el top√≥grafo es quien verifico y aprob√≥ su buen funcionamiento.<br>
+-          JMendoza equipos ni el jefe del departamento tÈcnico se har·n responsables del error en campo ni de trabajos realizados con el instrumento, teniendo en cuenta que el topÛgrafo es quien verifico y aprobÛ su buen funcionamiento.<br>
 
--          Esta renovaci√≥n se har√° 6 meses despu√©s de un mantenimiento y el equipo deber√° ser presentado para mantenimiento una vez pasen 6 meses despu√©s de la renovaci√≥n.<br>
+-          Esta renovaciÛn se har· 6 meses despuÈs de un mantenimiento y el equipo deber· ser presentado para mantenimiento una vez pasen 6 meses despuÈs de la renovaciÛn.<br>
 
--          Por ning√∫n motivo se realizara actualizaci√≥n de certificado a los equipos que 6 meses antes no se les haya realizado el mantenimiento.<br>
+-          Por ning˙n motivo se realizara actualizaciÛn de certificado a los equipos que 6 meses antes no se les haya realizado el mantenimiento.<br>
 
--          Esta campa√±a es direccionada a los Topografos que tienen dificultades para el desplazamiento del equipo a los laboratorios t√©cnicos, por la lejan√≠a de sus obras o su disponibilidad de tiempo pero que est√°n en las condiciones para definir si est√° o no ajustado su instrumento, sin embargo para JMendoza equipos lo mejor ser√≠a que el equipo tuviera mantenimiento cada 6 meses en aras de preservar la vida √∫til del mismo. 
+-          Esta campaÒa es direccionada a los Topografos que tienen dificultades para el desplazamiento del equipo a los laboratorios tÈcnicos, por la lejanÌa de sus obras o su disponibilidad de tiempo pero que est·n en las condiciones para definir si est· o no ajustado su instrumento, sin embargo para JMendoza equipos lo mejor serÌa que el equipo tuviera mantenimiento cada 6 meses en aras de preservar la vida ˙til del mismo. 
 									</div>
 									</div>		
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label">He le√≠do y acepto los t√©rminos</label>
+									<label class="control-label">He leÌdo y acepto los tÈrminos</label>
 									<div class="controls">
 										<input type="checkbox" class="span2" name="terminos" value="1" required>
 									</div>

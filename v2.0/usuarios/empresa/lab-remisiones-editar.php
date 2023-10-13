@@ -1,8 +1,8 @@
 <?php
 include("sesion.php");
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "Editar remisiÃ³n";
+$idPagina = 245;
+$tituloPagina = "Editar remisión";
 include("verificar-paginas.php");
 
 $consulta=mysqli_query($conexionBdPrincipal,"SELECT * FROM remisiones 
@@ -18,7 +18,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 	<div class="row">
 		<div class="col-sm-12 col-lg-6">
 			<div class="form-group row">
-				<label for="fname" class="col-sm-3 text-right control-label col-form-label">VersiÃ³n del certificado</label>
+				<label for="fname" class="col-sm-3 text-right control-label col-form-label">Versión del certificado</label>
 				<div class="col-sm-9">
 					<input type="text" class="form-control" value="v'.($numAnulado+1).'" disabled>
 				</div>
@@ -108,23 +108,23 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 								
 								<div class="card-body">
                                     <div class="form-group m-b-0 text-left">
-                                        <a href="lab-remisiones-cotizacion.php?id=<?=$_GET["id"];?>" class="btn btn-success waves-effect waves-light">CotizaciÃ³n</a>
+                                        <a href="lab-remisiones-cotizacion.php?id=<?=$_GET["id"];?>" class="btn btn-success waves-effect waves-light">Cotización</a>
 										<a href="lab-remisiones-seguimiento.php?id=<?=$_GET["id"];?>" class="btn btn-warning waves-effect waves-light">Seguimiento</a>
                                     </div>
 									
 									
 									<div class="form-group m-b-0 text-right">
-                                        <a href="lab-remisiones-imprimir.php?id=<?=$resultadoD['rem_id'];?>&estado=1" target="_blank" class="btn btn-success waves-effect waves-light">RemisiÃ³n entrada</a>
+                                        <a href="lab-remisiones-imprimir.php?id=<?=$resultadoD['rem_id'];?>&estado=1" target="_blank" class="btn btn-success waves-effect waves-light">Remisión entrada</a>
 										
 										<?php
 											if($resultadoD['rem_estado']==2){
 										?>
-										<a href="lab-remisiones-imprimir.php?id=<?=$resultadoD['rem_id'];?>&estado=2" target="_blank" class="btn btn-success waves-effect waves-light">RemisiÃ³n salida</a>
+										<a href="lab-remisiones-imprimir.php?id=<?=$resultadoD['rem_id'];?>&estado=2" target="_blank" class="btn btn-success waves-effect waves-light">Remisión salida</a>
 										<?php 
 											}
 											if($resultadoD['rem_generar_certificado']==1 and $resultadoD['rem_estado']==1){
 										?>
-										<a href="sql.php?get=30&id=<?=$resultadoD['rem_id'];?>" onClick="if(!confirm('Desea generar salida a este equipo?')){return false;}" target="_blank" class="btn btn-success waves-effect waves-light">RemisiÃ³n salida</a>
+										<a href="sql.php?get=30&id=<?=$resultadoD['rem_id'];?>" onClick="if(!confirm('Desea generar salida a este equipo?')){return false;}" target="_blank" class="btn btn-success waves-effect waves-light">Remisión salida</a>
 										<?php 
 											}
 											$disabled="";
@@ -152,7 +152,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 									
 									<?php if($resultadoD['rem_archivo']!=""){echo '<p><a href="sql.php?get=33&id='.$resultadoD["rem_id"].'" title="Eliminar">X</a> <img src="../../../usuarios/files/adjuntos/'.$resultadoD["rem_archivo"].'" width="50"></p>';}?>
 									
-										<h4 class="card-title">Datos bÃ¡sicos</h4>
+										<h4 class="card-title">Datos básicos</h4>
 									
 									<div class="row">
 											<div class="col-sm-12 col-lg-6">
@@ -236,20 +236,20 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 													<div class="col-sm-9">
 														<select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="tipoEquipo" <?=$disabled;?>>
 															<option value="">--</option>
-															<option value="1" <?php if($resultadoD['rem_tipo_equipo']==1){echo "selected";} ?> >EstaciÃ³n total</option>
+															<option value="1" <?php if($resultadoD['rem_tipo_equipo']==1){echo "selected";} ?> >Estación total</option>
 															<option value="2" <?php if($resultadoD['rem_tipo_equipo']==2){echo "selected";} ?>>Teodolito</option>
 															<option value="3" <?php if($resultadoD['rem_tipo_equipo']==3){echo "selected";} ?>>Nivel</option>
 															<option value="4" <?php if($resultadoD['rem_tipo_equipo']==4){echo "selected";} ?>>GPS</option>
 															<option value="5" <?php if($resultadoD['rem_tipo_equipo']==5){echo "selected";} ?>>Nivel digital</option>
-															<option value="6" <?php if($resultadoD['rem_tipo_equipo']==6){echo "selected";} ?>>DistanciÃ³metro</option>
+															<option value="6" <?php if($resultadoD['rem_tipo_equipo']==6){echo "selected";} ?>>Distanciómetro</option>
 															<option value="7" <?php if($resultadoD['rem_tipo_equipo']==7){echo "selected";} ?>>Nivel laser</option>
-															<option value="8" <?php if($resultadoD['rem_tipo_equipo']==8){echo "selected";} ?>>Semi-estaciÃ³n</option>
+															<option value="8" <?php if($resultadoD['rem_tipo_equipo']==8){echo "selected";} ?>>Semi-estación</option>
 															<option value="9" <?php if($resultadoD['rem_tipo_equipo']==9){echo "selected";} ?>>Colector</option>
-															<option value="10" <?php if($resultadoD['rem_tipo_equipo']==10){echo "selected";} ?>>BrÃºjula</option>
-															<option value="11" <?php if($resultadoD['rem_tipo_equipo']==11){echo "selected";} ?>>BastÃ³n</option>
-															<option value="12" <?php if($resultadoD['rem_tipo_equipo']==12){echo "selected";} ?>>TrÃ­pode</option>
+															<option value="10" <?php if($resultadoD['rem_tipo_equipo']==10){echo "selected";} ?>>Brújula</option>
+															<option value="11" <?php if($resultadoD['rem_tipo_equipo']==11){echo "selected";} ?>>Bastón</option>
+															<option value="12" <?php if($resultadoD['rem_tipo_equipo']==12){echo "selected";} ?>>Trípode</option>
 															<option value="13" <?php if($resultadoD['rem_tipo_equipo']==13){echo "selected";} ?>>Prisma</option>
-															<option value="14" <?php if($resultadoD['rem_tipo_equipo']==14){echo "selected";} ?>>BaterÃ­a</option>
+															<option value="14" <?php if($resultadoD['rem_tipo_equipo']==14){echo "selected";} ?>>Batería</option>
 															<option value="15" <?php if($resultadoD['rem_tipo_equipo']==15){echo "selected";} ?>>Radio</option>
 															<option value="16" <?php if($resultadoD['rem_tipo_equipo']==16){echo "selected";} ?>>Estuche</option>
 															<option value="17" <?php if($resultadoD['rem_tipo_equipo']==17){echo "selected";} ?>>Drone</option>
@@ -288,7 +288,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 										<div class="row">
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">PrecisiÃ³n angular "</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Precisión angular "</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="fname" name="pAngular" value="<?=$resultadoD['rem_precision_angular'];?>" maxlength="1" <?=$disabled;?>>
 													</div>
@@ -297,7 +297,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 											
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">PrecisiÃ³n a distancia</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Precisión a distancia</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="fname" name="pDistancia" value="<?=$resultadoD['rem_precision_distancia'];?>" <?=$disabled;?>>
 													</div>
@@ -317,7 +317,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 											
 											<div class="col-sm-12 col-lg-6">
 												<div class="form-group row">
-													<label for="fname" class="col-sm-3 text-right control-label col-form-label">DÃ­as para reclamar el equipo</label>
+													<label for="fname" class="col-sm-3 text-right control-label col-form-label">Días para reclamar el equipo</label>
 													<div class="col-sm-9">
 														<input type="text" class="form-control" name="tiempoReclamar" value="<?=$resultadoD['rem_dias_reclamar'];?>" <?=$disabled;?>>
 													</div>
@@ -343,7 +343,7 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 													<?php
 													$msjFoto = 'Sin foto.';
 													if($resultadoD['rem_foto_certificado']!=""){
-														$msjFoto = 'La foto estÃ¡ OK.';
+														$msjFoto = 'La foto está OK.';
 													}
 													echo $msjFoto;
 													?>
@@ -357,25 +357,25 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 									
 									
 									<?php 
-									//PARA ESTACIÃ“N Y TEODOLITO
+									//PARA ESTACIÓN Y TEODOLITO
 									if($resultadoD['rem_tipo_equipo']==1 or $resultadoD['rem_tipo_equipo']==2){?>
 									<p>&nbsp;</p>
-									<h4 style="color: darkblue;">INSPECCIÃ“N Y AJUSTE SISTEMA ANGULAR</h4>
+									<h4 style="color: darkblue;">INSPECCIÓN Y AJUSTE SISTEMA ANGULAR</h4>
 									<table style="width:100%; padding: 10px; margin-top: 30px;" border="0">
 										<tr>
 											<td align="center">
 
 												<table style="width:100%; padding: 20px;" border="0">
-													<tr align="center"><td rowspan="6" style="color: midnightblue;">INSPECCIÃ“N<br>DE<br>ENTRADA</td></tr> 
+													<tr align="center"><td rowspan="6" style="color: midnightblue;">INSPECCIÓN<br>DE<br>ENTRADA</td></tr> 
 												</table>
 											</td>
 
 											<td>
 												<table style="width:100%; padding: 10px;" border="0">
-													<tr><td>POSICIÃ“N 1 (VERTICAL D)</td></tr>
-													<tr><td>POSICIÃ“N 1 (HORIZONTAL D)</td></tr>
-													<tr><td>POSICIÃ“N 1 (VERTICAL I)</td></tr>
-													<tr><td>POSICIÃ“N 1 (HORIZONTAL I)</td></tr>
+													<tr><td>POSICIÓN 1 (VERTICAL D)</td></tr>
+													<tr><td>POSICIÓN 1 (HORIZONTAL D)</td></tr>
+													<tr><td>POSICIÓN 1 (VERTICAL I)</td></tr>
+													<tr><td>POSICIÓN 1 (HORIZONTAL I)</td></tr>
 													<tr><td>ERROR OBSERVADO V</td></tr>
 													<tr><td>ERROR OBSERVADO H</td></tr>
 												</table>
@@ -423,12 +423,12 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 													?>
 													
 													<tr align="center">
-														<td><?php if($gradosV1>0 and $gradosV1!=360) echo $gradosV1; else echo "00";?>Â°</td>
+														<td><?php if($gradosV1>0 and $gradosV1!=360) echo $gradosV1; else echo "00";?>°</td>
 														<td><?php if($minutosV1>0 and $minutosV1!=59) echo $minutosV1; else echo "00";?>'</td>
 														<td><?=$segundosV1;?>"</td>
 													</tr>
 													<tr align="center">
-														<td><?php if($gradosH1>0 and $gradosH1!=180) echo $gradosH1; else echo "00";?>Â°</td>
+														<td><?php if($gradosH1>0 and $gradosH1!=180) echo $gradosH1; else echo "00";?>°</td>
 														<td><?php if($minutosH1>0 and $minutosH1!=59) echo $minutosH1; else echo "00";?>'</td>
 														<td><?=$sumaSegundosH1;?>"</td>
 													</tr>
@@ -450,10 +450,10 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 
 											<td>
 												<table style="width:100%; padding: 10px;" border="0">
-													<tr><td>POSICIÃ“N 1 (VERTICAL D)</td></tr>
-													<tr><td>POSICIÃ“N 1 (HORIZONTAL D)</td></tr>
-													<tr><td>POSICIÃ“N 1 (VERTICAL I)</td></tr>
-													<tr><td>POSICIÃ“N 1 (HORIZONTAL I)</td></tr>
+													<tr><td>POSICIÓN 1 (VERTICAL D)</td></tr>
+													<tr><td>POSICIÓN 1 (HORIZONTAL D)</td></tr>
+													<tr><td>POSICIÓN 1 (VERTICAL I)</td></tr>
+													<tr><td>POSICIÓN 1 (HORIZONTAL I)</td></tr>
 													<tr><td>ERROR OBSERVADO V</td></tr>
 													<tr><td>ERROR OBSERVADO H</td></tr>
 												</table>
@@ -502,12 +502,12 @@ if($numAnulado>0 && $resultadoD['rem_generar_certificado']==1){
 													?>
 													
 													<tr align="center">
-														<td><?php if($gradosV2>0 and $gradosV2!=360) echo $gradosV2; else echo "00";?>Â°</td>
+														<td><?php if($gradosV2>0 and $gradosV2!=360) echo $gradosV2; else echo "00";?>°</td>
 														<td><?php if($minutosV2>0 and $minutosV2!=59) echo $minutosV2; else echo "00";?>'</td>
 														<td><?=$segundosV2;?>"</td>
 													</tr>
 													<tr align="center">
-														<td><?php if($gradosH2>0 and $gradosH2!=180) echo $gradosH2; else echo "00";?>Â°</td>
+														<td><?php if($gradosH2>0 and $gradosH2!=180) echo $gradosH2; else echo "00";?>°</td>
 														<td><?php if($minutosH2>0 and $minutosH2!=59) echo $minutosH2; else echo "00";?>'</td>
 														<td><?=$sumaSegundosH2;?>"</td>
 													</tr>

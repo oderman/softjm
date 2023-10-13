@@ -1,8 +1,8 @@
 <?php
 include("sesion.php"); //exit();
 include("../compartido/head.php");
-$idPagina = 1;
-$tituloPagina = "CotizaciÃ³n";
+$idPagina = 243;
+$tituloPagina = "Cotización";
 include("verificar-paginas.php");
 
 $consultaRemision=mysqli_query($conexionBdPrincipal,"SELECT * FROM remisiones 
@@ -31,7 +31,7 @@ $remision = mysqli_fetch_array($consultaRemision, MYSQLI_BOTH);
 	<table style="width:95%" border="0" align="center">
 		<tr>
 			<td><img src="../../assets/images/logojm.png" width="300"></td>
-			<td align="right" style="border: solid;"><h3>COTIZACIÃ“N</h3>No. 4564</td>
+			<td align="right" style="border: solid;"><h3>COTIZACIÓN</h3>No. 4564</td>
 		</tr>
     	  
 	</table>
@@ -40,14 +40,14 @@ $remision = mysqli_fetch_array($consultaRemision, MYSQLI_BOTH);
 	<table style="width:95%" border="1" rules="all" align="center">
 		<tr>
 			<td><strong>CLIENTE:</strong> <?=$remision['cli_nombre'];?></td>
-			<td><strong>TELÃ‰FONO:</strong> <?=$remision['cli_telefono'];?> </td>
+			<td><strong>TELÉFONO:</strong> <?=$remision['cli_telefono'];?> </td>
 			<td><strong>CELULAR:</strong> <?=$remision['cli_celular'];?></td>
 		</tr>
 		
 		<tr>
 			<td><strong>NIT:</strong> <?=$remision['cli_usuario'];?></td>
 			<td><strong>CIUDAD:</strong> <?=$remision['ciu_nombre'].", ".$remision['dep_nombre'];?> </td>
-			<td><strong>DIRECCIÃ“N:</strong> <?=$remision['cli_direcciÃ³n'];?></td>
+			<td><strong>DIRECCIÓN:</strong> <?=$remision['cli_dirección'];?></td>
 		</tr>
     	  
 	</table>
@@ -56,7 +56,7 @@ $remision = mysqli_fetch_array($consultaRemision, MYSQLI_BOTH);
                                         <thead>
                                             <tr align="center">
                                                 <th>#</th>
-                                                <th>DescripciÃ³n</th>
+                                                <th>Descripción</th>
                                                 <th>Cant.</th>
 												<th>Valor</th>
 												<th>IVA</th>

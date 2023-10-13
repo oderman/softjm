@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 
-$idPagina = 9;
+$idPagina = 148;
 
 include("includes/verificar-paginas.php");
 include("includes/head.php");
@@ -186,7 +186,7 @@ include("includes/head.php");
 		
 						<div class="widget-container">
 							<div style="border:thin; border-style:solid; height:150px; margin:10px;">
-                            	<h4 align="center">-Busqueda general y paginaciÃ³n-</h4>
+                            	<h4 align="center">-Busqueda general y paginación-</h4>
                                 <p> 
                                     <form class="form-horizontal" action="<?=$_SERVER['PHP_SELF'];?>" method="get">
                                         <div class="search-box">
@@ -308,9 +308,9 @@ include("includes/head.php");
 							<ul class="dropdown-menu">
 								<li><a href="../v2.0/usuarios/empresa/lab-remisiones-editar.php?id=<?=$resultado['rem_id'];?>" target="_blank">Ver detalles</a></li>
 
-								<li><a href="../v2.0/usuarios/empresa/lab-remisiones-imprimir.php?estado=1&id=<?=$resultado['rem_id'];?>" target="_blank">RemisiÃ³n de entrada</a></li>
+								<li><a href="../v2.0/usuarios/empresa/lab-remisiones-imprimir.php?estado=1&id=<?=$resultado['rem_id'];?>" target="_blank">Remisión de entrada</a></li>
 
-								<li><a href="../v2.0/usuarios/empresa/lab-remisiones-imprimir.php?estado=2&id=<?=$resultado['rem_id'];?>" target="_blank">RemisiÃ³n de salida</a></li>
+								<li><a href="../v2.0/usuarios/empresa/lab-remisiones-imprimir.php?estado=2&id=<?=$resultado['rem_id'];?>" target="_blank">Remisión de salida</a></li>
 
 								<li><a href="../v2.0/usuarios/empresa/lab-certificado-imprimir.php?id=<?=$resultado['rem_id'];?>" target="_blank">Ver certificado</a></li>
 								

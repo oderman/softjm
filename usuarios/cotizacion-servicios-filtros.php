@@ -1,7 +1,7 @@
 <?php
 include("sesion.php");
 
-$idPagina = 127;
+$idPagina = 274;
 $tituloPagina = "Filtro de cotizaciones con servicios";
 
 include("includes/verificar-paginas.php");
@@ -86,7 +86,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Usuario responsable del registro</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="responsable">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="responsable">
 											<option value="">Todos</option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM usuarios");
@@ -103,7 +103,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Vendedor</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="vendedor">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="vendedor">
 											<option value="">Todos</option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM usuarios");
@@ -120,7 +120,7 @@ include("includes/js-formularios.php");
 								<div class="control-group">
 									<label class="control-label">Ciudad</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="ciudad">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="ciudad">
 											<option value="">Todos</option>
                                             <?php
 											$conOp = mysqli_query($conexionBdAdmin,"SELECT * FROM localidad_ciudades INNER JOIN localidad_departamentos ON dep_id=ciu_departamento ORDER BY ciu_nombre");
@@ -137,7 +137,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Cliente</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="cliente">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="cliente">
 											<option value="">Todos</option>
                                             <?php
 											$conOp = mysqli_query($conexionBdPrincipal,"SELECT * FROM clientes");
@@ -154,7 +154,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Estado</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="estado">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="estado">
 											<option value="">Todos</option>
                                             <option value="1">Vendidas</option>
                                             <option value="2">No vendidas</option>
@@ -181,12 +181,12 @@ include("includes/js-formularios.php");
                                 <div class="control-group">
 									<label class="control-label">Ordenar por</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="orden">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="orden">
 											<option value="fact_id"></option>
                                             <option value="fact_usuario_responsable">Usuario responsable</option>
                                             <option value="fact_usuario_influyente">Vendedor</option>
                                             <option value="fact_cliente">Cliente</option>
-                                            <option value="fact_estado">Estado de la cotizaci贸n</option>
+                                            <option value="fact_estado">Estado de la cotizaci髇</option>
                                     	</select>
                                     </div>
                                </div>
@@ -194,7 +194,7 @@ include("includes/js-formularios.php");
                                <div class="control-group">
 									<label class="control-label">Forma de orden</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opci贸n..." class="chzn-select span4" tabindex="2" name="formaOrden">
+										<select data-placeholder="Escoja una opci髇..." class="chzn-select span4" tabindex="2" name="formaOrden">
 											<option value="ASC"></option>
                                             <option value="ASC">Ascendente</option>
                                             <option value="DESC">Descendente</option>

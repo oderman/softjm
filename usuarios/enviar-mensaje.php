@@ -1,6 +1,6 @@
 <?php include("sesion.php");?>
 <?php
-$idPagina = 4;
+$idPagina = 15;
 $paginaActual['pag_nombre'] = "Enviar mensaje";
 ?>
 <?php include("includes/verificar-paginas.php");?>
@@ -141,7 +141,7 @@ include("includes/js-formularios.php");
 								</div>
                                 
                                 <div class="control-group">
-									<label class="control-label">Adjuntar imagÃ©n del boletÃ­n</label>
+									<label class="control-label">Adjuntar imagén del boletín</label>
 									<div class="controls">
 										<div class="fileupload fileupload-new" data-provides="fileupload">
 											<div class="input-append">
