@@ -7,6 +7,7 @@ include("includes/head.php");
 
 if ( !empty($_SESSION["dataAdicional"]["dominio_empresa"]) ) {
 		$dominio = $_SESSION["dataAdicional"]["dominio_empresa"];
+		$id_empresa = $_SESSION["dataAdicional"]["id_empresa"];
 } else {
 		$dominio = 'Dominio no encontrado';
 }
@@ -92,11 +93,13 @@ include("includes/js-formularios.php");
 										<input type="email" class="span4" name="email">
 									</div>
 								</div>
-                                
-                                <div class="control-group">
+								<input type="hidden" name="id_empresa" value="<?php echo $id_empresa; ?>">    
+								<div class="control-group">
 									<label class="control-label">Tipo de usuario</label>
 									<div class="controls">
-										<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="tipoU">
+											<select data-placeholder="Escoja una opción..." class="chzn-select span4" tabindex="2" name="tipoU[]" multiple>
+
+
 											<option value=""></option>
                                             <?php
 											$conOp = $conexionBdPrincipal->query("SELECT * FROM usuarios_tipos");
@@ -109,7 +112,6 @@ include("includes/js-formularios.php");
                                     	</select>
                                     </div>
                                </div>
-
                                <div class="control-group">
 									<label class="control-label">A qué sucursal pertenece?</label>
 									<div class="controls">
