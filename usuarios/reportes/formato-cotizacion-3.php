@@ -162,9 +162,9 @@ $html = '
 									$c = 1;
 									while ($prodCombo = mysqli_fetch_array($productosCombo, MYSQLI_BOTH)) {
 										if ($c == 1) {
-											echo "<br><b>INCLUYE:</b><br>";
+											$html .= '<br><b>INCLUYE:</b><br>';
 										}
-										echo $prodCombo['prod_nombre'] . " (" . $prodCombo['copp_cantidad'] . " Unds.).<br>";
+										$html .= $prodCombo['prod_nombre'] . " (" . $prodCombo['copp_cantidad'] . " Unds.).<br>";
 										$c++;
 									}
 									$html .= '</span>
@@ -174,12 +174,9 @@ $html = '
 							<td align="center" class="alinear">'.$simbolosMonedas[$resultado['cotiz_moneda']].''.number_format($prod['czpp_valor'], 0, ",", ".").'</td>
 							<td align="center" class="alinear">'.$prod['czpp_impuesto'].'%</td>
 							<td align="center" class="alinear">
-								'.$prod['czpp_descuento'].'% <br>
-								<?php
-								if ($dcto > 0)
-									echo "$" . number_format($dcto, 0, ".", ".");
-								?>
-							</td>
+								'.$prod['czpp_descuento'].'% <br>';
+								    if ($dcto > 0) { $html .= "$" . number_format($dcto, 0, ".", "."); }
+                            $html .= '</td>
 							<td align="right" class="alinear">'.$simbolosMonedas[$resultado['cotiz_moneda']].''.number_format($valorTotal, 0, ",", ".").'</td>
 						</tr>';
 						$no++;
