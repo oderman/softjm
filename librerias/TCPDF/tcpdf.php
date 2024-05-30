@@ -17794,9 +17794,11 @@ class TCPDF {
 							$pmid = substr($this->getPageBuffer($startlinepage), $startlinepos, ($midpos - $startlinepos));
 							$pend = substr($this->getPageBuffer($startlinepage), $midpos);
 						} else {
+							if ($startlinepos === null) {
+								$startlinepos = 0;
+							}
 							$pmid = substr($this->getPageBuffer($startlinepage), $startlinepos);
-							$pend = '';
-						}
+						}						
 					}
 					if ((((($plalign == 'C') OR ($plalign == 'J') OR (($plalign == 'R') AND (!$this->rtl)) OR (($plalign == 'L') AND ($this->rtl)))))) {
 						// calculate shifting amount
@@ -18742,12 +18744,14 @@ class TCPDF {
 					$midpos = 0;
 				}
 				if ($midpos > 0) {
+					$startlinepos = $startlinepos ?? 0; // Asigna 0 si es null
 					$pmid = substr($this->getPageBuffer($startlinepage), $startlinepos, ($midpos - $startlinepos));
 					$pend = substr($this->getPageBuffer($startlinepage), $midpos);
 				} else {
+					$startlinepos = $startlinepos ?? 0; // Asigna 0 si es null
 					$pmid = substr($this->getPageBuffer($startlinepage), $startlinepos);
 					$pend = '';
-				}
+				}				
 			}
 			if ((((($plalign == 'C') OR (($plalign == 'R') AND (!$this->rtl)) OR (($plalign == 'L') AND ($this->rtl)))))) {
 				// calculate shifting amount
